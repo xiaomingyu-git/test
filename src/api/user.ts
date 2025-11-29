@@ -1,7 +1,7 @@
 import type { User, UserFormData, SearchForm, ApiResponse, TableResponse } from '@/types/crud'
 
 // 模拟 API 延迟
-const delay = (ms: number = 300) => new Promise(resolve => setTimeout(resolve, ms))
+const delay = (ms: number = 300) => new Promise((resolve) => setTimeout(resolve, ms))
 
 // 模拟用户数据
 const mockUsers: User[] = [
@@ -13,7 +13,7 @@ const mockUsers: User[] = [
     role: 'admin',
     status: 'active',
     createdAt: '2024-01-01 10:00:00',
-    updatedAt: '2024-01-01 10:00:00'
+    updatedAt: '2024-01-01 10:00:00',
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const mockUsers: User[] = [
     role: 'editor',
     status: 'active',
     createdAt: '2024-01-02 10:00:00',
-    updatedAt: '2024-01-02 10:00:00'
+    updatedAt: '2024-01-02 10:00:00',
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const mockUsers: User[] = [
     role: 'user',
     status: 'inactive',
     createdAt: '2024-01-03 10:00:00',
-    updatedAt: '2024-01-03 10:00:00'
+    updatedAt: '2024-01-03 10:00:00',
   },
   {
     id: 4,
@@ -43,7 +43,7 @@ const mockUsers: User[] = [
     role: 'user',
     status: 'active',
     createdAt: '2024-01-04 10:00:00',
-    updatedAt: '2024-01-04 10:00:00'
+    updatedAt: '2024-01-04 10:00:00',
   },
   {
     id: 5,
@@ -53,8 +53,8 @@ const mockUsers: User[] = [
     role: 'editor',
     status: 'banned',
     createdAt: '2024-01-05 10:00:00',
-    updatedAt: '2024-01-05 10:00:00'
-  }
+    updatedAt: '2024-01-05 10:00:00',
+  },
 ]
 
 // 生成更多模拟数据
@@ -69,8 +69,8 @@ for (let i = 6; i <= 50; i++) {
     phone: `1380013${i.toString().padStart(4, '0')}`,
     role: roles[i % 3] as 'admin' | 'user' | 'editor',
     status: statuses[i % 3] as 'active' | 'inactive' | 'banned',
-    createdAt: `2024-01-${(i % 28 + 1).toString().padStart(2, '0')} 10:00:00`,
-    updatedAt: `2024-01-${(i % 28 + 1).toString().padStart(2, '0')} 10:00:00`
+    createdAt: `2024-01-${((i % 28) + 1).toString().padStart(2, '0')} 10:00:00`,
+    updatedAt: `2024-01-${((i % 28) + 1).toString().padStart(2, '0')} 10:00:00`,
   })
 }
 
@@ -79,7 +79,7 @@ for (let i = 6; i <= 50; i++) {
  */
 export const getUserList = async (
   searchForm: SearchForm,
-  pagination: { current: number; pageSize: number }
+  pagination: { current: number; pageSize: number },
 ): Promise<ApiResponse<TableResponse>> => {
   await delay(500) // 模拟网络延迟
 
@@ -89,21 +89,22 @@ export const getUserList = async (
     // 关键词搜索
     if (searchForm.keyword) {
       const keyword = searchForm.keyword.toLowerCase()
-      filteredUsers = filteredUsers.filter(user =>
-        user.username.toLowerCase().includes(keyword) ||
-        user.email.toLowerCase().includes(keyword) ||
-        user.phone.includes(keyword)
+      filteredUsers = filteredUsers.filter(
+        (user) =>
+          user.username.toLowerCase().includes(keyword) ||
+          user.email.toLowerCase().includes(keyword) ||
+          user.phone.includes(keyword),
       )
     }
 
     // 角色筛选
     if (searchForm.role) {
-      filteredUsers = filteredUsers.filter(user => user.role === searchForm.role)
+      filteredUsers = filteredUsers.filter((user) => user.role === searchForm.role)
     }
 
     // 状态筛选
     if (searchForm.status) {
-      filteredUsers = filteredUsers.filter(user => user.status === searchForm.status)
+      filteredUsers = filteredUsers.filter((user) => user.status === searchForm.status)
     }
 
     // 计算分页
@@ -119,18 +120,18 @@ export const getUserList = async (
         pagination: {
           current: pagination.current,
           pageSize: pagination.pageSize,
-          total
-        }
+          total,
+        },
       },
       message: '获取成功',
-      code: 200
+      code: 200,
     }
   } catch {
     return {
       success: false,
       data: { list: [], pagination: { current: 1, pageSize: 10, total: 0 } },
       message: '获取失败',
-      code: 500
+      code: 500,
     }
   }
 }
@@ -143,34 +144,34 @@ export const createUser = async (userData: UserFormData): Promise<ApiResponse<Us
 
   try {
     // 检查用户名是否已存在
-    if (mockUsers.some(user => user.username === userData.username)) {
+    if (mockUsers.some((user) => user.username === userData.username)) {
       return {
         success: false,
         data: null as any,
         message: '用户名已存在',
-        code: 400
+        code: 400,
       }
     }
 
     // 检查邮箱是否已存在
-    if (mockUsers.some(user => user.email === userData.email)) {
+    if (mockUsers.some((user) => user.email === userData.email)) {
       return {
         success: false,
         data: null as any,
         message: '邮箱已存在',
-        code: 400
+        code: 400,
       }
     }
 
     const newUser: User = {
-      id: Math.max(...mockUsers.map(u => u.id)) + 1,
+      id: Math.max(...mockUsers.map((u) => u.id)) + 1,
       username: userData.username,
       email: userData.email,
       phone: userData.phone,
       role: userData.role,
       status: userData.status,
       createdAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
-      updatedAt: new Date().toISOString().replace('T', ' ').slice(0, 19)
+      updatedAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
     }
 
     mockUsers.push(newUser)
@@ -179,14 +180,14 @@ export const createUser = async (userData: UserFormData): Promise<ApiResponse<Us
       success: true,
       data: newUser,
       message: '创建成功',
-      code: 200
+      code: 200,
     }
   } catch {
     return {
       success: false,
       data: null as any,
       message: '创建失败',
-      code: 500
+      code: 500,
     }
   }
 }
@@ -194,38 +195,41 @@ export const createUser = async (userData: UserFormData): Promise<ApiResponse<Us
 /**
  * 更新用户
  */
-export const updateUser = async (id: number, userData: UserFormData): Promise<ApiResponse<User>> => {
+export const updateUser = async (
+  id: number,
+  userData: UserFormData,
+): Promise<ApiResponse<User>> => {
   await delay(300)
 
   try {
-    const userIndex = mockUsers.findIndex(user => user.id === id)
+    const userIndex = mockUsers.findIndex((user) => user.id === id)
 
     if (userIndex === -1) {
       return {
         success: false,
         data: null as any,
         message: '用户不存在',
-        code: 404
+        code: 404,
       }
     }
 
     // 检查用户名是否已被其他用户使用
-    if (mockUsers.some(user => user.username === userData.username && user.id !== id)) {
+    if (mockUsers.some((user) => user.username === userData.username && user.id !== id)) {
       return {
         success: false,
         data: null as any,
         message: '用户名已存在',
-        code: 400
+        code: 400,
       }
     }
 
     // 检查邮箱是否已被其他用户使用
-    if (mockUsers.some(user => user.email === userData.email && user.id !== id)) {
+    if (mockUsers.some((user) => user.email === userData.email && user.id !== id)) {
       return {
         success: false,
         data: null as any,
         message: '邮箱已存在',
-        code: 400
+        code: 400,
       }
     }
 
@@ -235,7 +239,7 @@ export const updateUser = async (id: number, userData: UserFormData): Promise<Ap
         success: false,
         data: null as any,
         message: '用户不存在',
-        code: 404
+        code: 404,
       }
     }
 
@@ -246,7 +250,7 @@ export const updateUser = async (id: number, userData: UserFormData): Promise<Ap
       phone: userData.phone,
       role: userData.role,
       status: userData.status,
-      updatedAt: new Date().toISOString().replace('T', ' ').slice(0, 19)
+      updatedAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
     }
 
     mockUsers[userIndex] = updatedUser
@@ -255,14 +259,14 @@ export const updateUser = async (id: number, userData: UserFormData): Promise<Ap
       success: true,
       data: updatedUser,
       message: '更新成功',
-      code: 200
+      code: 200,
     }
   } catch {
     return {
       success: false,
       data: null as any,
       message: '更新失败',
-      code: 500
+      code: 500,
     }
   }
 }
@@ -274,14 +278,14 @@ export const deleteUser = async (id: number): Promise<ApiResponse> => {
   await delay(300)
 
   try {
-    const userIndex = mockUsers.findIndex(user => user.id === id)
+    const userIndex = mockUsers.findIndex((user) => user.id === id)
 
     if (userIndex === -1) {
       return {
         success: false,
         data: null,
         message: '用户不存在',
-        code: 404
+        code: 404,
       }
     }
 
@@ -291,14 +295,14 @@ export const deleteUser = async (id: number): Promise<ApiResponse> => {
       success: true,
       data: null,
       message: '删除成功',
-      code: 200
+      code: 200,
     }
   } catch {
     return {
       success: false,
       data: null,
       message: '删除失败',
-      code: 500
+      code: 500,
     }
   }
 }
@@ -311,7 +315,7 @@ export const batchDeleteUsers = async (ids: number[]): Promise<ApiResponse> => {
 
   try {
     const deletedCount = ids.reduce((count, id) => {
-      const index = mockUsers.findIndex(user => user.id === id)
+      const index = mockUsers.findIndex((user) => user.id === id)
       if (index !== -1) {
         mockUsers.splice(index, 1)
         return count + 1
@@ -324,7 +328,7 @@ export const batchDeleteUsers = async (ids: number[]): Promise<ApiResponse> => {
         success: false,
         data: null,
         message: '没有找到要删除的用户',
-        code: 404
+        code: 404,
       }
     }
 
@@ -332,14 +336,14 @@ export const batchDeleteUsers = async (ids: number[]): Promise<ApiResponse> => {
       success: true,
       data: null,
       message: `成功删除 ${deletedCount} 个用户`,
-      code: 200
+      code: 200,
     }
   } catch {
     return {
       success: false,
       data: null,
       message: '批量删除失败',
-      code: 500
+      code: 500,
     }
   }
 }

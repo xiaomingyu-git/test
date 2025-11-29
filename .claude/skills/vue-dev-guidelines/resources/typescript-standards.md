@@ -207,6 +207,110 @@ import { User } from '@/types/user';  // Unclear if type or value
 
 ---
 
+## ⚠️ CRITICAL: Enum Import Patterns
+
+### Enum Value vs Type Import Rule
+
+**🚨 COMMON ERROR - ReferenceError: [EnumName] is not defined**
+
+```typescript
+// ❌ WRONG - Enums imported as type-only will cause runtime errors
+import type { PermissionType, PermissionModule } from '@/types/permission';
+
+// ✅ CORRECT - Enums must be imported as values for runtime usage
+import { PermissionType, PermissionModule } from '@/types/permission';
+
+// ✅ MIXED APPROACH - Separate type and value imports
+import type { Permission, PermissionFormData } from '@/types/permission';
+import { PermissionType, PermissionModule, PermissionStatus } from '@/types/permission';
+```
+
+### Why This Happens
+
+**TypeScript enums are special:**
+- They exist at **runtime** (unlike interfaces/types)
+- They have **actual JavaScript values**
+- Importing them as `type` removes them from the runtime bundle
+- Runtime code that references the enum will fail with "not defined" errors
+
+### Common Scenarios
+
+```typescript
+// 📁 types/permission.ts
+export enum PermissionType {
+  MENU = 'menu',
+  BUTTON = 'button',
+  API = 'api'
+}
+
+export enum PermissionStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive'
+}
+
+// 📁 api/permission.ts
+// ❌ WRONG - Will cause PermissionType is not defined at runtime
+import type { PermissionType, PermissionStatus } from '@/types/permission';
+
+export const mockData = [
+  {
+    type: PermissionType.BUTTON,  // ❌ Runtime error!
+    status: PermissionStatus.ACTIVE  // ❌ Runtime error!
+  }
+];
+
+// ✅ CORRECT - Enums available at runtime
+import { PermissionType, PermissionStatus } from '@/types/permission';
+import type { Permission } from '@/types/permission';
+
+export const mockData: Permission[] = [
+  {
+    type: PermissionType.BUTTON,  // ✅ Works!
+    status: PermissionStatus.ACTIVE  // ✅ Works!
+  }
+];
+```
+
+### Quick Memory Rule
+
+```typescript
+// 🤔 Ask yourself: "Do I need this at runtime?"
+// - Interfaces/Types: → import type
+// - Enums: → import (NOT import type)
+// - Classes: → import
+// - Functions: → import
+// - Constants: → import
+```
+
+### Troubleshooting Checklist
+
+If you get "X is not defined" errors:
+
+1. **Check if it's an enum** - Enums need value imports
+2. **Look at the import statement** - Is it `import type` for a runtime value?
+3. **Mixed imports** - Separate types from values:
+
+```typescript
+// ✅ Before: Mixed approach
+import type {
+  Permission,
+  PermissionFormData
+} from '@/types/permission';
+import {
+  PermissionType,
+  PermissionModule,
+  PermissionStatus
+} from '@/types/permission';
+```
+
+**Real-world Example from This Project:**
+- **Error**: `PermissionType is not defined` in permission.ts:10
+- **Cause**: `import type { PermissionType, ... }` removed enum from runtime
+- **Fix**: Changed to regular `import { PermissionType, ... }`
+- **Result**: Application works correctly with enum values at runtime
+
+---
+
 ## Component Type Definitions
 
 ### defineProps with TypeScript

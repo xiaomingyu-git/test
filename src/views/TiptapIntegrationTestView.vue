@@ -89,9 +89,7 @@
             <span>主题切换:</span>
             <theme-toggle />
             <el-divider direction="vertical" />
-            <el-text size="small" type="info">
-              调整浏览器窗口大小测试响应式效果
-            </el-text>
+            <el-text size="small" type="info"> 调整浏览器窗口大小测试响应式效果 </el-text>
           </el-space>
         </div>
 
@@ -135,14 +133,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import {
-  ElRow,
-  ElCol,
-  ElText,
-  ElSpace,
-  ElButton,
-  ElDivider
-} from 'element-plus'
+import { ElRow, ElCol, ElText, ElSpace, ElButton, ElDivider } from 'element-plus'
 import TiptapEditor from '../components/editor/TiptapEditor.vue'
 import TiptapEditorContainer from '../components/editor/TiptapEditorContainer.vue'
 import ThemeToggle from '../components/common/ThemeToggle.vue'

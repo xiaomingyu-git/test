@@ -7,9 +7,7 @@
 
     <div class="error-content">
       <h1 class="error-message">抱歉，您访问的页面不存在</h1>
-      <p class="error-description">
-        可能是因为链接已过期、页面已被删除或您输入了错误的地址。
-      </p>
+      <p class="error-description">可能是因为链接已过期、页面已被删除或您输入了错误的地址。</p>
 
       <div class="error-actions">
         <el-button type="primary" @click="goHome">
@@ -53,13 +51,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import {
-  House,
-  ArrowLeft,
-  Refresh,
-  Edit,
-  Grid
-} from '@element-plus/icons-vue'
+import { House, ArrowLeft, Refresh, Edit, Grid } from '@element-plus/icons-vue'
 
 const router = useRouter()
 
@@ -84,7 +76,7 @@ const reload = () => {
 
 // 页面标题
 defineOptions({
-  name: 'NotFoundView'
+  name: 'NotFoundView',
 })
 </script>
 
@@ -97,7 +89,11 @@ defineOptions({
   min-height: 80vh;
   text-align: center;
   padding: 40px 20px;
-  background: linear-gradient(135deg, var(--el-bg-color-page) 0%, var(--el-fill-color-extra-light) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--el-bg-color-page) 0%,
+    var(--el-fill-color-extra-light) 100%
+  );
 }
 
 .error-illustration {

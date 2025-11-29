@@ -44,15 +44,15 @@ export interface EditorEvents {
   /** 内容更新事件 - 用于v-model双向绑定 */
   'update:modelValue': [value: string]
   /** 内容变化事件 - 任何内容改变时触发 */
-  'change': [value: string]
+  change: [value: string]
   /** 获得焦点事件 */
-  'focus': [event: FocusEvent]
+  focus: [event: FocusEvent]
   /** 失去焦点事件 */
-  'blur': [event: FocusEvent]
+  blur: [event: FocusEvent]
   /** 编辑器就绪事件 */
-  'ready': [editor: TiptapEditor]
+  ready: [editor: TiptapEditor]
   /** 保存事件 */
-  'save': [content: string]
+  save: [content: string]
   /** 全屏状态变化事件 */
   'fullscreen-change': [isFullscreen: boolean]
   /** 字符数变化事件 */
@@ -89,9 +89,17 @@ export interface ToolbarDropdownItem {
 
 export interface TableOperation {
   /** 操作类型 */
-  type: 'add-row-before' | 'add-row-after' | 'delete-row' |
-        'add-column-before' | 'add-column-after' | 'delete-column' |
-        'toggle-header' | 'merge-cells' | 'split-cell' | 'delete-table'
+  type:
+    | 'add-row-before'
+    | 'add-row-after'
+    | 'delete-row'
+    | 'add-column-before'
+    | 'add-column-after'
+    | 'delete-column'
+    | 'toggle-header'
+    | 'merge-cells'
+    | 'split-cell'
+    | 'delete-table'
   /** 操作标题 */
   title: string
   /** 操作图标 */

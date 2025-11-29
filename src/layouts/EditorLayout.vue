@@ -61,7 +61,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  allowFullscreen: true
+  allowFullscreen: true,
 })
 
 // 全屏状态
@@ -88,7 +88,7 @@ const fullscreenState = computed(() => isFullscreen.value)
 provide('editorLayout', {
   isFullscreen: fullscreenState,
   toggleFullscreen,
-  allowFullscreen: props.allowFullscreen
+  allowFullscreen: props.allowFullscreen,
 })
 
 // 监听 ESC 键退出全屏

@@ -21,24 +21,16 @@
       <template #toolbar-extra>
         <el-divider direction="vertical" />
         <el-space>
-          <el-button size="small" @click="insertTable" :icon="Grid">
-            插入表格
-          </el-button>
-          <el-button size="small" @click="insertImage" :icon="Picture">
-            插入图片
-          </el-button>
-          <el-button size="small" @click="exportContent" :icon="Download">
-            导出内容
-          </el-button>
+          <el-button size="small" @click="insertTable" :icon="Grid"> 插入表格 </el-button>
+          <el-button size="small" @click="insertImage" :icon="Picture"> 插入图片 </el-button>
+          <el-button size="small" @click="exportContent" :icon="Download"> 导出内容 </el-button>
         </el-space>
       </template>
 
       <!-- 状态栏右侧 -->
       <template #statusbar-right>
         <el-space>
-          <el-text size="small" type="info">
-            字数: {{ wordCount }}
-          </el-text>
+          <el-text size="small" type="info"> 字数: {{ wordCount }} </el-text>
           <el-button size="small" text @click="previewContent">
             <el-icon><View /></el-icon>
             预览
@@ -48,12 +40,7 @@
     </tiptap-editor-container>
 
     <!-- 预览对话框 -->
-    <el-dialog
-      v-model="showPreview"
-      title="内容预览"
-      width="80%"
-      :fullscreen="isFullscreen"
-    >
+    <el-dialog v-model="showPreview" title="内容预览" width="80%" :fullscreen="isFullscreen">
       <div class="preview-content" v-html="content"></div>
       <template #footer>
         <el-button @click="showPreview = false">关闭</el-button>
@@ -67,12 +54,7 @@
 import { ref, computed, inject } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Editor } from '@tiptap/core'
-import {
-  Grid,
-  Picture,
-  Download,
-  View
-} from '@element-plus/icons-vue'
+import { Grid, Picture, Download, View } from '@element-plus/icons-vue'
 import TiptapEditorContainer from '@/components/editor/TiptapEditorContainer.vue'
 
 // 注入编辑器布局上下文
@@ -188,7 +170,7 @@ const onFullscreenChange = (fullscreen: boolean) => {
 const saveContent = async () => {
   try {
     // 模拟保存操作
-    await new Promise(resolve => setTimeout(resolve, 500))
+    await new Promise((resolve) => setTimeout(resolve, 500))
     lastSaved.value = new Date()
     ElMessage.success('内容保存成功')
   } catch (error) {
@@ -214,7 +196,8 @@ const insertTable = () => {
   if (!editorInstance.value) return
 
   try {
-    editorInstance.value.chain()
+    editorInstance.value
+      .chain()
       .focus()
       .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
       .run()
@@ -231,25 +214,24 @@ const insertImage = () => {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     inputPattern: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-    inputErrorMessage: '请输入有效的图片地址'
-  }).then(({ value }) => {
-    if (!editorInstance.value) return
-
-    const imageUrl = value.startsWith('http') ? value : `https://${value}`
-
-    try {
-      editorInstance.value.chain()
-        .focus()
-        .setImage({ src: imageUrl })
-        .run()
-      ElMessage.success('图片插入成功')
-    } catch (error) {
-      console.error('Insert image failed:', error)
-      ElMessage.error('插入图片失败')
-    }
-  }).catch(() => {
-    // 用户取消
+    inputErrorMessage: '请输入有效的图片地址',
   })
+    .then(({ value }) => {
+      if (!editorInstance.value) return
+
+      const imageUrl = value.startsWith('http') ? value : `https://${value}`
+
+      try {
+        editorInstance.value.chain().focus().setImage({ src: imageUrl }).run()
+        ElMessage.success('图片插入成功')
+      } catch (error) {
+        console.error('Insert image failed:', error)
+        ElMessage.error('插入图片失败')
+      }
+    })
+    .catch(() => {
+      // 用户取消
+    })
 }
 
 // 导出内容
@@ -301,7 +283,7 @@ const copyHtml = async () => {
 
 // 页面标题和描述定义
 defineOptions({
-  name: 'TiptapView'
+  name: 'TiptapView',
 })
 </script>
 
@@ -338,7 +320,8 @@ defineOptions({
     color: var(--el-text-color-regular);
   }
 
-  :deep(ul), :deep(ol) {
+  :deep(ul),
+  :deep(ol) {
     margin-bottom: 1rem;
     padding-left: 2rem;
     color: var(--el-text-color-regular);
@@ -384,7 +367,8 @@ defineOptions({
     border-collapse: collapse;
     margin: 1.5rem 0;
 
-    th, td {
+    th,
+    td {
       border: 1px solid var(--el-border-color-light);
       padding: 0.75rem;
       text-align: left;

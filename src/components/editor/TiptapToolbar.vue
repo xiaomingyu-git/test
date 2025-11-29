@@ -23,9 +23,7 @@
 
       <!-- 标题级别 -->
       <el-dropdown @command="setHeading" trigger="click">
-        <el-button size="small">
-          标题 ▼
-        </el-button>
+        <el-button size="small"> 标题 ▼ </el-button>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="paragraph">正文</el-dropdown-item>
@@ -180,13 +178,7 @@
       </el-button>
 
       <!-- 插入图片 -->
-      <el-button
-        size="small"
-        @click="insertImage"
-        title="插入图片"
-      >
-        图片
-      </el-button>
+      <el-button size="small" @click="insertImage" title="插入图片"> 图片 </el-button>
 
       <!-- 表格插入 -->
       <el-button
@@ -201,10 +193,7 @@
     </el-space>
 
     <!-- 图片上传对话框 -->
-    <ImageUploadDialog
-      v-model="showImageUploadDialog"
-      :editor="editorInstance"
-    />
+    <ImageUploadDialog v-model="showImageUploadDialog" :editor="editorInstance" />
   </div>
 </template>
 
@@ -214,7 +203,6 @@ import { Grid } from '@element-plus/icons-vue'
 import { computed, ref } from 'vue'
 import ImageUploadDialog from './ImageUploadDialog.vue'
 // 暂时使用简单的文本按钮，稍后添加图标
-
 
 interface Props {
   editorInstance: any // 使用any类型以匹配实际的Tiptap Editor
@@ -286,7 +274,11 @@ const insertTable = (): void => {
 
   try {
     // 插入默认 3x3 表格，带表头
-    editorInstance.value.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+    editorInstance.value
+      .chain()
+      .focus()
+      .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+      .run()
     ElMessage.success('已插入 3x3 表格，包含表头')
   } catch (error) {
     console.error('插入表格失败:', error)

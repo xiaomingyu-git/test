@@ -1,14 +1,7 @@
 <template>
   <div class="wang-editor">
-    <WangEditorToolbar
-      v-if="editorRef"
-      :editorInstance="editorRef"
-      :config="toolbarConfig"
-    />
-    <div
-      class="editor-container"
-      :style="{ height: containerHeight }"
-    >
+    <WangEditorToolbar v-if="editorRef" :editorInstance="editorRef" :config="toolbarConfig" />
+    <div class="editor-container" :style="{ height: containerHeight }">
       <Editor
         :defaultConfig="editorConfig"
         :mode="mode"
@@ -63,25 +56,25 @@ interface WangEditorEmits {
   'update:modelValue': [value: string]
 
   /** 内容变化事件 - 任何内容改变时触发 */
-  'change': [value: string]
+  change: [value: string]
 
   /** 获得焦点事件 */
-  'focus': [event: FocusEvent]
+  focus: [event: FocusEvent]
 
   /** 失去焦点事件 */
-  'blur': [event: FocusEvent]
+  blur: [event: FocusEvent]
 
   /** 编辑器就绪事件 */
-  'ready': [editor: IDomEditor]
+  ready: [editor: IDomEditor]
 
   /** 编辑器销毁事件 */
-  'destroyed': [editor: IDomEditor]
+  destroyed: [editor: IDomEditor]
 
   /** 保存事件 */
-  'save': [content: string]
+  save: [content: string]
 
   /** 最大长度事件 */
-  'maxLength': [editor: IDomEditor]
+  maxLength: [editor: IDomEditor]
 }
 
 const props = withDefaults(defineProps<WangEditorProps>(), {
@@ -91,7 +84,7 @@ const props = withDefaults(defineProps<WangEditorProps>(), {
   height: 300,
   mode: 'default',
   placeholder: '请输入内容...',
-  readonly: false
+  readonly: false,
 })
 
 const emit = defineEmits<WangEditorEmits>()
@@ -131,7 +124,7 @@ const editorConfig = ref<Partial<IEditorConfig>>({
       metaWithUrl: true,
       onSuccess: () => {},
       onFailed: () => {},
-      onError: () => {}
+      onError: () => {},
     },
     // 配置上传视频
     uploadVideo: {
@@ -144,7 +137,7 @@ const editorConfig = ref<Partial<IEditorConfig>>({
       metaWithUrl: true,
       onSuccess: () => {},
       onFailed: () => {},
-      onError: () => {}
+      onError: () => {},
     },
     // 配置链接校验
     insertLink: {
@@ -154,7 +147,7 @@ const editorConfig = ref<Partial<IEditorConfig>>({
       },
       parseLinkUrl: (url: string) => {
         return url.startsWith('http') ? url : `https://${url}`
-      }
+      },
     },
     // 配置代码块语言选择
     codeSelectLang: {
@@ -177,40 +170,49 @@ const editorConfig = ref<Partial<IEditorConfig>>({
         { text: 'Rust', value: 'rust' },
         { text: 'Shell', value: 'shell' },
         { text: 'YAML', value: 'yaml' },
-        { text: 'Markdown', value: 'markdown' }
-      ]
-    }
-  }
+        { text: 'Markdown', value: 'markdown' },
+      ],
+    },
+  },
 })
 
 // 监听modelValue变化
-watch(() => props.modelValue, (newValue) => {
-  if (newValue !== valueHtml.value) {
-    valueHtml.value = newValue || '<p></p>'
-  }
-})
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    if (newValue !== valueHtml.value) {
+      valueHtml.value = newValue || '<p></p>'
+    }
+  },
+)
 
 // 监听editable变化
-watch(() => props.editable, (newValue) => {
-  if (editorRef.value && newValue !== undefined) {
-    if (newValue) {
-      editorRef.value.enable()
-    } else {
-      editorRef.value.disable()
+watch(
+  () => props.editable,
+  (newValue) => {
+    if (editorRef.value && newValue !== undefined) {
+      if (newValue) {
+        editorRef.value.enable()
+      } else {
+        editorRef.value.disable()
+      }
     }
-  }
-})
+  },
+)
 
 // 监听readonly变化
-watch(() => props.readonly, (newValue) => {
-  if (editorRef.value) {
-    if (newValue) {
-      editorRef.value.disable()
-    } else {
-      editorRef.value.enable()
+watch(
+  () => props.readonly,
+  (newValue) => {
+    if (editorRef.value) {
+      if (newValue) {
+        editorRef.value.disable()
+      } else {
+        editorRef.value.enable()
+      }
     }
-  }
-})
+  },
+)
 
 // 编辑器创建完成
 const handleCreated = (editor: IDomEditor) => {
@@ -249,7 +251,11 @@ const handleBlur = (_editor: IDomEditor) => {
 }
 
 // 自定义粘贴
-const handleCustomPaste = (_editor: IDomEditor, _event: ClipboardEvent, callback: (flag: boolean) => void) => {
+const handleCustomPaste = (
+  _editor: IDomEditor,
+  _event: ClipboardEvent,
+  callback: (flag: boolean) => void,
+) => {
   // 可以在这里处理自定义粘贴逻辑
   // callback(false) // 阻止默认粘贴行为
   callback(true) // 继续默认粘贴行为
@@ -323,7 +329,7 @@ defineExpose({
     const editor = editorRef.value
     if (editor == null) return
     editor.blur()
-  }
+  },
 })
 </script>
 
@@ -339,7 +345,9 @@ defineExpose({
 .editor-container {
   overflow: hidden;
   /* 确保内容区域的最小高度 */
-  min-height: calc(var(--wang-editor-container-min-height, 300px) - var(--wang-editor-toolbar-height, 40px));
+  min-height: calc(
+    var(--wang-editor-container-min-height, 300px) - var(--wang-editor-toolbar-height, 40px)
+  );
 }
 
 /* 确保编辑器区域可以正常扩展 */

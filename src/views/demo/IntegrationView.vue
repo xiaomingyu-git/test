@@ -36,12 +36,7 @@
                   default-first-option
                   placeholder="请选择或输入标签"
                 >
-                  <el-option
-                    v-for="tag in tagOptions"
-                    :key="tag"
-                    :label="tag"
-                    :value="tag"
-                  />
+                  <el-option v-for="tag in tagOptions" :key="tag" :label="tag" :value="tag" />
                 </el-select>
               </el-form-item>
 
@@ -73,11 +68,7 @@
             <div class="comment-list">
               <h3>评论列表 ({{ comments.length }})</h3>
 
-              <div
-                v-for="comment in comments"
-                :key="comment.id"
-                class="comment-item"
-              >
+              <div v-for="comment in comments" :key="comment.id" class="comment-item">
                 <div class="comment-header">
                   <el-avatar :size="40" :src="comment.avatar" />
                   <div class="comment-info">
@@ -85,18 +76,10 @@
                     <span class="comment-time">{{ comment.time }}</span>
                   </div>
                   <div class="comment-actions">
-                    <el-button
-                      type="text"
-                      size="small"
-                      @click="replyComment(comment)"
-                    >
+                    <el-button type="text" size="small" @click="replyComment(comment)">
                       回复
                     </el-button>
-                    <el-button
-                      type="text"
-                      size="small"
-                      @click="likeComment(comment)"
-                    >
+                    <el-button type="text" size="small" @click="likeComment(comment)">
                       <el-icon><Star /></el-icon>
                       {{ comment.likes }}
                     </el-button>
@@ -173,15 +156,9 @@
         <h2 class="section-title">对话框与编辑器集成</h2>
         <el-card class="integration-card">
           <div class="dialog-integration">
-            <el-button type="primary" @click="openRichTextDialog">
-              打开富文本编辑对话框
-            </el-button>
-            <el-button type="success" @click="openEmailDialog">
-              打开邮件编辑对话框
-            </el-button>
-            <el-button type="warning" @click="openNoticeDialog">
-              打开公告编辑对话框
-            </el-button>
+            <el-button type="primary" @click="openRichTextDialog"> 打开富文本编辑对话框 </el-button>
+            <el-button type="success" @click="openEmailDialog"> 打开邮件编辑对话框 </el-button>
+            <el-button type="warning" @click="openNoticeDialog"> 打开公告编辑对话框 </el-button>
 
             <div class="dialog-preview" v-if="dialogContent">
               <h4>对话框内容预览：</h4>
@@ -199,11 +176,7 @@
       width="80%"
       @close="closeEditDialog"
     >
-      <TiptapEditor
-        v-model="editingContent"
-        :placeholder="dialogPlaceholder"
-        height="400px"
-      />
+      <TiptapEditor v-model="editingContent" :placeholder="dialogPlaceholder" height="400px" />
       <template #footer>
         <el-button @click="closeEditDialog">取消</el-button>
         <el-button type="primary" @click="saveDialogContent">保存</el-button>
@@ -211,11 +184,7 @@
     </el-dialog>
 
     <!-- 表格行编辑对话框 -->
-    <el-dialog
-      v-model="rowEditDialogVisible"
-      title="编辑表格行"
-      width="60%"
-    >
+    <el-dialog v-model="rowEditDialogVisible" title="编辑表格行" width="60%">
       <el-form :model="editingRow" label-width="80px">
         <el-form-item label="标题">
           <el-input v-model="editingRow.title" />
@@ -251,7 +220,7 @@ import TiptapEditor from '@/components/editor/TiptapEditor.vue'
 
 // 页面标题
 defineOptions({
-  name: 'IntegrationView'
+  name: 'IntegrationView',
 })
 
 // 文章表单数据
@@ -259,7 +228,7 @@ const articleForm = reactive({
   title: '',
   category: '',
   tags: [],
-  content: ''
+  content: '',
 })
 
 // 分类选项
@@ -267,13 +236,23 @@ const categories = [
   { label: '技术分享', value: 'tech' },
   { label: '生活随笔', value: 'life' },
   { label: '工作笔记', value: 'work' },
-  { label: '学习记录', value: 'study' }
+  { label: '学习记录', value: 'study' },
 ]
 
 // 标签选项
 const tagOptions = [
-  'Vue.js', 'React', 'TypeScript', 'JavaScript', 'CSS', 'HTML',
-  'Node.js', '前端', '后端', '全栈', '设计', '产品'
+  'Vue.js',
+  'React',
+  'TypeScript',
+  'JavaScript',
+  'CSS',
+  'HTML',
+  'Node.js',
+  '前端',
+  '后端',
+  '全栈',
+  '设计',
+  '产品',
 ]
 
 // 评论数据
@@ -284,7 +263,7 @@ const comments = ref([
     avatar: 'https://via.placeholder.com/40/4CAF50/white?text=张',
     content: '<p>这是一个很棒的集成演示！编辑器功能很强大。</p>',
     time: '2023-12-01 10:30',
-    likes: 12
+    likes: 12,
   },
   {
     id: 2,
@@ -292,8 +271,8 @@ const comments = ref([
     avatar: 'https://via.placeholder.com/40/2196F3/white?text=李',
     content: '<p>集成的效果很好，特别是表单和编辑器的配合。</p>',
     time: '2023-12-01 11:45',
-    likes: 8
-  }
+    likes: 8,
+  },
 ])
 
 // 新评论
@@ -306,20 +285,20 @@ const tableData = ref([
     id: 1,
     title: 'Vue 3 教程',
     description: '<p>详细介绍 <strong>Vue 3</strong> 的新特性和用法。</p>',
-    status: 'published'
+    status: 'published',
   },
   {
     id: 2,
     title: 'TypeScript 指南',
     description: '<p>从入门到精通的 <em>TypeScript</em> 学习路线。</p>',
-    status: 'draft'
+    status: 'draft',
   },
   {
     id: 3,
     title: '前端性能优化',
     description: '<p>提升 Web 应用性能的最佳实践。</p>',
-    status: 'published'
-  }
+    status: 'published',
+  },
 ])
 
 const selectedRows = ref<any[]>([])
@@ -327,7 +306,7 @@ const editingRow = reactive({
   id: 0,
   title: '',
   description: '',
-  status: 'draft'
+  status: 'draft',
 })
 
 // 对话框相关
@@ -351,7 +330,7 @@ const commentToolbarOptions = {
   code: true,
   quote: true,
   bulletList: true,
-  orderedList: true
+  orderedList: true,
 }
 
 // 保存文章
@@ -369,7 +348,7 @@ const saveArticle = async () => {
   saving.value = true
   try {
     // 模拟保存过程
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     ElMessage.success('文章保存成功！')
   } catch {
     ElMessage.error('保存失败，请重试')
@@ -394,7 +373,7 @@ const resetForm = () => {
     title: '',
     category: '',
     tags: [],
-    content: ''
+    content: '',
   })
   ElMessage.success('表单已重置')
 }
@@ -409,7 +388,7 @@ const submitComment = async () => {
   submitting.value = true
   try {
     // 模拟提交过程
-    await new Promise(resolve => setTimeout(resolve, 800))
+    await new Promise((resolve) => setTimeout(resolve, 800))
 
     comments.value.unshift({
       id: Date.now(),
@@ -417,7 +396,7 @@ const submitComment = async () => {
       avatar: 'https://via.placeholder.com/40/FF9800/white?text=我',
       content: newComment.value,
       time: new Date().toLocaleString(),
-      likes: 0
+      likes: 0,
     })
 
     newComment.value = ''
@@ -453,12 +432,12 @@ const handleSelectionChange = (selection: any[]) => {
 }
 
 const addNewRow = () => {
-  const newId = Math.max(...tableData.value.map(item => item.id)) + 1
+  const newId = Math.max(...tableData.value.map((item) => item.id)) + 1
   Object.assign(editingRow, {
     id: newId,
     title: '',
     description: '',
-    status: 'draft'
+    status: 'draft',
   })
   rowEditDialogVisible.value = true
 }
@@ -484,18 +463,14 @@ const deleteSelectedRow = async () => {
   }
 
   try {
-    await ElMessageBox.confirm(
-      `确定要删除选中的 ${selectedRows.value.length} 行吗？`,
-      '确认删除',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }
-    )
+    await ElMessageBox.confirm(`确定要删除选中的 ${selectedRows.value.length} 行吗？`, '确认删除', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
 
-    const selectedIds = selectedRows.value.map(row => row.id)
-    tableData.value = tableData.value.filter(row => !selectedIds.includes(row.id))
+    const selectedIds = selectedRows.value.map((row) => row.id)
+    tableData.value = tableData.value.filter((row) => !selectedIds.includes(row.id))
     ElMessage.success('删除成功')
   } catch {
     ElMessage.info('已取消删除')
@@ -509,17 +484,13 @@ const editRow = (row: any) => {
 
 const deleteRow = async (row: any) => {
   try {
-    await ElMessageBox.confirm(
-      `确定要删除 "${row.title}" 吗？`,
-      '确认删除',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }
-    )
+    await ElMessageBox.confirm(`确定要删除 "${row.title}" 吗？`, '确认删除', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
 
-    const index = tableData.value.findIndex(item => item.id === row.id)
+    const index = tableData.value.findIndex((item) => item.id === row.id)
     if (index > -1) {
       tableData.value.splice(index, 1)
       ElMessage.success('删除成功')
@@ -535,7 +506,7 @@ const saveRowEdit = () => {
     return
   }
 
-  const index = tableData.value.findIndex(item => item.id === editingRow.id)
+  const index = tableData.value.findIndex((item) => item.id === editingRow.id)
   if (index > -1) {
     tableData.value[index] = { ...editingRow }
   } else {
@@ -583,7 +554,7 @@ const getStatusType = (status: string) => {
   const typeMap: Record<string, string> = {
     published: 'success',
     draft: 'warning',
-    archived: 'info'
+    archived: 'info',
   }
   return typeMap[status] || 'info'
 }
@@ -592,7 +563,7 @@ const getStatusText = (status: string) => {
   const textMap: Record<string, string> = {
     published: '已发布',
     draft: '草稿',
-    archived: '已归档'
+    archived: '已归档',
   }
   return textMap[status] || '未知'
 }

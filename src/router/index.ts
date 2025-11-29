@@ -23,19 +23,21 @@ const routes: RouteRecordRaw[] = [
         children: demoRoutes,
         meta: {
           title: '演示',
-          description: '组件功能演示'
-        }
+          description: '组件功能演示',
+        },
       },
       {
         path: 'crud',
         name: 'Crud',
-        component: () => import('@/views/CrudView.vue'),
+        redirect: '/crud/user',
+        children: crudRoutes,
         meta: {
-          title: '用户管理',
-          description: '用户信息管理页面'
-        }
-      }
-    ]
+          title: '系统管理',
+          description: '用户角色权限管理',
+          icon: 'Setting',
+        },
+      },
+    ],
   },
   {
     path: '/editor',
@@ -45,8 +47,8 @@ const routes: RouteRecordRaw[] = [
     children: editorRoutes,
     meta: {
       title: '编辑器',
-      description: '富文本编辑器'
-    }
+      description: '富文本编辑器',
+    },
   },
   // 404 页面
   {
@@ -55,9 +57,9 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/error/NotFoundView.vue'),
     meta: {
       title: '页面未找到',
-      description: '抱歉，您访问的页面不存在'
-    }
-  }
+      description: '抱歉，您访问的页面不存在',
+    },
+  },
 ]
 
 // 创建路由实例
@@ -70,12 +72,12 @@ const router = createRouter({
     } else if (to.hash) {
       return {
         el: to.hash,
-        behavior: 'smooth'
+        behavior: 'smooth',
       }
     } else {
       return { top: 0 }
     }
-  }
+  },
 })
 
 // 全局前置守卫
@@ -144,7 +146,7 @@ export const routeUtils = {
     matched.forEach((item: any) => {
       breadcrumb.push({
         title: item.meta.title,
-        path: item.path
+        path: item.path,
       })
     })
 
@@ -154,5 +156,5 @@ export const routeUtils = {
   // 检查是否需要认证
   requiresAuth: (route: any): boolean => {
     return Boolean(route.meta?.requiresAuth)
-  }
+  },
 }

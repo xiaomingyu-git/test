@@ -11,15 +11,9 @@
         <h2>基础表格测试</h2>
         <el-space class="controls" direction="vertical">
           <el-space>
-            <el-button @click="insertBasicTable" type="primary">
-              插入基础表格
-            </el-button>
-            <el-button @click="insertAdvancedTable" type="success">
-              插入高级表格
-            </el-button>
-            <el-button @click="clearContent" type="danger">
-              清空内容
-            </el-button>
+            <el-button @click="insertBasicTable" type="primary"> 插入基础表格 </el-button>
+            <el-button @click="insertAdvancedTable" type="success"> 插入高级表格 </el-button>
+            <el-button @click="clearContent" type="danger"> 清空内容 </el-button>
           </el-space>
           <el-space>
             <el-switch
@@ -27,9 +21,7 @@
               active-text="增强表格"
               inactive-text="普通表格"
             />
-            <el-text size="small" type="info">
-              切换表格模式以测试不同功能
-            </el-text>
+            <el-text size="small" type="info"> 切换表格模式以测试不同功能 </el-text>
           </el-space>
         </el-space>
 
@@ -140,7 +132,7 @@ import {
   ElText,
   ElCard,
   ElTag,
-  ElInput
+  ElInput,
 } from 'element-plus'
 import TiptapEditor from '../components/TiptapEditor.vue'
 

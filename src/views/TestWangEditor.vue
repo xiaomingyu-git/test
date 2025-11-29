@@ -42,7 +42,7 @@
           </el-col>
         </el-row>
 
-        <el-row :gutter="20" style="margin-top: 20px;">
+        <el-row :gutter="20" style="margin-top: 20px">
           <el-col :span="24">
             <el-card title="功能测试">
               <el-space wrap>
@@ -159,7 +159,7 @@ const insertSampleContent = () => {
 const clearContent = async () => {
   try {
     await ElMessageBox.confirm('确定要清空所有内容吗？', '确认', {
-      type: 'warning'
+      type: 'warning',
     })
     editorContent.value = '<p></p>'
     ElMessage.success('内容已清空')
@@ -192,10 +192,12 @@ const getContentInfo = () => {
       htmlLength: html.length,
       textLength: text.length,
       wordCount: text.split(/\s+/).filter((word: string) => word.length > 0).length,
-      isEditable: editorRef.value.isEditable
+      isEditable: editorRef.value.isEditable,
     }
 
-    ElMessage.info(`HTML: ${info.htmlLength}字符, 文本: ${info.textLength}字符, 单词: ${info.wordCount}个, 可编辑: ${info.isEditable}`)
+    ElMessage.info(
+      `HTML: ${info.htmlLength}字符, 文本: ${info.textLength}字符, 单词: ${info.wordCount}个, 可编辑: ${info.isEditable}`,
+    )
     console.log('内容信息:', info)
   }
 }
@@ -241,9 +243,15 @@ const getContentInfo = () => {
   font-weight: 600;
 }
 
-.preview-content h1 { font-size: 2em; }
-.preview-content h2 { font-size: 1.5em; }
-.preview-content h3 { font-size: 1.25em; }
+.preview-content h1 {
+  font-size: 2em;
+}
+.preview-content h2 {
+  font-size: 1.5em;
+}
+.preview-content h3 {
+  font-size: 1.25em;
+}
 
 .preview-content p {
   margin: 8px 0;

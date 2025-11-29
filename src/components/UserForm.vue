@@ -128,12 +128,7 @@
     <template #footer>
       <div class="dialog-footer">
         <el-button @click="handleCancel">取 消</el-button>
-        <el-button
-          type="primary"
-          :loading="submitting"
-          @click="handleSubmit"
-          native-type="submit"
-        >
+        <el-button type="primary" :loading="submitting" @click="handleSubmit" native-type="submit">
           {{ isCreateMode ? '创 建' : '保 存' }}
         </el-button>
       </div>
@@ -163,7 +158,7 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  submitting: false
+  submitting: false,
 })
 
 const emit = defineEmits<Emits>()
@@ -171,47 +166,46 @@ const emit = defineEmits<Emits>()
 const formRef = ref<FormInstance>()
 
 // 计算属性
-const title = computed(() => props.mode === 'create' ? '新增用户' : '编辑用户')
+const title = computed(() => (props.mode === 'create' ? '新增用户' : '编辑用户'))
 const isCreateMode = computed(() => props.mode === 'create')
 
 // 使用计算属性避免深度响应和循环更新
 const localModel = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+  set: (value) => emit('update:modelValue', value),
 })
 
 // 监听弹窗显示状态，重置表单验证
-watch(() => props.visible, (newVisible) => {
-  if (newVisible) {
-    nextTick(() => {
-      formRef.value?.clearValidate()
-    })
-  }
-})
+watch(
+  () => props.visible,
+  (newVisible) => {
+    if (newVisible) {
+      nextTick(() => {
+        formRef.value?.clearValidate()
+      })
+    }
+  },
+)
 
 // 表单验证规则
 const rules: FormRules = {
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 2, max: 20, message: '用户名长度在 2 到 20 个字符', trigger: 'blur' }
+    { min: 2, max: 20, message: '用户名长度在 2 到 20 个字符', trigger: 'blur' },
   ],
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }
+    { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' },
   ],
   phone: [
     { required: true, message: '请输入手机号', trigger: 'blur' },
-    { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号格式', trigger: 'blur' }
+    { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号格式', trigger: 'blur' },
   ],
-  role: [
-    { required: true, message: '请选择角色', trigger: 'change' }
-  ],
-  status: [
-    { required: true, message: '请选择状态', trigger: 'change' }
-  ],
+  role: [{ required: true, message: '请选择角色', trigger: 'change' }],
+  status: [{ required: true, message: '请选择状态', trigger: 'change' }],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, max: 20, message: '密码长度在 6 到 20 个字符', trigger: 'blur' }
+    { min: 6, max: 20, message: '密码长度在 6 到 20 个字符', trigger: 'blur' },
   ],
   confirmPassword: [
     { required: true, message: '请确认密码', trigger: 'blur' },
@@ -223,9 +217,9 @@ const rules: FormRules = {
           callback()
         }
       },
-      trigger: 'blur'
-    }
-  ]
+      trigger: 'blur',
+    },
+  ],
 }
 
 // 提交表单
@@ -255,7 +249,7 @@ const handleClose = (done: () => void) => {
 
 // 暴露表单引用
 defineExpose({
-  formRef
+  formRef,
 })
 </script>
 

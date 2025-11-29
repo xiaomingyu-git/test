@@ -13,8 +13,8 @@
             <div class="intro-text">
               <h2>项目简介</h2>
               <p>
-                Vue Editor 是一个基于 Vue 3 + TypeScript 的现代化富文本编辑器解决方案。
-                项目集成了 Tiptap 和 wangEditor 两款主流的富文本编辑器，提供了完整的功能演示和集成示例。
+                Vue Editor 是一个基于 Vue 3 + TypeScript 的现代化富文本编辑器解决方案。 项目集成了
+                Tiptap 和 wangEditor 两款主流的富文本编辑器，提供了完整的功能演示和集成示例。
               </p>
               <p>
                 本项目旨在为开发者提供一个完整的富文本编辑器选型参考，通过实际的使用案例和性能对比，
@@ -142,11 +142,7 @@
                     <h4>{{ step.title }}</h4>
                     <div class="step-command">
                       <code>{{ step.command }}</code>
-                      <el-button
-                        type="text"
-                        size="small"
-                        @click="copyCommand(step.command)"
-                      >
+                      <el-button type="text" size="small" @click="copyCommand(step.command)">
                         复制
                       </el-button>
                     </div>
@@ -187,9 +183,7 @@
           <div class="contribute-content">
             <div class="contribute-info">
               <h3>如何贡献</h3>
-              <p>
-                我们欢迎任何形式的贡献，包括但不限于：
-              </p>
+              <p>我们欢迎任何形式的贡献，包括但不限于：</p>
               <ul>
                 <li>🐛 报告 Bug 和提出问题</li>
                 <li>💡 提出新功能建议</li>
@@ -220,9 +214,7 @@
           <div class="license-content">
             <div class="license-info">
               <h3>MIT License</h3>
-              <p>
-                本项目采用 MIT 许可证开源，这意味着你可以：
-              </p>
+              <p>本项目采用 MIT 许可证开源，这意味着你可以：</p>
               <ul>
                 <li>✅ 商业使用</li>
                 <li>✅ 修改</li>
@@ -243,18 +235,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import {
-  Edit,
-  Monitor,
-  Tools,
-  Document,
-  TopRight,
-  Link
-} from '@element-plus/icons-vue'
+import { Edit, Monitor, Tools, Document, TopRight, Link } from '@element-plus/icons-vue'
 
 // 页面标题
 defineOptions({
-  name: 'AboutView'
+  name: 'AboutView',
 })
 
 // 前端技术栈
@@ -262,38 +247,38 @@ const frontendTechs = ref([
   {
     name: 'Vue 3',
     version: 'v3.x',
-    description: '渐进式 JavaScript 框架，提供 Composition API'
+    description: '渐进式 JavaScript 框架，提供 Composition API',
   },
   {
     name: 'TypeScript',
     version: 'v5.x',
-    description: 'JavaScript 的超集，提供静态类型检查'
+    description: 'JavaScript 的超集，提供静态类型检查',
   },
   {
     name: 'Vite',
     version: 'v5.x',
-    description: '现代化的前端构建工具，提供快速的 dev server'
+    description: '现代化的前端构建工具，提供快速的 dev server',
   },
   {
     name: 'Element Plus',
     version: 'v2.x',
-    description: 'Vue 3 的桌面端 UI 组件库'
+    description: 'Vue 3 的桌面端 UI 组件库',
   },
   {
     name: 'Vue Router',
     version: 'v4.x',
-    description: 'Vue.js 官方的路由管理器'
+    description: 'Vue.js 官方的路由管理器',
   },
   {
     name: 'Pinia',
     version: 'v2.x',
-    description: 'Vue 的状态管理库'
+    description: 'Vue 的状态管理库',
   },
   {
     name: 'SCSS',
     version: 'v1.x',
-    description: 'CSS 预处理器，提供变量、嵌套等功能'
-  }
+    description: 'CSS 预处理器，提供变量、嵌套等功能',
+  },
 ])
 
 // 编辑器技术栈
@@ -301,23 +286,23 @@ const editorTechs = ref([
   {
     name: 'Tiptap',
     version: 'v2.x',
-    description: '基于 ProseMirror 的现代化富文本编辑器'
+    description: '基于 ProseMirror 的现代化富文本编辑器',
   },
   {
     name: 'wangEditor',
     version: 'v5.x',
-    description: '轻量级的富文本编辑器，易用性强'
+    description: '轻量级的富文本编辑器，易用性强',
   },
   {
     name: 'ProseMirror',
     version: 'v1.x',
-    description: 'Tiptap 的底层编辑器框架'
+    description: 'Tiptap 的底层编辑器框架',
   },
   {
     name: 'Slate',
     version: 'v0.x',
-    description: '可插拔的富文本编辑器框架（可选）'
-  }
+    description: '可插拔的富文本编辑器框架（可选）',
+  },
 ])
 
 // 项目结构
@@ -352,23 +337,23 @@ const installSteps = ref([
   {
     title: '克隆项目',
     command: 'git clone https://github.com/your-username/vue-editor.git',
-    description: '将项目克隆到本地'
+    description: '将项目克隆到本地',
   },
   {
     title: '安装依赖',
     command: 'npm install',
-    description: '安装项目所需的所有依赖包'
+    description: '安装项目所需的所有依赖包',
   },
   {
     title: '开发模式',
     command: 'npm run dev',
-    description: '启动开发服务器，默认端口为 5173'
+    description: '启动开发服务器，默认端口为 5173',
   },
   {
     title: '构建项目',
     command: 'npm run build',
-    description: '构建生产版本'
-  }
+    description: '构建生产版本',
+  },
 ])
 
 // 快速链接
@@ -376,33 +361,33 @@ const quickLinks = ref([
   {
     name: 'GitHub 仓库',
     url: 'https://github.com/your-username/vue-editor',
-    icon: Link
+    icon: Link,
   },
   {
     name: 'Vue.js 官网',
     url: 'https://vuejs.org/',
-    icon: Document
+    icon: Document,
   },
   {
     name: 'Tiptap 文档',
     url: 'https://tiptap.dev/',
-    icon: Document
+    icon: Document,
   },
   {
     name: 'wangEditor 文档',
     url: 'https://www.wangeditor.com/',
-    icon: Document
+    icon: Document,
   },
   {
     name: 'Element Plus',
     url: 'https://element-plus.org/',
-    icon: Link
+    icon: Link,
   },
   {
     name: 'Vite 官网',
     url: 'https://vitejs.dev/',
-    icon: Monitor
-  }
+    icon: Monitor,
+  },
 ])
 
 // 复制命令

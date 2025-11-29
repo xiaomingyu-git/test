@@ -71,16 +71,13 @@ export function useResponsive() {
     const index = breakpoints.indexOf(breakpoint)
     const minValue = BREAKPOINTS[breakpoint] || 0
     const nextBreakpoint = breakpoints[index + 1]
-    const maxValue = nextBreakpoint ? (BREAKPOINTS[nextBreakpoint] || Infinity) : Infinity
+    const maxValue = nextBreakpoint ? BREAKPOINTS[nextBreakpoint] || Infinity : Infinity
 
     return windowWidth.value >= minValue && windowWidth.value < maxValue
   }
 
   // 响应式数值计算
-  const responsiveValue = <T>(
-    values: Partial<Record<Breakpoint, T>>,
-    defaultValue: T
-  ): T => {
+  const responsiveValue = <T>(values: Partial<Record<Breakpoint, T>>, defaultValue: T): T => {
     const breakpoints = Object.keys(BREAKPOINTS) as Breakpoint[]
 
     // 从大到小查找匹配的断点
@@ -97,12 +94,12 @@ export function useResponsive() {
   // 响应式类名生成
   const responsiveClasses = (
     classes: Partial<Record<Breakpoint, string>>,
-    prefix = ''
+    prefix = '',
   ): string[] => {
     const result: string[] = []
     const breakpoints = Object.keys(BREAKPOINTS) as Breakpoint[]
 
-    breakpoints.forEach(bp => {
+    breakpoints.forEach((bp) => {
       if (classes[bp]) {
         if (bp === 'xs') {
           result.push(`${prefix}${classes[bp]}`)

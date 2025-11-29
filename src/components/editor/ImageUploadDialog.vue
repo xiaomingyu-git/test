@@ -24,13 +24,9 @@
               :before-upload="beforeUpload"
             >
               <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-              <div class="el-upload__text">
-                将图片拖拽到此处，或<em>点击上传</em>
-              </div>
+              <div class="el-upload__text">将图片拖拽到此处，或<em>点击上传</em></div>
               <template #tip>
-                <div class="el-upload__tip">
-                  支持 JPG、PNG、GIF、WebP 格式，单个文件不超过 5MB
-                </div>
+                <div class="el-upload__tip">支持 JPG、PNG、GIF、WebP 格式，单个文件不超过 5MB</div>
               </template>
             </el-upload>
 
@@ -81,10 +77,7 @@
                     </el-col>
                     <el-col :span="12">
                       <el-form-item label="替代文本">
-                        <el-input
-                          v-model="imageSettings.alt"
-                          placeholder="图片描述"
-                        />
+                        <el-input v-model="imageSettings.alt" placeholder="图片描述" />
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -106,10 +99,7 @@
                 />
               </el-form-item>
               <el-form-item label="替代文本">
-                <el-input
-                  v-model="urlForm.alt"
-                  placeholder="图片描述"
-                />
+                <el-input v-model="urlForm.alt" placeholder="图片描述" />
               </el-form-item>
               <el-row :gutter="16">
                 <el-col :span="12">
@@ -184,10 +174,7 @@ interface ImageSettings {
   width?: number
   height?: number
   alt?: string
-  align: ''
-  | 'left'
-  | 'center'
-  | 'right'
+  align: '' | 'left' | 'center' | 'right'
 }
 
 // URL表单接口定义
@@ -213,7 +200,7 @@ const emit = defineEmits<Emits>()
 // 响应式数据
 const dialogVisible = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+  set: (value) => emit('update:modelValue', value),
 })
 
 const activeTab = ref<'upload' | 'url'>('upload')
@@ -227,7 +214,7 @@ const imageSettings = ref<ImageSettings>({
   width: undefined,
   height: undefined,
   alt: '',
-  align: ''
+  align: '',
 })
 
 // URL表单
@@ -236,7 +223,7 @@ const urlForm = ref<UrlForm>({
   width: undefined,
   height: undefined,
   alt: '',
-  align: ''
+  align: '',
 })
 
 // 上传的文件
@@ -252,13 +239,16 @@ const canConfirm = computed(() => {
 })
 
 // 监听URL变化，更新预览
-watch(() => urlForm.value.url, (newUrl) => {
-  if (newUrl && isValidUrl(newUrl)) {
-    urlPreviewUrl.value = newUrl
-  } else {
-    urlPreviewUrl.value = ''
-  }
-})
+watch(
+  () => urlForm.value.url,
+  (newUrl) => {
+    if (newUrl && isValidUrl(newUrl)) {
+      urlPreviewUrl.value = newUrl
+    } else {
+      urlPreviewUrl.value = ''
+    }
+  },
+)
 
 // 标签页切换处理
 const handleTabChange = (tabName: string) => {
@@ -373,9 +363,9 @@ const insertImageWithSettings = (src: string, settings: ImageSettings) => {
         content: [
           {
             type: 'image',
-            attrs: imageAttrs
-          }
-        ]
+            attrs: imageAttrs,
+          },
+        ],
       })
       .run()
   } else {
@@ -393,14 +383,14 @@ const handleClose = () => {
     width: undefined,
     height: undefined,
     alt: '',
-    align: ''
+    align: '',
   }
   urlForm.value = {
     url: '',
     width: undefined,
     height: undefined,
     alt: '',
-    align: ''
+    align: '',
   }
   activeTab.value = 'upload'
   uploading.value = false

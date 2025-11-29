@@ -14,14 +14,14 @@ export function useCrud() {
   const searchForm = reactive<SearchForm>({
     keyword: '',
     role: '',
-    status: ''
+    status: '',
   })
 
   // 分页信息
   const pagination = reactive<Pagination>({
     current: 1,
     pageSize: 10,
-    total: 0
+    total: 0,
   })
 
   // 选中的行
@@ -41,7 +41,7 @@ export function useCrud() {
     role: 'user',
     status: 'active',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   })
 
   // 表单引用
@@ -52,22 +52,18 @@ export function useCrud() {
     username: [
       { required: true, message: '请输入用户名', trigger: 'blur' },
       { min: 3, max: 20, message: '用户名长度在 3 到 20 个字符', trigger: 'blur' },
-      { pattern: /^[a-zA-Z0-9_]+$/, message: '用户名只能包含字母、数字和下划线', trigger: 'blur' }
+      { pattern: /^[a-zA-Z0-9_]+$/, message: '用户名只能包含字母、数字和下划线', trigger: 'blur' },
     ],
     email: [
       { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-      { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+      { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' },
     ],
     phone: [
       { required: true, message: '请输入手机号', trigger: 'blur' },
-      { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
+      { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' },
     ],
-    role: [
-      { required: true, message: '请选择角色', trigger: 'change' }
-    ],
-    status: [
-      { required: true, message: '请选择状态', trigger: 'change' }
-    ],
+    role: [{ required: true, message: '请选择角色', trigger: 'change' }],
+    status: [{ required: true, message: '请选择状态', trigger: 'change' }],
     password: [
       {
         validator: (_rule: any, value: string, callback: (error?: string | Error) => void) => {
@@ -79,8 +75,8 @@ export function useCrud() {
             callback()
           }
         },
-        trigger: 'blur'
-      }
+        trigger: 'blur',
+      },
     ],
     confirmPassword: [
       {
@@ -93,9 +89,9 @@ export function useCrud() {
             callback()
           }
         },
-        trigger: 'blur'
-      }
-    ]
+        trigger: 'blur',
+      },
+    ],
   }
 
   // 获取数据
@@ -104,7 +100,7 @@ export function useCrud() {
     try {
       const response = await getUserList(searchForm, {
         current: pagination.current,
-        pageSize: pagination.pageSize
+        pageSize: pagination.pageSize,
       })
 
       if (response.success) {
@@ -132,7 +128,7 @@ export function useCrud() {
     Object.assign(searchForm, {
       keyword: '',
       role: '',
-      status: ''
+      status: '',
     })
     pagination.current = 1
     fetchData()
@@ -166,7 +162,7 @@ export function useCrud() {
       role: 'user',
       status: 'active',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
     })
     dialogVisible.value = true
 
@@ -186,7 +182,7 @@ export function useCrud() {
       role: row.role,
       status: row.status,
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
     })
     dialogVisible.value = true
 
@@ -198,15 +194,11 @@ export function useCrud() {
   // 删除单个用户
   const handleDelete = async (row: User) => {
     try {
-      await ElMessageBox.confirm(
-        `确定要删除用户 "${row.username}" 吗？`,
-        '删除确认',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      )
+      await ElMessageBox.confirm(`确定要删除用户 "${row.username}" 吗？`, '删除确认', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
 
       const response = await deleteUser(row.id)
 
@@ -236,11 +228,11 @@ export function useCrud() {
         {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'warning'
-        }
+          type: 'warning',
+        },
       )
 
-      const ids = selectedRows.value.map(row => row.id)
+      const ids = selectedRows.value.map((row) => row.id)
       const response = await batchDeleteUsers(ids)
 
       if (response.success) {
@@ -295,7 +287,7 @@ export function useCrud() {
     const statusMap = {
       active: { type: 'success', text: '正常' },
       inactive: { type: 'info', text: '禁用' },
-      banned: { type: 'danger', text: '封禁' }
+      banned: { type: 'danger', text: '封禁' },
     }
     return statusMap[status as keyof typeof statusMap] || { type: 'info', text: status }
   }
@@ -305,7 +297,7 @@ export function useCrud() {
     const roleMap = {
       admin: { type: 'danger', text: '管理员' },
       editor: { type: 'warning', text: '编辑者' },
-      user: { type: 'primary', text: '普通用户' }
+      user: { type: 'primary', text: '普通用户' },
     }
     return roleMap[role as keyof typeof roleMap] || { type: 'info', text: role }
   }
@@ -343,6 +335,6 @@ export function useCrud() {
     handleCancel,
     getStatusTag,
     getRoleTag,
-    init
+    init,
   }
 }

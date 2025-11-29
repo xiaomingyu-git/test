@@ -15,9 +15,7 @@
               <template #header>
                 <div class="card-header">
                   <span>{{ card.title }}</span>
-                  <el-button type="text" @click="handleCardAction(card)">
-                    操作
-                  </el-button>
+                  <el-button type="text" @click="handleCardAction(card)"> 操作 </el-button>
                 </div>
               </template>
               <div class="card-content">
@@ -90,12 +88,7 @@
                 <div class="user-details">
                   <h3>{{ user.name }}</h3>
                   <p>{{ user.role }}</p>
-                  <el-rate
-                    v-model="user.rating"
-                    disabled
-                    show-score
-                    text-color="#ff9900"
-                  />
+                  <el-rate v-model="user.rating" disabled show-score text-color="#ff9900" />
                 </div>
               </div>
               <div class="user-stats">
@@ -140,13 +133,17 @@
               </div>
               <div class="article-footer">
                 <div class="article-stats">
-                  <span><el-icon><View /></el-icon> {{ article.views }}</span>
-                  <span><el-icon><ChatDotRound /></el-icon> {{ article.comments }}</span>
-                  <span><el-icon><Star /></el-icon> {{ article.likes }}</span>
+                  <span
+                    ><el-icon><View /></el-icon> {{ article.views }}</span
+                  >
+                  <span
+                    ><el-icon><ChatDotRound /></el-icon> {{ article.comments }}</span
+                  >
+                  <span
+                    ><el-icon><Star /></el-icon> {{ article.likes }}</span
+                  >
                 </div>
-                <el-button type="text" @click="readArticle(article)">
-                  阅读全文
-                </el-button>
+                <el-button type="text" @click="readArticle(article)"> 阅读全文 </el-button>
               </div>
             </el-card>
           </el-col>
@@ -168,12 +165,12 @@ import {
   Setting,
   View,
   ChatDotRound,
-  Star
+  Star,
 } from '@element-plus/icons-vue'
 
 // 页面标题
 defineOptions({
-  name: 'CardView'
+  name: 'CardView',
 })
 
 // 基础卡片数据
@@ -184,7 +181,7 @@ const basicCards = ref([
     description: '当前项目正在进行第三阶段开发，预计本月底完成主要功能。',
     tag: '进行中',
     tagType: 'primary',
-    time: '2023-12-01'
+    time: '2023-12-01',
   },
   {
     id: 2,
@@ -192,7 +189,7 @@ const basicCards = ref([
     description: '本月用户增长15%，活跃度提升8%，转化率达到3.2%。',
     tag: '已完成',
     tagType: 'success',
-    time: '2023-11-30'
+    time: '2023-11-30',
   },
   {
     id: 3,
@@ -200,8 +197,8 @@ const basicCards = ref([
     description: '计划于本周日凌晨进行系统升级，预计耗时2小时。',
     tag: '待处理',
     tagType: 'warning',
-    time: '2023-12-02'
-  }
+    time: '2023-12-02',
+  },
 ])
 
 // 图片卡片数据
@@ -210,26 +207,26 @@ const imageCards = ref([
     id: 1,
     title: '山景照片',
     description: '美丽的山脉风景，清晨的第一缕阳光洒在山峰上。',
-    image: 'https://via.placeholder.com/300x200/4CAF50/white?text=Mountain'
+    image: 'https://via.placeholder.com/300x200/4CAF50/white?text=Mountain',
   },
   {
     id: 2,
     title: '海边日落',
     description: '金色的夕阳缓缓沉入海平面，天空染成了橙红色。',
-    image: 'https://via.placeholder.com/300x200/2196F3/white?text=Sunset'
+    image: 'https://via.placeholder.com/300x200/2196F3/white?text=Sunset',
   },
   {
     id: 3,
     title: '城市夜景',
     description: '繁华都市的夜晚，霓虹灯闪烁，车水马龙。',
-    image: 'https://via.placeholder.com/300x200/FF9800/white?text=City'
+    image: 'https://via.placeholder.com/300x200/FF9800/white?text=City',
   },
   {
     id: 4,
     title: '森林小径',
     description: '幽静的森林小径，阳光透过树叶洒下斑驳的光影。',
-    image: 'https://via.placeholder.com/300x200/9C27B0/white?text=Forest'
-  }
+    image: 'https://via.placeholder.com/300x200/9C27B0/white?text=Forest',
+  },
 ])
 
 // 统计数据
@@ -241,7 +238,7 @@ const statistics = ref([
     change: '12%',
     trend: 'up',
     type: 'primary',
-    icon: User
+    icon: User,
   },
   {
     key: 'orders',
@@ -250,7 +247,7 @@ const statistics = ref([
     change: '8%',
     trend: 'up',
     type: 'success',
-    icon: ShoppingCart
+    icon: ShoppingCart,
   },
   {
     key: 'revenue',
@@ -259,7 +256,7 @@ const statistics = ref([
     change: '15%',
     trend: 'up',
     type: 'warning',
-    icon: Document
+    icon: Document,
   },
   {
     key: 'performance',
@@ -268,8 +265,8 @@ const statistics = ref([
     change: '0.2%',
     trend: 'down',
     type: 'danger',
-    icon: Setting
-  }
+    icon: Setting,
+  },
 ])
 
 // 用户数据
@@ -282,7 +279,7 @@ const users = ref([
     rating: 4.5,
     projects: 12,
     followers: 234,
-    likes: 567
+    likes: 567,
   },
   {
     id: 2,
@@ -292,7 +289,7 @@ const users = ref([
     rating: 4.8,
     projects: 18,
     followers: 456,
-    likes: 890
+    likes: 890,
   },
   {
     id: 3,
@@ -302,8 +299,8 @@ const users = ref([
     rating: 4.2,
     projects: 8,
     followers: 123,
-    likes: 234
-  }
+    likes: 234,
+  },
 ])
 
 // 文章数据
@@ -314,10 +311,11 @@ const articles = ref([
     author: '技术团队',
     date: '2023-12-01',
     category: '前端开发',
-    summary: '本文介绍了 Vue 3 组合式 API 的使用技巧和最佳实践，包括响应式数据处理、生命周期钩子、逻辑复用等内容。通过实际案例帮助开发者更好地理解和使用组合式 API。',
+    summary:
+      '本文介绍了 Vue 3 组合式 API 的使用技巧和最佳实践，包括响应式数据处理、生命周期钩子、逻辑复用等内容。通过实际案例帮助开发者更好地理解和使用组合式 API。',
     views: 1234,
     comments: 45,
-    likes: 89
+    likes: 89,
   },
   {
     id: 2,
@@ -325,10 +323,11 @@ const articles = ref([
     author: '架构师',
     date: '2023-11-30',
     category: '编程语言',
-    summary: '深入探讨 TypeScript 的类型系统，包括高级类型、类型推断、泛型、类型守卫等特性。帮助开发者充分利用 TypeScript 的类型检查能力，提高代码质量和开发效率。',
+    summary:
+      '深入探讨 TypeScript 的类型系统，包括高级类型、类型推断、泛型、类型守卫等特性。帮助开发者充分利用 TypeScript 的类型检查能力，提高代码质量和开发效率。',
     views: 2345,
     comments: 67,
-    likes: 156
+    likes: 156,
   },
   {
     id: 3,
@@ -336,10 +335,11 @@ const articles = ref([
     author: '性能专家',
     date: '2023-11-29',
     category: '性能优化',
-    summary: '从多个维度介绍前端性能优化的方法和技巧，包括资源加载优化、代码分割、缓存策略、渲染优化等。通过实际案例分析，帮助开发者构建高性能的 Web 应用。',
+    summary:
+      '从多个维度介绍前端性能优化的方法和技巧，包括资源加载优化、代码分割、缓存策略、渲染优化等。通过实际案例分析，帮助开发者构建高性能的 Web 应用。',
     views: 3456,
     comments: 89,
-    likes: 234
+    likes: 234,
   },
   {
     id: 4,
@@ -347,11 +347,12 @@ const articles = ref([
     author: '架构团队',
     date: '2023-11-28',
     category: '架构设计',
-    summary: '详细介绍微前端架构的设计理念和实现方案，包括模块拆分、通信机制、样式隔离、部署策略等。分享大型项目的微前端改造经验和最佳实践。',
+    summary:
+      '详细介绍微前端架构的设计理念和实现方案，包括模块拆分、通信机制、样式隔离、部署策略等。分享大型项目的微前端改造经验和最佳实践。',
     views: 4567,
     comments: 123,
-    likes: 345
-  }
+    likes: 345,
+  },
 ])
 
 // 卡片操作处理

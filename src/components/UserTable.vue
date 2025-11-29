@@ -7,9 +7,7 @@
     <!-- 操作工具栏 -->
     <div class="table-toolbar" v-if="hasSelectedRows">
       <div class="toolbar-left">
-        <span class="selected-info">
-          已选择 {{ selectedRows.length }} 项
-        </span>
+        <span class="selected-info"> 已选择 {{ selectedRows.length }} 项 </span>
         <el-button
           type="danger"
           size="small"
@@ -19,22 +17,11 @@
         >
           批量删除
         </el-button>
-        <el-button
-          size="small"
-          @click="$emit('clear-selection')"
-        >
-          取消选择
-        </el-button>
+        <el-button size="small" @click="$emit('clear-selection')"> 取消选择 </el-button>
       </div>
 
       <div class="toolbar-right">
-        <el-button
-          size="small"
-          :icon="Refresh"
-          @click="$emit('refresh')"
-        >
-          刷新
-        </el-button>
+        <el-button size="small" :icon="Refresh" @click="$emit('refresh')"> 刷新 </el-button>
       </div>
     </div>
 
@@ -53,13 +40,7 @@
       <el-table-column type="selection" width="55" align="center" />
 
       <!-- ID列 -->
-      <el-table-column
-        prop="id"
-        label="ID"
-        width="80"
-        align="center"
-        sortable
-      />
+      <el-table-column prop="id" label="ID" width="80" align="center" sortable />
 
       <!-- 用户名列 -->
       <el-table-column
@@ -71,20 +52,10 @@
       />
 
       <!-- 邮箱列 -->
-      <el-table-column
-        prop="email"
-        label="邮箱"
-        min-width="180"
-        show-overflow-tooltip
-      />
+      <el-table-column prop="email" label="邮箱" min-width="180" show-overflow-tooltip />
 
       <!-- 手机号列 -->
-      <el-table-column
-        prop="phone"
-        label="手机号"
-        width="130"
-        align="center"
-      />
+      <el-table-column prop="phone" label="手机号" width="130" align="center" />
 
       <!-- 角色列 -->
       <el-table-column prop="role" label="角色" width="100" align="center">
@@ -105,13 +76,7 @@
       </el-table-column>
 
       <!-- 创建时间列 -->
-      <el-table-column
-        prop="createdAt"
-        label="创建时间"
-        width="160"
-        align="center"
-        sortable
-      >
+      <el-table-column prop="createdAt" label="创建时间" width="160" align="center" sortable>
         <template #default="{ row }">
           {{ formatDate(row.createdAt) }}
         </template>
@@ -121,13 +86,7 @@
       <el-table-column label="操作" width="200" fixed="right" align="center">
         <template #default="{ row }">
           <div class="action-buttons">
-            <el-button
-              type="primary"
-              size="small"
-              link
-              :icon="Edit"
-              @click="$emit('edit', row)"
-            >
+            <el-button type="primary" size="small" link :icon="Edit" @click="$emit('edit', row)">
               编辑
             </el-button>
             <el-button
@@ -140,7 +99,10 @@
             >
               删除
             </el-button>
-            <el-dropdown trigger="click" @command="(command: string) => handleCommand(command, row)">
+            <el-dropdown
+              trigger="click"
+              @command="(command: string) => handleCommand(command, row)"
+            >
               <el-button type="primary" link size="small">
                 更多
                 <el-icon class="el-icon--right">
@@ -216,7 +178,7 @@ interface Emits {
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
   processing: false,
-  pageSizes: () => [10, 20, 50, 100]
+  pageSizes: () => [10, 20, 50, 100],
 })
 
 const emit = defineEmits<Emits>()

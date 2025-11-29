@@ -6,20 +6,20 @@
 export enum UserRole {
   ADMIN = 'admin',
   EDITOR = 'editor',
-  USER = 'user'
+  USER = 'user',
 }
 
 // 用户状态枚举
 export enum UserStatus {
   ACTIVE = 'active',
   INACTIVE = 'inactive',
-  BANNED = 'banned'
+  BANNED = 'banned',
 }
 
 // 排序顺序枚举
 export enum SortOrder {
   ASC = 'asc',
-  DESC = 'desc'
+  DESC = 'desc',
 }
 
 // 用户基础信息接口

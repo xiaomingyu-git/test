@@ -79,7 +79,7 @@ const technologies = [
   { name: 'Element Plus' },
   { name: 'Tiptap' },
   { name: 'wangEditor' },
-  { name: 'Vite' }
+  { name: 'Vite' },
 ]
 
 // 当前年份

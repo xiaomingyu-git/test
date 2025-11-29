@@ -277,12 +277,55 @@ import type { User } from '~types/user';
 4. **Composition API First**: Use `<script setup>` and Composition API
 5. **Element Plus Consistency**: Use Element Plus components for UI consistency
 6. **TypeScript Always**: Strong typing for props, emits, and data
-7. **Standard Layouts**: Follow CRUD page layout patterns
-8. **Composable Logic**: Extract reusable logic into composables
-9. **Performance Conscious**: Lazy load, memoize, optimize renders
+7. **🚨 STRICT LAYOUT COMPLIANCE**: Must follow layout-guide.md standards EXACTLY (MANDATORY)
+8. **📋 DOCUMENT ADHERENCE**: All resources/ directory documents are MANDATORY standards
+9. **✅ VERIFICATION REQUIRED**: Must verify against every linked guide document
+10. **Composable Logic**: Extract reusable logic into composables
+11. **Performance Conscious**: Lazy load, memoize, optimize renders
+
+---
+
+## 🚨 CRITICAL COMPLIANCE RULES
+
+### MANDATORY Layout Standards
+When developing ANY page or component, you **MUST**:
+
+1. **Read layout-guide.md** and follow EXACTLY as written
+2. **Use standard CRUD layout patterns** for all CRUD pages
+3. **Apply proper spacing and alignment** from the guide
+4. **Use exact class names** specified in the guide (page-header, search-form, table-toolbar, etc.)
+5. **Follow responsive design patterns** exactly as documented
+6. **Reference component-patterns.md** for component usage
+7. **Apply styling-guide.md** standards for all styling
+8. **Use form-patterns.md** for all form implementations
+
+### MANDATORY Document References
+Before writing ANY code, you MUST:
+
+1. **Read ALL linked documentation** in the skill
+2. **Verify your implementation** against each guide document
+3. **Follow EXACT patterns** shown in examples
+4. **Use proper TypeScript types** as defined in typescript-standards.md
+5. **Apply error handling** as per loading-and-error-states.md
+6. **Structure files** according to file-organization.md
+7. **Use proper composables** as per composables-guide.md
+
+### VERIFICATION CHECKLIST
+Before completing any task, verify:
+
+- [ ] **Layout matches layout-guide.md EXACTLY**
+- [ ] **Components follow component-patterns.md EXACTLY**
+- [ ] **Forms follow form-patterns.md EXACTLY**
+- [ ] **Styling follows styling-guide.md EXACTLY**
+- [ ] **TypeScript follows typescript-standards.md EXACTLY**
+- [ ] **Error handling follows loading-and-error-states.md EXACTLY**
+- [ ] **File structure follows file-organization.md EXACTLY**
+- [ ] **Composables follow composables-guide.md EXACTLY**
 
 ---
 
 **Skill Status**: Vue 3 + Composition API + Element Plus + Vite single instance guidelines with Context7 MCP integration
 
-**Never skip the thinking step!** It saves time in the long run.
+**🚨 CRITICAL: NEVER deviate from the documented standards. All guides in resources/ are MANDATORY requirements, not suggestions!**
+
+**Non-compliance will result in incorrect implementations. Always reference the guide documents first and follow them EXACTLY.**

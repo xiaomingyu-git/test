@@ -66,30 +66,14 @@
 
 **适用场景**：字段数量 > 4个，有主次字段之分
 
-**组件组合**：
-```vue
-<!-- 核心组件 -->
-<el-form inline class="demo-form-inline" :class="{ 'expanded': isExpanded }">
-  <!-- 默认显示字段 -->
-  <el-form-item><el-input /></el-form-item>
-
-  <!-- 条件显示字段 -->
-  <template v-if="isExpanded">
-    <el-form-item><el-input /></el-form-item>
-  </template>
-
-  <!-- 控制组件 -->
-  <el-button link @click="toggleExpanded">
-    {{ isExpanded ? '收起' : '展开' }}
-  </el-button>
-</el-form>
-```
-
-**决策要点**：
-- ✅ 界面简洁，功能完整
-- ✅ 渐进式功能展示
+**核心特性**：
+- ✅ 默认显示3个核心字段，保持界面简洁
+- ✅ 扩展字段通过展开/折叠渐进式展示
+- ✅ 平衡简洁性和功能性
 - ✅ 用户体验良好
-- ❌ 需要额外的状态管理
+
+**🚨 重要说明**：
+**所有展开/折叠表单实现必须遵循文末的"标准高级搜索实现模式"，该模式提供了完整的生产就绪代码模板。**
 
 #### 模式三：垂直网格表单组件
 
@@ -129,11 +113,25 @@
 - 扩展字段为次要筛选条件
 - 需要保持界面简洁，同时提供完整的搜索能力
 
-#### **完整组件实现**
+#### **标准高级搜索实现模式** ⭐
+
+**🚨 MANDATORY: 所有高级搜索表单必须遵循以下标准实现模式**
+
+**适用场景**：企业级CRUD页面，需要提供强大而简洁的搜索能力
+
+**核心特性**：
+- ✅ 默认显示3个核心字段（关键词、主要分类、状态）
+- ✅ 展开/折叠扩展搜索字段
+- ✅ 即时搜索反馈（选择/清空自动触发）
+- ✅ 日期范围选择器带快捷选项
+- ✅ 完全响应式设计
+- ✅ TypeScript类型安全
+
+**🎯 标准实现模板**：
 
 ```vue
 <template>
-  <div class="search-section">
+  <div class="search-form">
     <el-form
       :model="searchForm"
       inline
@@ -145,97 +143,138 @@
       <el-form-item label="关键词">
         <el-input
           v-model="searchForm.keyword"
-          placeholder="用户名/邮箱/手机号"
+          placeholder="搜索关键词"
           clearable
           class="demo-input"
+          style="width: 200px"
+          @clear="handleSearch"
+          @keyup.enter="handleSearch"
         />
       </el-form-item>
 
-      <el-form-item label="角色">
+      <el-form-item label="主要分类">
         <el-select
-          v-model="searchForm.role"
-          placeholder="全部角色"
+          v-model="searchForm.mainCategory"
+          placeholder="请选择分类"
           clearable
           class="demo-select"
+          style="width: 150px"
+          @change="handleSearch"
         >
-          <el-option label="管理员" value="admin" />
-          <el-option label="编辑者" value="editor" />
-          <el-option label="普通用户" value="user" />
+          <el-option
+            v-for="option in categoryOptions"
+            :key="option.value"
+            :label="option.label"
+            :value="option.value"
+          >
+            <el-tag
+              :type="option.type"
+              size="small"
+              effect="light"
+            >
+              {{ option.label }}
+            </el-tag>
+          </el-option>
         </el-select>
       </el-form-item>
 
       <el-form-item label="状态">
         <el-select
           v-model="searchForm.status"
-          placeholder="全部状态"
+          placeholder="请选择状态"
           clearable
           class="demo-select"
+          style="width: 120px"
+          @change="handleSearch"
         >
-          <el-option label="正常" value="active" />
-          <el-option label="禁用" value="inactive" />
-          <el-option label="封禁" value="banned" />
+          <el-option
+            v-for="option in statusOptions"
+            :key="option.value"
+            :label="option.label"
+            :value="option.value"
+          >
+            <el-tag
+              :type="option.type"
+              size="small"
+              effect="light"
+            >
+              {{ option.label }}
+            </el-tag>
+          </el-option>
         </el-select>
       </el-form-item>
 
       <!-- 扩展字段（折叠时隐藏） -->
       <template v-if="isExpanded">
-        <el-form-item label="部门">
+        <el-form-item label="次要分类">
           <el-select
-            v-model="searchForm.department"
-            placeholder="全部部门"
+            v-model="searchForm.secondaryCategory"
+            placeholder="请选择子分类"
             clearable
             class="demo-select"
+            style="width: 150px"
+            @change="handleSearch"
           >
-            <el-option label="技术部" value="tech" />
-            <el-option label="产品部" value="product" />
-            <el-option label="运营部" value="operation" />
-            <el-option label="市场部" value="marketing" />
+            <el-option
+              v-for="option in subCategoryOptions"
+              :key="option.value"
+              :label="option.label"
+              :value="option.value"
+            />
           </el-select>
         </el-form-item>
 
-        <el-form-item label="注册时间">
+        <el-form-item label="创建时间">
           <el-date-picker
-            v-model="searchForm.registerDateRange"
+            v-model="searchForm.createdDateRange"
             type="daterange"
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             class="demo-date-picker"
+            style="width: 280px"
+            :shortcuts="datePickerShortcuts"
+            @change="handleSearch"
           />
         </el-form-item>
 
-        <el-form-item label="最后登录">
+        <el-form-item label="更新时间">
           <el-date-picker
-            v-model="searchForm.lastLoginDateRange"
+            v-model="searchForm.updatedDateRange"
             type="daterange"
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             class="demo-date-picker"
+            style="width: 280px"
+            :shortcuts="datePickerShortcuts"
+            @change="handleSearch"
           />
         </el-form-item>
 
-        <el-form-item label="用户来源">
-          <el-select
-            v-model="searchForm.source"
-            placeholder="全部来源"
+        <el-form-item label="描述信息">
+          <el-input
+            v-model="searchForm.description"
+            placeholder="描述关键词"
             clearable
-            class="demo-select"
-          >
-            <el-option label="网站注册" value="web" />
-            <el-option label="移动端" value="mobile" />
-            <el-option label="第三方登录" value="oauth" />
-            <el-option label="邀请注册" value="invite" />
-          </el-select>
+            class="demo-input"
+            style="width: 200px"
+            @clear="handleSearch"
+            @keyup.enter="handleSearch"
+          />
         </el-form-item>
       </template>
 
       <!-- 操作按钮 -->
       <el-form-item>
         <el-button type="primary" native-type="submit" :loading="loading">
-          搜索
+          <el-icon><Search /></el-icon>
+          查询
         </el-button>
-        <el-button @click="handleReset">重置</el-button>
+        <el-button @click="handleReset">
+          <el-icon><Refresh /></el-icon>
+          重置
+        </el-button>
 
         <!-- 展开/折叠按钮 -->
         <el-button
@@ -255,59 +294,122 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ArrowDown } from '@element-plus/icons-vue'
+import { ref, reactive, computed } from 'vue'
+import { Search, Refresh, ArrowDown } from '@element-plus/icons-vue'
 
+// 接口定义
 interface SearchForm {
   keyword: string
-  role: string
+  mainCategory: string
   status: string
-  department: string
-  registerDateRange: [Date, Date] | null
-  lastLoginDateRange: [Date, Date] | null
-  source: string
+  secondaryCategory?: string
+  createdDateRange?: [Date, Date] | null
+  updatedDateRange?: [Date, Date] | null
+  description?: string
 }
 
-const searchForm = reactive<SearchForm>({
-  keyword: '',
-  role: '',
-  status: '',
-  department: '',
-  registerDateRange: null,
-  lastLoginDateRange: null,
-  source: ''
-})
-
+// 响应式数据
 const loading = ref(false)
 const isExpanded = ref(false)
 
+const searchForm = reactive<SearchForm>({
+  keyword: '',
+  mainCategory: '',
+  status: '',
+  secondaryCategory: '',
+  createdDateRange: null,
+  updatedDateRange: null,
+  description: ''
+})
+
+// 日期选择器快捷选项（标准配置）
+const datePickerShortcuts = [
+  {
+    text: '最近一周',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setDate(start.getDate() - 7)
+      return [start, end]
+    }
+  },
+  {
+    text: '最近一个月',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setMonth(start.getMonth() - 1)
+      return [start, end]
+    }
+  },
+  {
+    text: '最近三个月',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setMonth(start.getMonth() - 3)
+      return [start, end]
+    }
+  }
+]
+
+// 计算请求参数（标准模式）
+const fetchParams = computed(() => ({
+  page: pagination.page,
+  pageSize: pagination.pageSize,
+  keyword: searchForm.keyword || undefined,
+  mainCategory: searchForm.mainCategory || undefined,
+  status: searchForm.status || undefined,
+  secondaryCategory: searchForm.secondaryCategory || undefined,
+  description: searchForm.description || undefined,
+  createdStartDate: searchForm.createdDateRange?.[0] || undefined,
+  createdEndDate: searchForm.createdDateRange?.[1] || undefined,
+  updatedStartDate: searchForm.updatedDateRange?.[0] || undefined,
+  updatedEndDate: searchForm.updatedDateRange?.[1] || undefined,
+  sortBy: 'createdAt',
+  sortOrder: 'desc' as const
+}))
+
+// 展开/折叠切换
 const toggleExpanded = () => {
   isExpanded.value = !isExpanded.value
 }
 
+// 标准处理函数
 const handleSearch = async () => {
   loading.value = true
   try {
-    // 搜索逻辑
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    // 执行搜索逻辑
+    pagination.page = 1
+    await fetchData()
   } finally {
     loading.value = false
   }
 }
 
 const handleReset = () => {
-  // 重置表单逻辑
-  Object.keys(searchForm).forEach(key => {
-    if (Array.isArray(searchForm[key])) {
-      searchForm[key] = null
-    } else {
-      searchForm[key] = ''
-    }
+  Object.assign(searchForm, {
+    keyword: '',
+    mainCategory: '',
+    status: '',
+    secondaryCategory: '',
+    createdDateRange: null,
+    updatedDateRange: null,
+    description: ''
   })
+  pagination.page = 1
+  fetchData()
 }
 </script>
 
 <style scoped>
+.search-form {
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: var(--el-bg-color-page);
+  border-radius: 4px;
+}
+
 /* Element Plus 官方 inline 表单样式 */
 .demo-form-inline .el-input {
   --el-input-width: 220px;
@@ -350,7 +452,43 @@ const handleReset = () => {
   transform: rotate(180deg);
 }
 
-/* 响应式适配 */
+.search-form :deep(.el-form-item) {
+  margin-bottom: 0;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .search-form {
+    padding: 12px;
+  }
+
+  .demo-form-inline {
+    display: block;
+  }
+
+  .demo-form-inline .el-form-item {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  /* 移动端显示所有字段 */
+  .demo-form-inline:not(.expanded) .el-form-item:nth-child(n+4):not(:last-child) {
+    display: block !important;
+  }
+
+  .demo-form-inline .el-input,
+  .demo-form-inline .el-select,
+  .demo-form-inline .el-date-picker {
+    width: 100% !important;
+  }
+
+  .expand-button {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+
+/* 响应式适配 - 固定宽度在移动端改为100% */
 @media (max-width: 1200px) {
   .demo-form-inline .el-input {
     --el-input-width: 180px;
@@ -360,23 +498,19 @@ const handleReset = () => {
     --el-select-width: 180px;
   }
 }
-
-@media (max-width: 768px) {
-  .demo-form-inline {
-    display: block;
-  }
-
-  .demo-form-inline .el-form-item {
-    display: block;
-    margin-bottom: 16px;
-  }
-
-  .demo-form-inline .el-form-item:nth-child(n+4):not(:last-child) {
-    display: block !important;
-  }
-}
 </style>
 ```
+
+**🔧 使用说明**：
+
+1. **必填字段**：每个CRUD页面都必须包含关键词、主要分类、状态三个核心字段
+2. **扩展字段**：根据具体业务需求添加次要分类、时间范围、描述等字段
+3. **即时搜索**：所有select和input都必须绑定`@change`和`@clear`事件实现即时搜索
+4. **日期快捷选项**：必须使用标准的`datePickerShortcuts`配置
+5. **响应式设计**：必须包含完整的移动端适配CSS
+6. **TypeScript**：必须正确定义接口类型和计算属性
+
+**⚠️ 严禁修改标准模式**：所有高级搜索表单必须严格按照此模板实现，确保用户体验一致性
 
 ### 5. 组件选择决策流程
 

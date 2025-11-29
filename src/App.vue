@@ -1,12 +1,7 @@
 <template>
   <div id="app" class="app-container">
     <!-- 全局加载指示器 -->
-    <el-loading
-      v-if="globalLoading"
-      :fullscreen="true"
-      :lock="true"
-      text="加载中..."
-    />
+    <el-loading v-if="globalLoading" :fullscreen="true" :lock="true" text="加载中..." />
 
     <!-- 主要内容区域 -->
     <router-view />
@@ -42,7 +37,6 @@ const initializeApp = async () => {
 
     // 其他初始化逻辑...
     console.log('App initialized')
-
   } catch (error) {
     console.error('App initialization failed:', error)
   } finally {
@@ -70,7 +64,8 @@ onMounted(() => {
 html,
 body {
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -85,7 +80,9 @@ body {
   min-height: 100vh;
   background-color: var(--el-bg-color-page);
   color: var(--el-text-color-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* 滚动条样式 */

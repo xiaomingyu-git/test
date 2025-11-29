@@ -24,7 +24,9 @@ import { ref } from 'vue'
 import WangEditor from '@/components/WangEditor.vue'
 import ThemeToggle from '@/components/ThemeToggle.vue'
 
-const content = ref('<h2>wangEditor 测试</h2><p>这是一个<strong>测试页面</strong>，用于验证 wangEditor 是否正常工作。</p>')
+const content = ref(
+  '<h2>wangEditor 测试</h2><p>这是一个<strong>测试页面</strong>，用于验证 wangEditor 是否正常工作。</p>',
+)
 
 const onReady = (editor: any) => {
   console.log('wangEditor 已就绪:', editor)

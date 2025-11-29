@@ -49,9 +49,7 @@
       <!-- 状态栏 -->
       <div v-if="showStatusbar || showCharCount || $slots.statusbarRight" class="editor-statusbar">
         <div class="statusbar-left">
-          <el-text v-if="showCharCount" size="small" type="info">
-            字符数: {{ charCount }}
-          </el-text>
+          <el-text v-if="showCharCount" size="small" type="info"> 字符数: {{ charCount }} </el-text>
           <el-divider v-if="showCharCount && lastSaved" direction="vertical" />
           <el-text v-if="lastSaved" size="small" type="info">
             最后保存: {{ formatTime(lastSaved) }}
@@ -103,15 +101,15 @@ interface Emits {
   /** 内容更新事件 */
   'update:modelValue': [value: string]
   /** 内容变化事件 */
-  'change': [value: string]
+  change: [value: string]
   /** 编辑器就绪事件 */
-  'ready': [editor: Editor]
+  ready: [editor: Editor]
   /** 获得焦点事件 */
-  'focus': [event: FocusEvent]
+  focus: [event: FocusEvent]
   /** 失去焦点事件 */
-  'blur': [event: FocusEvent]
+  blur: [event: FocusEvent]
   /** 保存事件 */
-  'save': [content: string]
+  save: [content: string]
   /** 全屏状态变化事件 */
   'fullscreen-change': [isFullscreen: boolean]
 }
@@ -123,7 +121,7 @@ const props = withDefaults(defineProps<Props>(), {
   showCharCount: true,
   showThemeToggle: false,
   allowFullscreen: false,
-  showStatusbar: false
+  showStatusbar: false,
 })
 
 const emit = defineEmits<Emits>()
@@ -132,7 +130,7 @@ const emit = defineEmits<Emits>()
 const editorLayout = inject('editorLayout', {
   isFullscreen: { value: false },
   toggleFullscreen: () => {},
-  allowFullscreen: false
+  allowFullscreen: false,
 })
 
 // 内部状态
@@ -171,7 +169,7 @@ const formatTime = (date: Date): string => {
     month: '2-digit',
     day: '2-digit',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 }
 
@@ -205,7 +203,7 @@ if (editorLayout.isFullscreen) {
     (newVal) => {
       isFullscreen.value = newVal
     },
-    { immediate: true }
+    { immediate: true },
   )
 }
 </script>

@@ -10,8 +10,8 @@ export const editorRoutes: RouteRecordRaw[] = [
       title: 'Tiptap Editor',
       description: '基于 Tiptap 的富文本编辑器',
       requiresAuth: false,
-      layout: 'EditorLayout'
-    }
+      layout: 'EditorLayout',
+    },
   },
   {
     path: 'wang',
@@ -21,8 +21,8 @@ export const editorRoutes: RouteRecordRaw[] = [
       title: 'wangEditor',
       description: '基于 wangEditor 的富文本编辑器',
       requiresAuth: false,
-      layout: 'EditorLayout'
-    }
+      layout: 'EditorLayout',
+    },
   },
   {
     path: 'comparison',
@@ -32,7 +32,7 @@ export const editorRoutes: RouteRecordRaw[] = [
       title: '编辑器对比',
       description: 'Tiptap 与 wangEditor 功能对比',
       requiresAuth: false,
-      layout: 'DefaultLayout'
-    }
-  }
+      layout: 'DefaultLayout',
+    },
+  },
 ]

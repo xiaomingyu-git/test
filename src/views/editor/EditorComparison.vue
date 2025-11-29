@@ -184,12 +184,16 @@ import WangEditor from '@/components/editor/WangEditor.vue'
 
 // 页面标题
 defineOptions({
-  name: 'EditorComparison'
+  name: 'EditorComparison',
 })
 
 // 编辑器内容
-const tiptapContent = ref('<h2>Tiptap 编辑器演示</h2><p>这是一个基于 ProseMirror 的现代化富文本编辑器。</p>')
-const wangContent = ref('<h2>wangEditor 编辑器演示</h2><p>这是一个轻量级的富文本编辑器，易于集成和使用。</p>')
+const tiptapContent = ref(
+  '<h2>Tiptap 编辑器演示</h2><p>这是一个基于 ProseMirror 的现代化富文本编辑器。</p>',
+)
+const wangContent = ref(
+  '<h2>wangEditor 编辑器演示</h2><p>这是一个轻量级的富文本编辑器，易于集成和使用。</p>',
+)
 
 // 功能对比数据
 const comparisonData = ref([
@@ -199,7 +203,7 @@ const comparisonData = ref([
     wangEditor: '完整支持',
     tiptapSupport: true,
     wangSupport: true,
-    description: '加粗、斜体、下划线、删除线等基础格式'
+    description: '加粗、斜体、下划线、删除线等基础格式',
   },
   {
     feature: '标题层级',
@@ -207,7 +211,7 @@ const comparisonData = ref([
     wangEditor: 'H1-H6 支持',
     tiptapSupport: true,
     wangSupport: true,
-    description: '多级标题支持'
+    description: '多级标题支持',
   },
   {
     feature: '列表功能',
@@ -215,7 +219,7 @@ const comparisonData = ref([
     wangEditor: '有序/无序列表',
     tiptapSupport: true,
     wangSupport: true,
-    description: '各种列表格式'
+    description: '各种列表格式',
   },
   {
     feature: '表格支持',
@@ -223,7 +227,7 @@ const comparisonData = ref([
     wangEditor: '支持，基础功能',
     tiptapSupport: true,
     wangSupport: true,
-    description: '表格编辑功能'
+    description: '表格编辑功能',
   },
   {
     feature: '图片上传',
@@ -231,7 +235,7 @@ const comparisonData = ref([
     wangEditor: '内置支持',
     tiptapSupport: true,
     wangSupport: true,
-    description: '图片上传和插入功能'
+    description: '图片上传和插入功能',
   },
   {
     feature: '代码高亮',
@@ -239,7 +243,7 @@ const comparisonData = ref([
     wangEditor: '支持',
     tiptapSupport: true,
     wangSupport: true,
-    description: '代码块语法高亮'
+    description: '代码块语法高亮',
   },
   {
     feature: 'Markdown 支持',
@@ -247,7 +251,7 @@ const comparisonData = ref([
     wangEditor: '不支持',
     tiptapSupport: true,
     wangSupport: false,
-    description: 'Markdown 输入和解析'
+    description: 'Markdown 输入和解析',
   },
   {
     feature: '协作编辑',
@@ -255,7 +259,7 @@ const comparisonData = ref([
     wangEditor: '不支持',
     tiptapSupport: true,
     wangSupport: false,
-    description: '多人实时协作'
+    description: '多人实时协作',
   },
   {
     feature: '自定义扩展',
@@ -263,7 +267,7 @@ const comparisonData = ref([
     wangEditor: '有限支持',
     tiptapSupport: true,
     wangSupport: false,
-    description: '自定义节点和标记'
+    description: '自定义节点和标记',
   },
   {
     feature: '学习曲线',
@@ -271,8 +275,8 @@ const comparisonData = ref([
     wangEditor: '平缓',
     tiptapSupport: true,
     wangSupport: true,
-    description: '上手难度'
-  }
+    description: '上手难度',
+  },
 ])
 
 // 适用场景
@@ -283,7 +287,7 @@ const tiptapScenarios = [
   '内容管理系统',
   '技术文档平台',
   '博客系统',
-  '需要高度定制的编辑器'
+  '需要高度定制的编辑器',
 ]
 
 const wangScenarios = [
@@ -293,7 +297,7 @@ const wangScenarios = [
   '聊天应用',
   '简单的内容发布',
   '移动端应用',
-  '快速原型开发'
+  '快速原型开发',
 ]
 
 // 推荐系统
@@ -306,26 +310,26 @@ const updateRecommendation = (useCase: string) => {
       recommended: 'wang',
       title: '推荐使用 wangEditor',
       reason: '对于简单文本编辑场景，wangEditor 更轻量级，上手更容易，开发成本更低。',
-      features: ['轻量级', '易上手', '快速集成', '中文文档完善']
+      features: ['轻量级', '易上手', '快速集成', '中文文档完善'],
     },
     professional: {
       recommended: 'tiptap',
       title: '推荐使用 Tiptap',
       reason: '专业内容创作需要强大的功能和灵活的扩展性，Tiptap 能更好地满足需求。',
-      features: ['功能强大', '高度可扩展', '专业级功能', '现代化架构']
+      features: ['功能强大', '高度可扩展', '专业级功能', '现代化架构'],
     },
     team: {
       recommended: 'tiptap',
       title: '推荐使用 Tiptap',
       reason: '团队协作需要实时协作功能，Tiptap 通过插件可以支持多人实时编辑。',
-      features: ['协作编辑', '版本控制', '权限管理', '插件生态']
+      features: ['协作编辑', '版本控制', '权限管理', '插件生态'],
     },
     custom: {
       recommended: 'tiptap',
       title: '推荐使用 Tiptap',
       reason: '高度定制化需求需要灵活的架构，Tiptap 的插件系统提供了最大的定制空间。',
-      features: ['灵活架构', '自定义节点', '扩展性强', '社区活跃']
-    }
+      features: ['灵活架构', '自定义节点', '扩展性强', '社区活跃'],
+    },
   }
 
   recommendation.value = recommendations[useCase] || null

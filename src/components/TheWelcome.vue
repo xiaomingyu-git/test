@@ -101,7 +101,7 @@ const navigateToDemo = (path: string) => {
     </template>
     <template #heading>功能演示</template>
 
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+    <div style="display: flex; gap: 12px; flex-wrap: wrap">
       <el-button type="primary" @click="goToCrudPage">CRUD 标准页面</el-button>
       <el-button @click="navigateToDemo('/demo/table')">表格组件</el-button>
       <el-button @click="navigateToDemo('/demo/card')">卡片组件</el-button>

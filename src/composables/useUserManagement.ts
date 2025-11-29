@@ -16,7 +16,7 @@ import type {
   ApiResponse,
   UserListResponse,
   EditMode,
-  TagType
+  TagType,
 } from '@/types/user'
 import { UserRole, UserStatus } from '@/types/user'
 
@@ -28,28 +28,28 @@ const PAGE_SIZE_OPTIONS = [10, 20, 50, 100]
 const USER_ROLE_OPTIONS = [
   { label: '管理员', value: UserRole.ADMIN },
   { label: '编辑者', value: UserRole.EDITOR },
-  { label: '普通用户', value: UserRole.USER }
+  { label: '普通用户', value: UserRole.USER },
 ]
 
 // 用户状态选项
 const USER_STATUS_OPTIONS = [
   { label: '正常', value: UserStatus.ACTIVE },
   { label: '禁用', value: UserStatus.INACTIVE },
-  { label: '封禁', value: UserStatus.BANNED }
+  { label: '封禁', value: UserStatus.BANNED },
 ]
 
 // 用户角色映射
 const USER_ROLE_MAP: Record<UserRole, string> = {
   admin: '管理员',
   editor: '编辑者',
-  user: '普通用户'
+  user: '普通用户',
 }
 
 // 用户状态映射
 const USER_STATUS_MAP: Record<UserStatus, string> = {
   active: '正常',
   inactive: '禁用',
-  banned: '封禁'
+  banned: '封禁',
 }
 
 export function useUserManagement() {
@@ -65,13 +65,13 @@ export function useUserManagement() {
   const searchForm = ref<SearchForm>({
     keyword: '',
     role: '',
-    status: ''
+    status: '',
   })
 
   const pagination = reactive<Pagination>({
     current: 1,
     size: DEFAULT_PAGE_SIZE,
-    total: 0
+    total: 0,
   })
 
   const formData = ref<FormData>({
@@ -79,7 +79,7 @@ export function useUserManagement() {
     email: '',
     phone: '',
     role: '',
-    status: 'active'
+    status: 'active',
   })
 
   // 表单引用
@@ -89,7 +89,7 @@ export function useUserManagement() {
   // ==================== 计算属性 ====================
   const hasSelectedRows = computed(() => selectedRows.value.length > 0)
   const isCreateMode = computed(() => editMode.value === 'create')
-  const dialogTitle = computed(() => isCreateMode.value ? '新增用户' : '编辑用户')
+  const dialogTitle = computed(() => (isCreateMode.value ? '新增用户' : '编辑用户'))
 
   // ==================== 工具函数 ====================
   const formatDate = (dateStr: string): string => {
@@ -98,7 +98,7 @@ export function useUserManagement() {
       month: '2-digit',
       day: '2-digit',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     })
   }
 
@@ -110,7 +110,7 @@ export function useUserManagement() {
     const typeMap: Record<UserRole, TagType> = {
       admin: 'danger',
       editor: 'warning',
-      user: 'info'
+      user: 'info',
     }
     return typeMap[role] || 'info'
   }
@@ -123,7 +123,7 @@ export function useUserManagement() {
     const typeMap: Record<UserStatus, TagType> = {
       active: 'success',
       inactive: 'warning',
-      banned: 'danger'
+      banned: 'danger',
     }
     return typeMap[status] || 'info'
   }
@@ -145,7 +145,7 @@ export function useUserManagement() {
       await ElMessageBox.confirm(message, title, {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       })
       return true
     } catch {
@@ -171,7 +171,7 @@ export function useUserManagement() {
         phone: '13800138001',
         role: UserRole.ADMIN,
         status: UserStatus.ACTIVE,
-        createdAt: '2024-01-01T10:00:00'
+        createdAt: '2024-01-01T10:00:00',
       },
       {
         id: 2,
@@ -180,7 +180,7 @@ export function useUserManagement() {
         phone: '13800138002',
         role: UserRole.EDITOR,
         status: UserStatus.ACTIVE,
-        createdAt: '2024-01-02T10:00:00'
+        createdAt: '2024-01-02T10:00:00',
       },
       {
         id: 3,
@@ -189,7 +189,7 @@ export function useUserManagement() {
         phone: '13800138003',
         role: UserRole.USER,
         status: UserStatus.INACTIVE,
-        createdAt: '2024-01-03T10:00:00'
+        createdAt: '2024-01-03T10:00:00',
       },
       {
         id: 4,
@@ -198,27 +198,28 @@ export function useUserManagement() {
         phone: '13800138004',
         role: UserRole.USER,
         status: UserStatus.BANNED,
-        createdAt: '2024-01-04T10:00:00'
-      }
+        createdAt: '2024-01-04T10:00:00',
+      },
     ]
 
     // 模拟搜索过滤
     let filteredUsers = mockUsers
     if (params.keyword) {
       const keyword = params.keyword.toLowerCase()
-      filteredUsers = filteredUsers.filter(user =>
-        user.username.toLowerCase().includes(keyword) ||
-        user.email.toLowerCase().includes(keyword) ||
-        user.phone.includes(keyword)
+      filteredUsers = filteredUsers.filter(
+        (user) =>
+          user.username.toLowerCase().includes(keyword) ||
+          user.email.toLowerCase().includes(keyword) ||
+          user.phone.includes(keyword),
       )
     }
 
     if (params.role) {
-      filteredUsers = filteredUsers.filter(user => user.role === params.role)
+      filteredUsers = filteredUsers.filter((user) => user.role === params.role)
     }
 
     if (params.status) {
-      filteredUsers = filteredUsers.filter(user => user.status === params.status)
+      filteredUsers = filteredUsers.filter((user) => user.status === params.status)
     }
 
     // 模拟排序
@@ -239,7 +240,7 @@ export function useUserManagement() {
     return {
       code: 200,
       data: { users: paginatedUsers, total },
-      message: 'success'
+      message: 'success',
     }
   }
 
@@ -249,25 +250,25 @@ export function useUserManagement() {
     const newUser: User = {
       ...userData,
       id: Date.now(),
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     }
 
     return {
       code: 200,
       data: newUser,
-      message: '用户创建成功'
+      message: '用户创建成功',
     }
   }
 
   const updateUser = async (id: number, userData: UserUpdateData): Promise<ApiResponse<User>> => {
     await mockApiCall(null, 800)
 
-    const existingUser = tableData.value.find(user => user.id === id)
+    const existingUser = tableData.value.find((user) => user.id === id)
     if (!existingUser) {
       return {
         code: 404,
         data: null as any,
-        message: '用户不存在'
+        message: '用户不存在',
       }
     }
 
@@ -275,7 +276,7 @@ export function useUserManagement() {
     return {
       code: 200,
       data: updatedUser,
-      message: '用户更新成功'
+      message: '用户更新成功',
     }
   }
 
@@ -288,7 +289,7 @@ export function useUserManagement() {
         pageSize: pagination.size,
         keyword: searchForm.value.keyword || undefined,
         role: searchForm.value.role || undefined,
-        status: searchForm.value.status || undefined
+        status: searchForm.value.status || undefined,
       }
 
       const response = await fetchUsers(params)
@@ -316,7 +317,7 @@ export function useUserManagement() {
     searchForm.value = {
       keyword: '',
       role: '',
-      status: ''
+      status: '',
     }
     handleSearch()
   }
@@ -359,7 +360,7 @@ export function useUserManagement() {
       role: '',
       status: 'active',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
     }
     dialogVisible.value = true
     nextTick(() => {
@@ -374,7 +375,7 @@ export function useUserManagement() {
       email: row.email,
       phone: row.phone,
       role: row.role,
-      status: row.status
+      status: row.status,
     }
     dialogVisible.value = true
     nextTick(() => {
@@ -389,7 +390,7 @@ export function useUserManagement() {
       try {
         await mockApiCall(null, 500)
 
-        const index = tableData.value.findIndex(item => item.id === row.id)
+        const index = tableData.value.findIndex((item) => item.id === row.id)
         if (index > -1) {
           tableData.value.splice(index, 1)
           pagination.total = Math.max(0, pagination.total - 1)
@@ -409,16 +410,16 @@ export function useUserManagement() {
 
     const confirmed = await showConfirm(
       `确定要删除选中的 ${selectedRows.value.length} 个用户吗？此操作不可撤销`,
-      '批量删除'
+      '批量删除',
     )
     if (confirmed) {
       isProcessing.value = true
       try {
         await mockApiCall(null, 800)
 
-        const deleteIds = selectedRows.value.map(row => row.id)
+        const deleteIds = selectedRows.value.map((row) => row.id)
         const deletedCount = deleteIds.length
-        tableData.value = tableData.value.filter(item => !deleteIds.includes(item.id))
+        tableData.value = tableData.value.filter((item) => !deleteIds.includes(item.id))
         selectedRows.value = []
         pagination.total = Math.max(0, pagination.total - deletedCount)
         showSuccess(`成功删除 ${deletedCount} 个用户`)
@@ -444,7 +445,7 @@ export function useUserManagement() {
           email: formData.value.email,
           phone: formData.value.phone,
           role: formData.value.role as UserRole,
-          status: formData.value.status as UserStatus
+          status: formData.value.status as UserStatus,
         }
 
         const response = await createUser(userData)
@@ -457,9 +458,9 @@ export function useUserManagement() {
         }
       } else {
         // 编辑模式需要获取当前编辑的用户ID
-        const editingUser = tableData.value.find(user =>
-          user.username === formData.value.username &&
-          user.email === formData.value.email
+        const editingUser = tableData.value.find(
+          (user) =>
+            user.username === formData.value.username && user.email === formData.value.email,
         )
 
         if (editingUser) {
@@ -468,7 +469,7 @@ export function useUserManagement() {
             email: formData.value.email,
             phone: formData.value.phone,
             role: formData.value.role as UserRole,
-            status: formData.value.status as UserStatus
+            status: formData.value.status as UserStatus,
           }
 
           const response = await updateUser(editingUser.id, userData)
@@ -558,6 +559,6 @@ export function useUserManagement() {
     handleBatchDelete,
     handleSubmit,
     handleCancel,
-    handleDialogClose
+    handleDialogClose,
   }
 }

@@ -4,12 +4,7 @@
       <!-- Logo区域 -->
       <div class="app-header__logo">
         <router-link to="/" class="logo-link">
-          <img
-            v-if="!compact"
-            src="@/assets/logo.svg"
-            alt="Vue Editor"
-            class="logo-image"
-          />
+          <img v-if="!compact" src="@/assets/logo.svg" alt="Vue Editor" class="logo-image" />
           <h1 v-if="!compact" class="logo-text">Vue Editor</h1>
           <h1 v-else class="logo-text logo-text--compact">VE</h1>
         </router-link>
@@ -49,6 +44,16 @@
             <el-menu-item index="/demo/integration">集成演示</el-menu-item>
           </el-sub-menu>
 
+          <el-sub-menu index="crud">
+            <template #title>
+              <el-icon><Setting /></el-icon>
+              <span v-if="!compact">系统管理</span>
+            </template>
+            <el-menu-item index="/crud/user">用户管理</el-menu-item>
+            <el-menu-item index="/crud/role">角色管理</el-menu-item>
+            <el-menu-item index="/crud/permission">权限管理</el-menu-item>
+          </el-sub-menu>
+
           <el-menu-item index="/about">
             <el-icon><InfoFilled /></el-icon>
             <span v-if="!compact">关于</span>
@@ -61,12 +66,7 @@
         <theme-toggle />
 
         <!-- 移动端菜单按钮 -->
-        <el-button
-          v-if="isMobile"
-          text
-          @click="toggleMobileMenu"
-          class="mobile-menu-button"
-        >
+        <el-button v-if="isMobile" text @click="toggleMobileMenu" class="mobile-menu-button">
           <el-icon size="20"><Menu /></el-icon>
         </el-button>
       </div>
@@ -80,11 +80,7 @@
       size="280px"
       class="mobile-nav-drawer"
     >
-      <el-menu
-        :default-active="activeRoute"
-        :router="true"
-        @select="handleMobileMenuSelect"
-      >
+      <el-menu :default-active="activeRoute" :router="true" @select="handleMobileMenuSelect">
         <el-menu-item index="/">
           <el-icon><House /></el-icon>
           <span>首页</span>
@@ -110,6 +106,16 @@
           <el-menu-item index="/demo/integration">集成演示</el-menu-item>
         </el-sub-menu>
 
+        <el-sub-menu index="crud">
+          <template #title>
+            <el-icon><Setting /></el-icon>
+            <span>系统管理</span>
+          </template>
+          <el-menu-item index="/crud/user">用户管理</el-menu-item>
+          <el-menu-item index="/crud/role">角色管理</el-menu-item>
+          <el-menu-item index="/crud/permission">权限管理</el-menu-item>
+        </el-sub-menu>
+
         <el-menu-item index="/about">
           <el-icon><InfoFilled /></el-icon>
           <span>关于</span>
@@ -124,13 +130,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useResponsive } from '@/composables/useResponsive'
 import ThemeToggle from './ThemeToggle.vue'
-import {
-  House,
-  Edit,
-  Grid,
-  InfoFilled,
-  Menu
-} from '@element-plus/icons-vue'
+import { House, Edit, Grid, InfoFilled, Setting, Menu } from '@element-plus/icons-vue'
 
 interface Props {
   /** 是否为紧凑模式 */
@@ -138,7 +138,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  compact: false
+  compact: false,
 })
 
 const route = useRoute()
@@ -310,7 +310,7 @@ const toggleMobileMenu = () => {
 }
 
 // 抽屉样式调整
-:deep(.mobile-nav-drawer) {
+::v-deep(.mobile-nav-drawer) {
   .el-drawer__header {
     margin-bottom: 0;
     padding-bottom: 16px;

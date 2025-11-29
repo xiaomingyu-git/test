@@ -59,13 +59,9 @@
               <div class="expand-content">
                 <h4>详细信息</h4>
                 <p><strong>描述：</strong>{{ row.description }}</p>
-                <p><strong>标签：</strong>
-                  <el-tag
-                    v-for="tag in row.tags"
-                    :key="tag"
-                    size="small"
-                    style="margin-right: 8px;"
-                  >
+                <p>
+                  <strong>标签：</strong>
+                  <el-tag v-for="tag in row.tags" :key="tag" size="small" style="margin-right: 8px">
                     {{ tag }}
                   </el-tag>
                 </p>
@@ -119,7 +115,7 @@ import { ref } from 'vue'
 
 // 页面标题
 defineOptions({
-  name: 'TableView'
+  name: 'TableView',
 })
 
 // 基础表格数据
@@ -129,29 +125,29 @@ const tableData = ref([
     name: '王小虎',
     age: 18,
     address: '北京市朝阳区建国门外大街1号',
-    date: '2023-12-01'
+    date: '2023-12-01',
   },
   {
     id: 2,
     name: '张小丽',
     age: 22,
     address: '上海市浦东新区陆家嘴环路1000号',
-    date: '2023-12-02'
+    date: '2023-12-02',
   },
   {
     id: 3,
     name: '李小明',
     age: 25,
     address: '广州市天河区珠江新城花城大道85号',
-    date: '2023-12-03'
+    date: '2023-12-03',
   },
   {
     id: 4,
     name: '赵小花',
     age: 20,
     address: '深圳市南山区科技园南区深南大道9988号',
-    date: '2023-12-04'
-  }
+    date: '2023-12-04',
+  },
 ])
 
 // 状态表格数据
@@ -160,26 +156,26 @@ const statusTableData = ref([
     name: 'iPhone 15 Pro',
     price: 7999,
     status: 'active',
-    stock: 50
+    stock: 50,
   },
   {
     name: 'MacBook Pro',
     price: 14999,
     status: 'active',
-    stock: 8
+    stock: 8,
   },
   {
     name: 'AirPods Pro',
     price: 1999,
     status: 'inactive',
-    stock: 0
+    stock: 0,
   },
   {
     name: 'iPad Air',
     price: 4599,
     status: 'pending',
-    stock: 25
-  }
+    stock: 25,
+  },
 ])
 
 // 可展开表格数据
@@ -190,7 +186,7 @@ const expandTableData = ref([
     progress: 85,
     description: '基于 Vue 3 + TypeScript + Vite 的现代化前端项目',
     tags: ['Vue3', 'TypeScript', 'Vite'],
-    createTime: '2023-10-15 10:30:00'
+    createTime: '2023-10-15 10:30:00',
   },
   {
     name: 'Node.js API',
@@ -198,7 +194,7 @@ const expandTableData = ref([
     progress: 60,
     description: 'RESTful API 服务，支持用户认证、数据管理等功能',
     tags: ['Node.js', 'Express', 'MongoDB'],
-    createTime: '2023-11-01 14:20:00'
+    createTime: '2023-11-01 14:20:00',
   },
   {
     name: '移动端应用',
@@ -206,8 +202,8 @@ const expandTableData = ref([
     progress: 30,
     description: '跨平台移动应用，支持 iOS 和 Android',
     tags: ['React Native', 'TypeScript'],
-    createTime: '2023-11-20 09:15:00'
-  }
+    createTime: '2023-11-20 09:15:00',
+  },
 ])
 
 // 可排序可筛选表格数据
@@ -219,14 +215,14 @@ const studentTableData = ref([
   { name: '钱七', class: '2班', subject: '语文', score: 98, grade: 'A' },
   { name: '孙八', class: '1班', subject: '英语', score: 85, grade: 'B' },
   { name: '周九', class: '3班', subject: '数学', score: 91, grade: 'A' },
-  { name: '吴十', class: '2班', subject: '语文', score: 73, grade: 'C' }
+  { name: '吴十', class: '2班', subject: '语文', score: 73, grade: 'C' },
 ])
 
 // 科目筛选器
 const subjectFilters = [
   { text: '数学', value: '数学' },
   { text: '语文', value: '语文' },
-  { text: '英语', value: '英语' }
+  { text: '英语', value: '英语' },
 ]
 
 // 筛选后的表格数据
@@ -237,7 +233,7 @@ const getStatusType = (status: string) => {
   const typeMap: Record<string, string> = {
     active: 'success',
     inactive: 'danger',
-    pending: 'warning'
+    pending: 'warning',
   }
   return typeMap[status] || 'info'
 }
@@ -247,7 +243,7 @@ const getStatusText = (status: string) => {
   const textMap: Record<string, string> = {
     active: '在售',
     inactive: '下架',
-    pending: '待上架'
+    pending: '待上架',
   }
   return textMap[status] || '未知'
 }
@@ -264,7 +260,7 @@ const getGradeType = (grade: string) => {
   const typeMap: Record<string, string> = {
     A: 'success',
     B: 'warning',
-    C: 'danger'
+    C: 'danger',
   }
   return typeMap[grade] || 'info'
 }

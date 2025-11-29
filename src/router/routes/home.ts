@@ -9,8 +9,8 @@ export const homeRoutes: RouteRecordRaw[] = [
     meta: {
       title: '首页',
       description: 'Vue Editor - 富文本编辑器解决方案',
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: 'about',
@@ -19,7 +19,7 @@ export const homeRoutes: RouteRecordRaw[] = [
     meta: {
       title: '关于项目',
       description: '了解 Vue Editor 项目详情',
-      requiresAuth: false
-    }
-  }
+      requiresAuth: false,
+    },
+  },
 ]

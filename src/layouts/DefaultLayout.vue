@@ -48,7 +48,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  showBreadcrumb: true
+  showBreadcrumb: true,
 })
 
 const route = useRoute()
@@ -89,13 +89,22 @@ const breadcrumbItems = computed(() => {
       case 'about':
         title = '关于'
         break
+      case 'crud':
+        title = '系统管理'
+        break
+      case 'user':
+        title = '用户管理'
+        break
+      case 'role':
+        title = '角色管理'
+        break
       default:
         title = segment.charAt(0).toUpperCase() + segment.slice(1)
     }
 
     items.push({
       title,
-      path: index < pathSegments.length - 1 ? fullPath : undefined
+      path: index < pathSegments.length - 1 ? fullPath : undefined,
     })
   })
 

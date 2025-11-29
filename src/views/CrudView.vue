@@ -5,13 +5,7 @@
       <div class="page-header">
         <h2 class="page-title">用户管理</h2>
         <div class="page-actions">
-          <el-button
-            type="primary"
-            :icon="Plus"
-            @click="handleCreate"
-          >
-            新增用户
-          </el-button>
+          <el-button type="primary" :icon="Plus" @click="handleCreate"> 新增用户 </el-button>
         </div>
       </div>
 
@@ -107,7 +101,7 @@ const {
   handleDelete,
   handleBatchDelete,
   handleSubmit,
-  handleCancel
+  handleCancel,
 } = useUserManagement()
 
 // 处理表格下拉菜单命令

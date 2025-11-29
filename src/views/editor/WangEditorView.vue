@@ -16,13 +16,9 @@
       <!-- 状态栏 -->
       <div class="editor-statusbar">
         <div class="statusbar-left">
-          <el-text size="small" type="info">
-            字符数: {{ charCount }}
-          </el-text>
+          <el-text size="small" type="info"> 字符数: {{ charCount }} </el-text>
           <el-divider direction="vertical" />
-          <el-text size="small" type="info">
-            最后保存: {{ lastSaved.toLocaleString() }}
-          </el-text>
+          <el-text size="small" type="info"> 最后保存: {{ lastSaved.toLocaleString() }} </el-text>
         </div>
         <div class="statusbar-right">
           <el-space>
@@ -40,11 +36,7 @@
     </div>
 
     <!-- 预览对话框 -->
-    <el-dialog
-      v-model="showPreview"
-      title="内容预览"
-      width="80%"
-    >
+    <el-dialog v-model="showPreview" title="内容预览" width="80%">
       <div class="preview-content" v-html="content"></div>
       <template #footer>
         <el-button @click="showPreview = false">关闭</el-button>
@@ -57,10 +49,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
-import {
-  View,
-  Delete
-} from '@element-plus/icons-vue'
+import { View, Delete } from '@element-plus/icons-vue'
 import WangEditor from '@/components/editor/WangEditor.vue'
 
 // 编辑器状态
@@ -87,8 +76,8 @@ const editorConfig = {
       metaWithUrl: true,
       withCredentials: false,
       timeout: 5 * 1000, // 5秒
-    }
-  }
+    },
+  },
 }
 
 // 示例内容
@@ -121,7 +110,6 @@ const onEditorReady = (editor: any) => {
 const onContentChange = (value: string) => {
   console.log('Content changed:', value.length, 'characters')
 }
-
 
 // 加载示例内容
 const loadExample = () => {
@@ -158,7 +146,7 @@ const copyHtml = async () => {
 
 // 页面标题定义
 defineOptions({
-  name: 'WangEditorView'
+  name: 'WangEditorView',
 })
 </script>
 
@@ -223,7 +211,8 @@ defineOptions({
     color: var(--el-text-color-regular);
   }
 
-  :deep(ul), :deep(ol) {
+  :deep(ul),
+  :deep(ol) {
     margin-bottom: 1rem;
     padding-left: 2rem;
     color: var(--el-text-color-regular);
@@ -272,7 +261,8 @@ defineOptions({
     margin: 1.5rem 0;
     border: 1px solid var(--el-border-color-light);
 
-    th, td {
+    th,
+    td {
       border: 1px solid var(--el-border-color-light);
       padding: 0.75rem;
       text-align: left;

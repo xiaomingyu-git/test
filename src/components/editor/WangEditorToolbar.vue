@@ -27,7 +27,7 @@ interface WangEditorToolbarProps {
 }
 
 const props = withDefaults(defineProps<WangEditorToolbarProps>(), {
-  mode: 'default'
+  mode: 'default',
 })
 
 // 计算工具栏配置
@@ -115,8 +115,8 @@ const toolbarConfig = computed((): Partial<IToolbarConfig> => {
 
       // 撤销重做
       'undo',
-      'redo'
-    ]
+      'redo',
+    ],
   }
 
   // 合并用户配置

@@ -4,10 +4,7 @@
     <div class="editor-container" :style="{ height: containerHeight }">
       <editor-content :editor="editor" />
       <!-- 表格工具栏，当选中表格时显示 -->
-      <div
-        v-if="editor && editor.isActive('table')"
-        class="enhanced-table-toolbar"
-      >
+      <div v-if="editor && editor.isActive('table')" class="enhanced-table-toolbar">
         <el-card shadow="hover">
           <div class="toolbar-header">
             <span class="toolbar-title">
@@ -53,13 +50,21 @@
             <div class="toolbar-section">
               <span class="section-title">表格操作</span>
               <el-space size="small">
-                <el-button size="small" @click="toggleHeaderRow" title="切换表头行">
-                  H
-                </el-button>
-                <el-button size="small" @click="mergeCells" :disabled="!canMergeCells" title="合并单元格">
+                <el-button size="small" @click="toggleHeaderRow" title="切换表头行"> H </el-button>
+                <el-button
+                  size="small"
+                  @click="mergeCells"
+                  :disabled="!canMergeCells"
+                  title="合并单元格"
+                >
                   合并
                 </el-button>
-                <el-button size="small" @click="splitCell" :disabled="!canSplitCell" title="拆分单元格">
+                <el-button
+                  size="small"
+                  @click="splitCell"
+                  :disabled="!canSplitCell"
+                  title="拆分单元格"
+                >
                   拆分
                 </el-button>
                 <el-button size="small" @click="deleteTable" type="danger" title="删除整个表格">
@@ -101,7 +106,6 @@ const lowlight = createLowlight(common)
 
 import type { Editor } from '@tiptap/core'
 
-
 // TiptapEditor组件接口定义 - 使用JSDoc注释
 interface TiptapEditorProps {
   /** 编辑器内容 - 支持双向绑定 */
@@ -126,19 +130,19 @@ interface TiptapEditorEmits {
   'update:modelValue': [value: string]
 
   /** 内容变化事件 - 任何内容改变时触发 */
-  'change': [value: string]
+  change: [value: string]
 
   /** 获得焦点事件 */
-  'focus': [event: FocusEvent]
+  focus: [event: FocusEvent]
 
   /** 失去焦点事件 */
-  'blur': [event: FocusEvent]
+  blur: [event: FocusEvent]
 
   /** 编辑器就绪事件 */
-  'ready': [editor: Editor]
+  ready: [editor: Editor]
 
   /** 保存事件 */
-  'save': [content: string]
+  save: [content: string]
 }
 
 const props = withDefaults(defineProps<TiptapEditorProps>(), {
@@ -200,7 +204,7 @@ const editor = useEditor({
         class: 'tiptap-table-cell',
       },
     }),
-    ],
+  ],
   onUpdate: ({ editor }) => {
     const html = editor.getHTML()
     emit('update:modelValue', html)
@@ -214,41 +218,49 @@ const editor = useEditor({
   },
   onCreate: ({ editor }) => {
     emit('ready', editor)
-  }
+  },
 })
 
 // 监听editable变化
-watch(() => props.editable, (newValue) => {
-  if (editor.value && newValue !== undefined) {
-    editor.value.setEditable(newValue)
-  }
-})
+watch(
+  () => props.editable,
+  (newValue) => {
+    if (editor.value && newValue !== undefined) {
+      editor.value.setEditable(newValue)
+    }
+  },
+)
 
 // 监听modelValue变化
-watch(() => props.modelValue, (newValue) => {
-  if (editor.value && newValue !== undefined && editor.value.getHTML() !== newValue) {
-    // 如果编辑器不可编辑，直接设置内容
-    if (!props.editable) {
-      editor.value.commands.setContent(newValue, { emitUpdate: false })
-    } else {
-      // 可编辑时，只有在内容真正不同时才设置，避免破坏光标位置
-      const currentHtml = editor.value.getHTML()
-      if (currentHtml !== newValue) {
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    if (editor.value && newValue !== undefined && editor.value.getHTML() !== newValue) {
+      // 如果编辑器不可编辑，直接设置内容
+      if (!props.editable) {
         editor.value.commands.setContent(newValue, { emitUpdate: false })
+      } else {
+        // 可编辑时，只有在内容真正不同时才设置，避免破坏光标位置
+        const currentHtml = editor.value.getHTML()
+        if (currentHtml !== newValue) {
+          editor.value.commands.setContent(newValue, { emitUpdate: false })
+        }
       }
     }
-  }
-})
-
+  },
+)
 
 // 监听autofocus变化
-watch(() => props.autofocus, (newValue) => {
-  if (editor.value && newValue) {
-    nextTick(() => {
-      editor.value?.commands?.focus()
-    })
-  }
-})
+watch(
+  () => props.autofocus,
+  (newValue) => {
+    if (editor.value && newValue) {
+      nextTick(() => {
+        editor.value?.commands?.focus()
+      })
+    }
+  },
+)
 
 // 添加键盘快捷键监听 - 使用明确的返回类型
 const setupKeyboardShortcuts = (): (() => void) => {
@@ -295,7 +307,11 @@ const setupKeyboardShortcuts = (): (() => void) => {
       const num = parseInt(key)
       if (num >= 1 && num <= 6) {
         event.preventDefault()
-        editor.value.chain().focus().toggleHeading({ level: num as 1 | 2 | 3 | 4 | 5 | 6 }).run()
+        editor.value
+          .chain()
+          .focus()
+          .toggleHeading({ level: num as 1 | 2 | 3 | 4 | 5 | 6 })
+          .run()
       }
     }
 
@@ -326,7 +342,7 @@ const setupKeyboardShortcuts = (): (() => void) => {
           event.preventDefault()
           editor.value.chain().focus().setTextAlign('right').run()
           break
-              }
+      }
     }
   }
 
@@ -339,7 +355,11 @@ const setupKeyboardShortcuts = (): (() => void) => {
 
 // 计算容器高度 - 使用明确的返回类型
 const containerHeight = computed((): string => {
-  return props.height ? (typeof props.height === 'number' ? `${props.height}px` : props.height) : '300px'
+  return props.height
+    ? typeof props.height === 'number'
+      ? `${props.height}px`
+      : props.height
+    : '300px'
 })
 
 // 表格操作方法
@@ -372,17 +392,19 @@ const deleteRow = (): void => {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
-  }).then(() => {
-    try {
-      editor.value?.chain().focus().deleteRow().run()
-      ElMessage.success('已删除行')
-    } catch (error) {
-      console.error('删除行失败:', error)
-      ElMessage.error('删除行失败')
-    }
-  }).catch(() => {
-    // 用户取消删除
   })
+    .then(() => {
+      try {
+        editor.value?.chain().focus().deleteRow().run()
+        ElMessage.success('已删除行')
+      } catch (error) {
+        console.error('删除行失败:', error)
+        ElMessage.error('删除行失败')
+      }
+    })
+    .catch(() => {
+      // 用户取消删除
+    })
 }
 
 const addColumnBefore = (): void => {
@@ -414,17 +436,19 @@ const deleteColumn = (): void => {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
-  }).then(() => {
-    try {
-      editor.value?.chain().focus().deleteColumn().run()
-      ElMessage.success('已删除列')
-    } catch (error) {
-      console.error('删除列失败:', error)
-      ElMessage.error('删除列失败')
-    }
-  }).catch(() => {
-    // 用户取消删除
   })
+    .then(() => {
+      try {
+        editor.value?.chain().focus().deleteColumn().run()
+        ElMessage.success('已删除列')
+      } catch (error) {
+        console.error('删除列失败:', error)
+        ElMessage.error('删除列失败')
+      }
+    })
+    .catch(() => {
+      // 用户取消删除
+    })
 }
 
 const toggleHeaderRow = (): void => {
@@ -475,17 +499,19 @@ const deleteTable = (): void => {
     confirmButtonText: '确定删除',
     cancelButtonText: '取消',
     type: 'warning',
-  }).then(() => {
-    try {
-      editor.value?.chain().focus().deleteTable().run()
-      ElMessage.success('已删除表格')
-    } catch (error) {
-      console.error('删除表格失败:', error)
-      ElMessage.error('删除表格失败')
-    }
-  }).catch(() => {
-    // 用户取消删除
   })
+    .then(() => {
+      try {
+        editor.value?.chain().focus().deleteTable().run()
+        ElMessage.success('已删除表格')
+      } catch (error) {
+        console.error('删除表格失败:', error)
+        ElMessage.error('删除表格失败')
+      }
+    })
+    .catch(() => {
+      // 用户取消删除
+    })
 }
 
 // 设置快捷键

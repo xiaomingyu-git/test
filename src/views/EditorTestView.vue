@@ -28,15 +28,23 @@
                 <el-button type="primary" @click="setSampleContent">设置示例内容</el-button>
                 <el-button type="success" @click="clearContent">清空内容</el-button>
                 <el-button type="warning" @click="getEditorContent">获取内容</el-button>
-                <el-button type="info" @click="toggleEditable">{{ editable ? '只读' : '编辑' }}</el-button>
+                <el-button type="info" @click="toggleEditable">{{
+                  editable ? '只读' : '编辑'
+                }}</el-button>
               </el-space>
             </el-card>
             <el-card header="状态信息" class="status-card">
               <el-descriptions :column="1" border>
                 <el-descriptions-item label="字符数">{{ content.length }}</el-descriptions-item>
-                <el-descriptions-item label="是否可编辑">{{ editable ? '是' : '否' }}</el-descriptions-item>
-                <el-descriptions-item label="编辑器状态">{{ editorReady ? '已就绪' : '未就绪' }}</el-descriptions-item>
-                <el-descriptions-item label="最后更新时间">{{ lastUpdateTime }}</el-descriptions-item>
+                <el-descriptions-item label="是否可编辑">{{
+                  editable ? '是' : '否'
+                }}</el-descriptions-item>
+                <el-descriptions-item label="编辑器状态">{{
+                  editorReady ? '已就绪' : '未就绪'
+                }}</el-descriptions-item>
+                <el-descriptions-item label="最后更新时间">{{
+                  lastUpdateTime
+                }}</el-descriptions-item>
               </el-descriptions>
             </el-card>
           </el-col>

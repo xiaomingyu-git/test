@@ -61,7 +61,8 @@ onMounted(() => {
   // 监听系统主题变化
   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
   mediaQuery.addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) { // 只有在用户没有手动设置时才响应系统变化
+    if (!localStorage.getItem('theme')) {
+      // 只有在用户没有手动设置时才响应系统变化
       isDark.value = e.matches
       toggleTheme(e.matches)
     }

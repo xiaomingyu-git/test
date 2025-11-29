@@ -44,7 +44,7 @@
         <!-- Card组件测试 -->
         <div class="component-group">
           <h4>卡片组件 (Card)</h4>
-          <el-card style="width: 300px;">
+          <el-card style="width: 300px">
             <p>这是一个卡片组件测试内容</p>
             <el-button type="text">了解更多</el-button>
           </el-card>
@@ -91,12 +91,7 @@
     </el-card>
 
     <!-- 浮动操作按钮 -->
-    <el-button
-      type="primary"
-      circle
-      class="floating-button"
-      @click="incrementClick"
-    >
+    <el-button type="primary" circle class="floating-button" @click="incrementClick">
       <el-icon><Plus /></el-icon>
     </el-button>
   </div>

@@ -9,8 +9,8 @@ export const demoRoutes: RouteRecordRaw[] = [
     meta: {
       title: '表格组件演示',
       description: 'Element Plus 表格组件功能演示',
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: 'card',
@@ -19,8 +19,8 @@ export const demoRoutes: RouteRecordRaw[] = [
     meta: {
       title: '卡片组件演示',
       description: 'Element Plus 卡片组件功能演示',
-      requiresAuth: false
-    }
+      requiresAuth: false,
+    },
   },
   {
     path: 'integration',
@@ -30,8 +30,8 @@ export const demoRoutes: RouteRecordRaw[] = [
       title: '集成演示',
       description: '编辑器与其他组件的集成演示',
       requiresAuth: false,
-      layout: 'EditorLayout'
-    }
+      layout: 'EditorLayout',
+    },
   },
   {
     path: 'crud',
@@ -40,7 +40,7 @@ export const demoRoutes: RouteRecordRaw[] = [
     meta: {
       title: 'CRUD 标准页面',
       description: '完整的增删改查标准页面演示，包含弹窗编辑功能',
-      requiresAuth: false
-    }
-  }
+      requiresAuth: false,
+    },
+  },
 ]
