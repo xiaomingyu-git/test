@@ -2,6 +2,64 @@
 
 TypeScript best practices for type safety and maintainability in Vue.js applications.
 
+## 🔧 Automatic Error Resolution
+
+### Overview
+
+This project includes an intelligent TypeScript error auto-resolution system that automatically detects and fixes common TypeScript errors during development. This system works alongside the manual standards described below.
+
+### Auto-Fix Capabilities
+
+The system can automatically resolve:
+
+- **Unused Variables (TS6133)**: Prefix unused parameters, remove unused imports
+- **Implicit Any Types (TS7005)**: Add type annotations, infer common types
+- **Duplicate Declarations (TS2580)**: Auto-rename conflicting variables
+- **Import Issues**: Clean up unused imports while preserving functionality
+
+### Integration with Development
+
+The auto-fix system integrates seamlessly with your workflow:
+
+```typescript
+// Before (auto-detected error)
+function handleUser(user: any, data: any) {
+  const unused = "this will be flagged";
+  return user.name;
+}
+
+// After auto-fix
+function handleUser(_user: { name: string }, data: unknown) {
+  // const unused = "this will be commented out";
+  return _user.name;
+}
+```
+
+### Configuration
+
+Control auto-fix behavior via `.claude/auto-fix-config.json`:
+
+```json
+{
+  "autoFixEnabled": true,
+  "runOnStop": true,
+  "fixStrategies": {
+    "unusedVariables": { "enabled": true },
+    "implicitAny": { "enabled": true },
+    "duplicateDeclarations": { "enabled": true }
+  }
+}
+```
+
+### Best Practices with Auto-Fix
+
+1. **Review Changes**: Always review auto-applied fixes before committing
+2. **Test Functionality**: Ensure auto-fixes don't break functionality
+3. **Customize Rules**: Adjust configuration based on project needs
+4. **Manual Override**: Manually fix complex type issues
+
+**Note**: The auto-fix system handles common patterns but doesn't replace understanding TypeScript fundamentals. Use it as a productivity tool, not a crutch.
+
 ---
 
 ## Strict Mode

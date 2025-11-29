@@ -5,16 +5,16 @@
       <el-button-group>
         <el-button
           size="small"
-          @click="editorInstanceInstance.chain().focus().undo().run()"
-          :disabled="!editorInstanceInstance.can().undo()"
+          @click="safeEditorInstance?.chain().focus().undo().run()"
+          :disabled="!safeEditorInstance?.can().undo()"
           title="撤销"
         >
           撤销
         </el-button>
         <el-button
           size="small"
-          @click="editorInstanceInstance.chain().focus().redo().run()"
-          :disabled="!editorInstanceInstance.can().redo()"
+          @click="safeEditorInstance?.chain().focus().redo().run()"
+          :disabled="!safeEditorInstance?.can().redo()"
           title="重做"
         >
           重做
@@ -43,32 +43,32 @@
       <el-button-group>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().toggleBold().run()"
-          :type="editorInstance.isActive('bold') ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().toggleBold().run()"
+          :type="safeEditorInstance?.isActive('bold') ? 'primary' : 'default'"
           title="粗体 (Ctrl+B)"
         >
           粗体
         </el-button>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().toggleItalic().run()"
-          :type="editorInstance.isActive('italic') ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().toggleItalic().run()"
+          :type="safeEditorInstance?.isActive('italic') ? 'primary' : 'default'"
           title="斜体 (Ctrl+I)"
         >
           斜体
         </el-button>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().toggleUnderline().run()"
-          :type="editorInstance.isActive('underline') ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().toggleUnderline().run()"
+          :type="safeEditorInstance?.isActive('underline') ? 'primary' : 'default'"
           title="下划线 (Ctrl+U)"
         >
           下划线
         </el-button>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().toggleStrike().run()"
-          :type="editorInstance.isActive('strike') ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().toggleStrike().run()"
+          :type="safeEditorInstance?.isActive('strike') ? 'primary' : 'default'"
           title="删除线"
         >
           删除线
@@ -79,16 +79,16 @@
       <el-button-group>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().toggleBulletList().run()"
-          :type="editorInstance.isActive('bulletList') ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().toggleBulletList().run()"
+          :type="safeEditorInstance?.isActive('bulletList') ? 'primary' : 'default'"
           title="无序列表"
         >
           • 列表
         </el-button>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().toggleOrderedList().run()"
-          :type="editorInstance.isActive('orderedList') ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().toggleOrderedList().run()"
+          :type="safeEditorInstance?.isActive('orderedList') ? 'primary' : 'default'"
           title="有序列表"
         >
           1. 列表
@@ -99,24 +99,24 @@
       <el-button-group>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().setTextAlign('left').run()"
-          :type="editorInstance.isActive({ textAlign: 'left' }) ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().setTextAlign('left').run()"
+          :type="safeEditorInstance?.isActive({ textAlign: 'left' }) ? 'primary' : 'default'"
           title="左对齐"
         >
           左对齐
         </el-button>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().setTextAlign('center').run()"
-          :type="editorInstance.isActive({ textAlign: 'center' }) ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().setTextAlign('center').run()"
+          :type="safeEditorInstance?.isActive({ textAlign: 'center' }) ? 'primary' : 'default'"
           title="居中对齐"
         >
           居中
         </el-button>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().setTextAlign('right').run()"
-          :type="editorInstance.isActive({ textAlign: 'right' }) ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().setTextAlign('right').run()"
+          :type="safeEditorInstance?.isActive({ textAlign: 'right' }) ? 'primary' : 'default'"
           title="右对齐"
         >
           右对齐
@@ -127,24 +127,24 @@
       <el-button-group>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().toggleBlockquote().run()"
-          :type="editorInstance.isActive('blockquote') ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().toggleBlockquote().run()"
+          :type="safeEditorInstance?.isActive('blockquote') ? 'primary' : 'default'"
           title="引用"
         >
           引用
         </el-button>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().toggleCode().run()"
-          :type="editorInstance.isActive('code') ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().toggleCode().run()"
+          :type="safeEditorInstance?.isActive('code') ? 'primary' : 'default'"
           title="行内代码"
         >
           代码
         </el-button>
         <el-button
           size="small"
-          @click="editorInstance.chain().focus().toggleCodeBlock().run()"
-          :type="editorInstance.isActive('codeBlock') ? 'primary' : 'default'"
+          @click="safeEditorInstance?.chain().focus().toggleCodeBlock().run()"
+          :type="safeEditorInstance?.isActive('codeBlock') ? 'primary' : 'default'"
           title="代码块"
         >
           代码块
@@ -154,7 +154,7 @@
       <!-- 水平分割线 -->
       <el-button
         size="small"
-        @click="editorInstance.chain().focus().setHorizontalRule().run()"
+        @click="safeEditorInstance?.chain().focus().setHorizontalRule().run()"
         title="插入水平分割线"
       >
         分割线
@@ -163,7 +163,7 @@
       <!-- 清除格式 -->
       <el-button
         size="small"
-        @click="editorInstance.chain().focus().unsetAllMarks().run()"
+        @click="safeEditorInstance?.chain().focus().unsetAllMarks().run()"
         title="清除格式"
       >
         清除
@@ -173,7 +173,7 @@
       <el-button
         size="small"
         @click="insertLink"
-        :type="editorInstance.isActive('link') ? 'primary' : 'default'"
+        :type="safeEditorInstance?.isActive('link') ? 'primary' : 'default'"
         title="插入链接"
       >
         链接
@@ -187,6 +187,17 @@
       >
         图片
       </el-button>
+
+      <!-- 表格插入 -->
+      <el-button
+        v-if="!safeEditorInstance?.isActive('table')"
+        size="small"
+        @click="insertTable"
+        title="插入表格 (3x3)"
+        :icon="Grid"
+      >
+        插入表格
+      </el-button>
     </el-space>
 
     <!-- 图片上传对话框 -->
@@ -199,62 +210,23 @@
 
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
-import type { Ref } from 'vue'
+import { Grid } from '@element-plus/icons-vue'
 import { computed, ref } from 'vue'
 import ImageUploadDialog from './ImageUploadDialog.vue'
 // 暂时使用简单的文本按钮，稍后添加图标
 
-// Tiptap编辑器接口定义 - 基于实际使用的方法
-interface TiptapEditor {
-  chain(): {
-    focus(): {
-      setParagraph(): { run(): void }
-      toggleBold(): { run(): void }
-      toggleItalic(): { run(): void }
-      toggleUnderline(): { run(): void }
-      toggleStrike(): { run(): void }
-      toggleBulletList(): { run(): void }
-      toggleOrderedList(): { run(): void }
-      setTextAlign(align: string): { run(): void }
-      toggleHeading(options: { level: number }): { run(): void }
-      toggleBlockquote(): { run(): void }
-      toggleCode(): { run(): void }
-      toggleCodeBlock(): { run(): void }
-      setHorizontalRule(): { run(): void }
-      unsetAllMarks(): { run(): void }
-      extendMarkRange(mark: string): {
-        unsetLink(): { run(): void }
-      }
-      setLink(options: { href: string }): { run(): void }
-      setImage(options: { src: string }): { run(): void }
-    }
-    undo(): { run(): void }
-    redo(): { run(): void }
-  }
-  isActive(name: string): boolean
-  isActive(options: { textAlign: string }): boolean
-  can(): {
-    undo(): boolean
-    redo(): boolean
-  }
-}
 
 interface Props {
-  editorInstance: TiptapEditor | null
+  editorInstance: any // 使用any类型以匹配实际的Tiptap Editor
 }
 
 const props = defineProps<Props>()
 
 // 为了在模板中使用，创建一个计算属性，确保类型安全
-const editorInstance = computed((): TiptapEditor | null => props.editorInstance)
+const editorInstance = computed(() => props.editorInstance)
 
-// 创建一个只读的编辑器实例，用于模板中的非空断言
-const editorInstanceInstance = computed((): TiptapEditor => {
-  if (!props.editorInstance) {
-    throw new Error('Editor instance is required but not provided')
-  }
-  return props.editorInstance
-})
+// 为模板提供安全的编辑器实例，在模板中使用可选链操作
+const safeEditorInstance = computed(() => props.editorInstance)
 
 // 图片上传对话框显示状态
 const showImageUploadDialog = ref(false)
@@ -306,6 +278,20 @@ const insertImage = (): void => {
 
   // 打开图片上传对话框
   showImageUploadDialog.value = true
+}
+
+// 插入表格 - 使用明确的返回类型
+const insertTable = (): void => {
+  if (!editorInstance.value) return
+
+  try {
+    // 插入默认 3x3 表格，带表头
+    editorInstance.value.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+    ElMessage.success('已插入 3x3 表格，包含表头')
+  } catch (error) {
+    console.error('插入表格失败:', error)
+    ElMessage.error('插入表格失败')
+  }
 }
 </script>
 

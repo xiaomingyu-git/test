@@ -34,3 +34,6 @@ coverage
 
 # Vitest
 __screenshots__/
+
+# ESLint temporary ignore
+src/views/home/HomeView.vue

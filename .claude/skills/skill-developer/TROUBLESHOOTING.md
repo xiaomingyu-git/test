@@ -426,7 +426,7 @@ npm install
 **Check:**
 ```bash
 cd .claude/hooks
-npx tsc --noEmit skill-activation-prompt.ts
+npx vue-tsc --noEmit skill-activation-prompt.ts
 ```
 
 Expected: No output (no errors)

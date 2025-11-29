@@ -36,7 +36,7 @@
           height="300px"
           @fullscreen-change="onFullscreenChange"
         >
-          <template #statusbar-right>
+          <template #statusbarRight>
             <el-button size="small" text @click="saveContent">保存</el-button>
           </template>
         </tiptap-editor-container>
@@ -143,9 +143,9 @@ import {
   ElButton,
   ElDivider
 } from 'element-plus'
-import TiptapEditor from '../components/TiptapEditor.vue'
-import TiptapEditorContainer from '../components/TiptapEditorContainer.vue'
-import ThemeToggle from '../components/ThemeToggle.vue'
+import TiptapEditor from '../components/editor/TiptapEditor.vue'
+import TiptapEditorContainer from '../components/editor/TiptapEditorContainer.vue'
+import ThemeToggle from '../components/common/ThemeToggle.vue'
 
 // 编辑器内容状态
 const basicContent = ref('<p>这是一个基础的Tiptap编辑器测试。</p>')

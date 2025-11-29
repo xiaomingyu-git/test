@@ -1,0 +1,858 @@
+<template>
+  <div class="editor-comparison">
+    <div class="comparison-header">
+      <h1 class="comparison-title">编辑器对比</h1>
+      <p class="comparison-description">Tiptap 与 wangEditor 功能对比</p>
+    </div>
+
+    <div class="comparison-content">
+      <!-- 功能对比表格 -->
+      <div class="comparison-section">
+        <h2 class="section-title">功能特性对比</h2>
+        <el-table :data="comparisonData" border style="width: 100%">
+          <el-table-column prop="feature" label="功能特性" width="200" />
+          <el-table-column prop="tiptap" label="Tiptap" width="250">
+            <template #default="{ row }">
+              <div class="feature-cell">
+                <el-icon v-if="row.tiptapSupport" class="support-icon">
+                  <Check />
+                </el-icon>
+                <el-icon v-else class="no-support-icon">
+                  <Close />
+                </el-icon>
+                <span>{{ row.tiptap }}</span>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="wangEditor" label="wangEditor" width="250">
+            <template #default="{ row }">
+              <div class="feature-cell">
+                <el-icon v-if="row.wangSupport" class="support-icon">
+                  <Check />
+                </el-icon>
+                <el-icon v-else class="no-support-icon">
+                  <Close />
+                </el-icon>
+                <span>{{ row.wangEditor }}</span>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="description" label="说明" />
+        </el-table>
+      </div>
+
+      <!-- 实时对比演示 -->
+      <div class="comparison-section">
+        <h2 class="section-title">实时对比演示</h2>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <div class="editor-panel">
+              <div class="panel-header">
+                <h3>Tiptap Editor</h3>
+                <el-button type="primary" size="small" @click="testTiptapFeature">
+                  测试功能
+                </el-button>
+              </div>
+              <div class="editor-container">
+                <TiptapEditor
+                  v-model="tiptapContent"
+                  placeholder="在这里测试 Tiptap 编辑器..."
+                  height="300px"
+                />
+              </div>
+              <div class="panel-info">
+                <p><strong>版本：</strong>Tiptap v2</p>
+                <p><strong>特点：</strong>基于 ProseMirror，可扩展性强</p>
+                <p><strong>字符数：</strong>{{ tiptapContent.length }}</p>
+              </div>
+            </div>
+          </el-col>
+
+          <el-col :span="12">
+            <div class="editor-panel">
+              <div class="panel-header">
+                <h3>wangEditor</h3>
+                <el-button type="success" size="small" @click="testWangFeature">
+                  测试功能
+                </el-button>
+              </div>
+              <div class="editor-container">
+                <WangEditor
+                  v-model="wangContent"
+                  placeholder="在这里测试 wangEditor..."
+                  height="300px"
+                />
+              </div>
+              <div class="panel-info">
+                <p><strong>版本：</strong>wangEditor v5</p>
+                <p><strong>特点：</strong>轻量级，易上手</p>
+                <p><strong>字符数：</strong>{{ wangContent.length }}</p>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+
+      <!-- 性能对比 -->
+      <div class="comparison-section">
+        <h2 class="section-title">性能对比</h2>
+        <el-row :gutter="20">
+          <el-col :span="8" v-for="metric in performanceMetrics" :key="metric.name">
+            <el-card class="metric-card">
+              <div class="metric-header">
+                <h3>{{ metric.name }}</h3>
+                <el-icon :size="24">
+                  <component :is="metric.icon" />
+                </el-icon>
+              </div>
+              <div class="metric-content">
+                <div class="metric-comparison">
+                  <div class="metric-item">
+                    <span class="editor-label">Tiptap:</span>
+                    <span class="metric-value tiptap">{{ metric.tiptapValue }}</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="editor-label">wangEditor:</span>
+                    <span class="metric-value wang">{{ metric.wangValue }}</span>
+                  </div>
+                </div>
+                <el-progress
+                  :percentage="metric.tiptapScore"
+                  :color="'#409EFF'"
+                  :show-text="false"
+                  class="progress-bar"
+                />
+                <div class="metric-description">{{ metric.description }}</div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
+
+      <!-- 适用场景对比 -->
+      <div class="comparison-section">
+        <h2 class="section-title">适用场景对比</h2>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-card class="scenario-card tiptap-scenario">
+              <template #header>
+                <div class="scenario-header">
+                  <h3>Tiptap 适用场景</h3>
+                  <el-tag type="primary">专业级</el-tag>
+                </div>
+              </template>
+              <div class="scenario-content">
+                <ul>
+                  <li v-for="scenario in tiptapScenarios" :key="scenario">
+                    <el-icon><Star /></el-icon>
+                    {{ scenario }}
+                  </li>
+                </ul>
+              </div>
+            </el-card>
+          </el-col>
+
+          <el-col :span="12">
+            <el-card class="scenario-card wang-scenario">
+              <template #header>
+                <div class="scenario-header">
+                  <h3>wangEditor 适用场景</h3>
+                  <el-tag type="success">轻量级</el-tag>
+                </div>
+              </template>
+              <div class="scenario-content">
+                <ul>
+                  <li v-for="scenario in wangScenarios" :key="scenario">
+                    <el-icon><Star /></el-icon>
+                    {{ scenario }}
+                  </li>
+                </ul>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+      </div>
+
+      <!-- 学习资源对比 -->
+      <div class="comparison-section">
+        <h2 class="section-title">学习资源对比</h2>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <div class="resources-card">
+              <h3>Tiptap 学习资源</h3>
+              <div class="resource-list">
+                <div v-for="resource in tiptapResources" :key="resource.title" class="resource-item">
+                  <div class="resource-info">
+                    <h4>{{ resource.title }}</h4>
+                    <p>{{ resource.description }}</p>
+                  </div>
+                  <div class="resource-link">
+                    <el-button type="primary" size="small" @click="openResource(resource.link)">
+                      访问
+                    </el-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-col>
+
+          <el-col :span="12">
+            <div class="resources-card">
+              <h3>wangEditor 学习资源</h3>
+              <div class="resource-list">
+                <div v-for="resource in wangResources" :key="resource.title" class="resource-item">
+                  <div class="resource-info">
+                    <h4>{{ resource.title }}</h4>
+                    <p>{{ resource.description }}</p>
+                  </div>
+                  <div class="resource-link">
+                    <el-button type="success" size="small" @click="openResource(resource.link)">
+                      访问
+                    </el-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+
+      <!-- 总结建议 -->
+      <div class="comparison-section">
+        <h2 class="section-title">总结建议</h2>
+        <el-card class="summary-card">
+          <div class="summary-content">
+            <div class="recommendation">
+              <h3>如何选择？</h3>
+              <el-radio-group v-model="selectedUseCase" @change="updateRecommendation">
+                <el-radio label="simple">简单文本编辑</el-radio>
+                <el-radio label="professional">专业内容创作</el-radio>
+                <el-radio label="team">团队协作</el-radio>
+                <el-radio label="custom">高度定制化</el-radio>
+              </el-radio-group>
+            </div>
+
+            <div class="recommendation-result" v-if="recommendation">
+              <div class="result-card" :class="recommendation.recommended">
+                <h4>{{ recommendation.title }}</h4>
+                <p>{{ recommendation.reason }}</p>
+                <div class="recommendation-features">
+                  <el-tag
+                    v-for="feature in recommendation.features"
+                    :key="feature"
+                    size="small"
+                    class="feature-tag"
+                  >
+                    {{ feature }}
+                  </el-tag>
+                </div>
+              </div>
+            </div>
+          </div>
+        </el-card>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+import { ElMessage } from 'element-plus'
+import { Check, Close, Star, Timer, Memory, Document } from '@element-plus/icons-vue'
+import TiptapEditor from '@/components/TiptapEditor.vue'
+import WangEditor from '@/components/WangEditor.vue'
+
+// 页面标题
+defineOptions({
+  name: 'EditorComparison'
+})
+
+// 编辑器内容
+const tiptapContent = ref('<h2>Tiptap 编辑器演示</h2><p>这是一个基于 ProseMirror 的现代化富文本编辑器。</p>')
+const wangContent = ref('<h2>wangEditor 编辑器演示</h2><p>这是一个轻量级的富文本编辑器，易于集成和使用。</p>')
+
+// 功能对比数据
+const comparisonData = ref([
+  {
+    feature: '基础文本格式',
+    tiptap: '完整支持',
+    wangEditor: '完整支持',
+    tiptapSupport: true,
+    wangSupport: true,
+    description: '加粗、斜体、下划线、删除线等基础格式'
+  },
+  {
+    feature: '标题层级',
+    tiptap: 'H1-H6 支持',
+    wangEditor: 'H1-H6 支持',
+    tiptapSupport: true,
+    wangSupport: true,
+    description: '多级标题支持'
+  },
+  {
+    feature: '列表功能',
+    tiptap: '有序/无序/任务列表',
+    wangEditor: '有序/无序列表',
+    tiptapSupport: true,
+    wangSupport: true,
+    description: '各种列表格式'
+  },
+  {
+    feature: '表格支持',
+    tiptap: '原生支持，功能丰富',
+    wangEditor: '支持，基础功能',
+    tiptapSupport: true,
+    wangSupport: true,
+    description: '表格编辑功能'
+  },
+  {
+    feature: '图片上传',
+    tiptap: '需要自定义实现',
+    wangEditor: '内置支持',
+    tiptapSupport: true,
+    wangSupport: true,
+    description: '图片上传和插入功能'
+  },
+  {
+    feature: '代码高亮',
+    tiptap: '通过插件支持',
+    wangEditor: '支持',
+    tiptapSupport: true,
+    wangSupport: true,
+    description: '代码块语法高亮'
+  },
+  {
+    feature: '数学公式',
+    tiptap: '通过插件支持',
+    wangEditor: '支持',
+    tiptapSupport: true,
+    wangSupport: true,
+    description: 'LaTeX 数学公式'
+  },
+  {
+    feature: 'Markdown 支持',
+    tiptap: '原生支持',
+    wangEditor: '不支持',
+    tiptapSupport: true,
+    wangSupport: false,
+    description: 'Markdown 输入和解析'
+  },
+  {
+    feature: '协作编辑',
+    tiptap: '通过插件支持',
+    wangEditor: '不支持',
+    tiptapSupport: true,
+    wangSupport: false,
+    description: '多人实时协作'
+  },
+  {
+    feature: '自定义扩展',
+    tiptap: '非常灵活',
+    wangEditor: '有限支持',
+    tiptapSupport: true,
+    wangSupport: false,
+    description: '自定义节点和标记'
+  },
+  {
+    feature: '体积大小',
+    tiptap: '较大 (可按需加载)',
+    wangEditor: '轻量级',
+    tiptapSupport: true,
+    wangSupport: true,
+    description: '打包体积对比'
+  },
+  {
+    feature: '学习曲线',
+    tiptap: '较陡峭',
+    wangEditor: '平缓',
+    tiptapSupport: true,
+    wangSupport: true,
+    description: '上手难度'
+  }
+])
+
+// 性能指标
+const performanceMetrics = ref([
+  {
+    name: '启动速度',
+    icon: Timer,
+    tiptapValue: '120ms',
+    wangValue: '60ms',
+    tiptapScore: 50,
+    description: '编辑器初始化时间'
+  },
+  {
+    name: '内存占用',
+    icon: Memory,
+    tiptapValue: '2.5MB',
+    wangValue: '1.2MB',
+    tiptapScore: 48,
+    description: '运行时内存使用量'
+  },
+  {
+    name: '打包体积',
+    icon: Document,
+    tiptapValue: '85KB (gzipped)',
+    wangValue: '45KB (gzipped)',
+    tiptapScore: 53,
+    description: '生产环境打包后大小'
+  }
+])
+
+// 适用场景
+const tiptapScenarios = [
+  '复杂文档编辑',
+  '协作写作平台',
+  '在线教育系统',
+  '内容管理系统',
+  '技术文档平台',
+  '博客系统',
+  '需要高度定制的编辑器'
+]
+
+const wangScenarios = [
+  '简单文本编辑',
+  '评论系统',
+  '表单富文本输入',
+  '聊天应用',
+  '简单的内容发布',
+  '移动端应用',
+  '快速原型开发'
+]
+
+// 学习资源
+const tiptapResources = [
+  {
+    title: '官方文档',
+    description: '完整的 API 文档和教程',
+    link: 'https://tiptap.dev/'
+  },
+  {
+    title: '示例演示',
+    description: '各种功能实例和演示',
+    link: 'https://tiptap.dev/examples'
+  },
+  {
+    title: '插件市场',
+    description: '社区开发的扩展插件',
+    link: 'https://tiptap.dev/extensions'
+  }
+]
+
+const wangResources = [
+  {
+    title: '官方文档',
+    description: '中文文档，易于理解',
+    link: 'https://www.wangeditor.com/'
+  },
+  {
+    title: '快速开始',
+    description: '5分钟快速上手指南',
+    link: 'https://www.wangeditor.com/doc/'
+  },
+  {
+    title: '示例代码',
+    description: '常用功能的代码示例',
+    link: 'https://github.com/wangeditor-team/wangEditor'
+  }
+])
+
+// 推荐系统
+const selectedUseCase = ref('')
+const recommendation = ref<any>(null)
+
+const updateRecommendation = (useCase: string) => {
+  const recommendations: Record<string, any> = {
+    simple: {
+      recommended: 'wang',
+      title: '推荐使用 wangEditor',
+      reason: '对于简单文本编辑场景，wangEditor 更轻量级，上手更容易，开发成本更低。',
+      features: ['轻量级', '易上手', '快速集成', '中文文档完善']
+    },
+    professional: {
+      recommended: 'tiptap',
+      title: '推荐使用 Tiptap',
+      reason: '专业内容创作需要强大的功能和灵活的扩展性，Tiptap 能更好地满足需求。',
+      features: ['功能强大', '高度可扩展', '专业级功能', '现代化架构']
+    },
+    team: {
+      recommended: 'tiptap',
+      title: '推荐使用 Tiptap',
+      reason: '团队协作需要实时协作功能，Tiptap 通过插件可以支持多人实时编辑。',
+      features: ['协作编辑', '版本控制', '权限管理', '插件生态']
+    },
+    custom: {
+      recommended: 'tiptap',
+      title: '推荐使用 Tiptap',
+      reason: '高度定制化需求需要灵活的架构，Tiptap 的插件系统提供了最大的定制空间。',
+      features: ['灵活架构', '自定义节点', '扩展性强', '社区活跃']
+    }
+  }
+
+  recommendation.value = recommendations[useCase] || null
+}
+
+// 测试功能
+const testTiptapFeature = () => {
+  tiptapContent.value += '<p><strong>Tiptap 功能测试</strong> - 这是一个测试内容。</p>'
+  ElMessage.success('已添加 Tiptap 测试内容')
+}
+
+const testWangFeature = () => {
+  wangContent.value += '<p><strong>wangEditor 功能测试</strong> - 这是一个测试内容。</p>'
+  ElMessage.success('已添加 wangEditor 测试内容')
+}
+
+// 打开资源链接
+const openResource = (link: string) => {
+  window.open(link, '_blank')
+}
+</script>
+
+<style scoped lang="scss">
+.editor-comparison {
+  padding: 20px;
+  background: var(--el-bg-color-page);
+  min-height: 100vh;
+}
+
+.comparison-header {
+  text-align: center;
+  margin-bottom: 40px;
+
+  .comparison-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--el-text-color-primary);
+    margin-bottom: 12px;
+  }
+
+  .comparison-description {
+    font-size: 1.2rem;
+    color: var(--el-text-color-secondary);
+    margin: 0;
+  }
+}
+
+.comparison-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.comparison-section {
+  background: var(--el-bg-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--el-text-color-primary);
+    margin: 0 0 20px 0;
+    border-bottom: 2px solid var(--el-color-primary);
+    padding-bottom: 8px;
+  }
+}
+
+// 功能对比表格样式
+.feature-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .support-icon {
+    color: var(--el-color-success);
+  }
+
+  .no-support-icon {
+    color: var(--el-color-danger);
+  }
+}
+
+// 编辑器面板样式
+.editor-panel {
+  border: 1px solid var(--el-border-color-light);
+  border-radius: 8px;
+  overflow: hidden;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: var(--el-fill-color-light);
+    border-bottom: 1px solid var(--el-border-color-light);
+
+    h3 {
+      margin: 0;
+      color: var(--el-text-color-primary);
+    }
+  }
+
+  .editor-container {
+    flex: 1;
+    padding: 16px;
+  }
+
+  .panel-info {
+    padding: 16px;
+    background: var(--el-fill-color-extra-light);
+    border-top: 1px solid var(--el-border-color-light);
+
+    p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+      color: var(--el-text-color-regular);
+    }
+  }
+}
+
+// 性能指标卡片
+.metric-card {
+  .metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h3 {
+      margin: 0;
+      color: var(--el-text-color-primary);
+    }
+  }
+
+  .metric-content {
+    .metric-comparison {
+      margin-bottom: 12px;
+
+      .metric-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+
+        .editor-label {
+          color: var(--el-text-color-regular);
+        }
+
+        .metric-value {
+          font-weight: 600;
+
+          &.tiptap {
+            color: var(--el-color-primary);
+          }
+
+          &.wang {
+            color: var(--el-color-success);
+          }
+        }
+      }
+    }
+
+    .progress-bar {
+      margin-bottom: 12px;
+    }
+
+    .metric-description {
+      color: var(--el-text-color-secondary);
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// 场景卡片
+.scenario-card {
+  .scenario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+      color: var(--el-text-color-primary);
+    }
+  }
+
+  .scenario-content {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 0;
+        color: var(--el-text-color-regular);
+        border-bottom: 1px solid var(--el-border-color-extra-light);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .el-icon {
+          color: var(--el-color-warning);
+        }
+      }
+    }
+  }
+
+  &.tiptap-scenario {
+    border-left: 4px solid var(--el-color-primary);
+  }
+
+  &.wang-scenario {
+    border-left: 4px solid var(--el-color-success);
+  }
+}
+
+// 学习资源卡片
+.resources-card {
+  h3 {
+    margin: 0 0 20px 0;
+    color: var(--el-text-color-primary);
+  }
+
+  .resource-list {
+    .resource-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background: var(--el-fill-color-extra-light);
+      border-radius: 8px;
+      margin-bottom: 12px;
+
+      .resource-info {
+        flex: 1;
+
+        h4 {
+          margin: 0 0 4px 0;
+          color: var(--el-text-color-primary);
+        }
+
+        p {
+          margin: 0;
+          color: var(--el-text-color-secondary);
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+// 总结建议卡片
+.summary-card {
+  .summary-content {
+    .recommendation {
+      margin-bottom: 24px;
+
+      h3 {
+        margin: 0 0 16px 0;
+        color: var(--el-text-color-primary);
+      }
+    }
+
+    .recommendation-result {
+      .result-card {
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 16px;
+
+        &.tiptap {
+          background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+          border-left: 4px solid var(--el-color-primary);
+        }
+
+        &.wang {
+          background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+          border-left: 4px solid var(--el-color-success);
+        }
+
+        h4 {
+          margin: 0 0 8px 0;
+          color: var(--el-text-color-primary);
+        }
+
+        p {
+          margin: 0 0 16px 0;
+          color: var(--el-text-color-regular);
+        }
+
+        .recommendation-features {
+          .feature-tag {
+            margin-right: 8px;
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .comparison-header {
+    .comparison-title {
+      font-size: 2rem;
+    }
+
+    .comparison-description {
+      font-size: 1rem;
+    }
+  }
+
+  .comparison-section {
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .editor-panel {
+    height: 400px;
+    margin-bottom: 20px;
+  }
+
+  .resource-item {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .resource-link {
+      margin-top: 12px;
+    }
+  }
+}
+
+// 深色主题适配
+:root.dark {
+  .editor-comparison {
+    background: var(--el-bg-color);
+  }
+
+  .comparison-section {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .editor-panel {
+    border-color: var(--el-border-color-dark);
+  }
+
+  .result-card {
+    &.tiptap {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    }
+
+    &.wang {
+      background: linear-gradient(135deg, #14532d 0%, #166534 100%);
+    }
+  }
+}
+</style>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import WelcomeItem from './WelcomeItem.vue'
 import DocumentationIcon from './icons/IconDocumentation.vue'
 import ToolingIcon from './icons/IconTooling.vue'
@@ -6,7 +7,19 @@ import EcosystemIcon from './icons/IconEcosystem.vue'
 import CommunityIcon from './icons/IconCommunity.vue'
 import SupportIcon from './icons/IconSupport.vue'
 
+const router = useRouter()
+
 const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
+
+// 导航到 CRUD 页面
+const goToCrudPage = () => {
+  router.push('/demo/crud')
+}
+
+// 导航到其他演示页面
+const navigateToDemo = (path: string) => {
+  router.push(path)
+}
 </script>
 
 <template>
@@ -80,6 +93,21 @@ const openReadmeInEditor = () => fetch('/__open-in-editor?file=README.md')
     Bluesky account or the
     <a href="https://x.com/vuejs" target="_blank" rel="noopener">@vuejs</a>
     X account for latest news in the Vue world.
+  </WelcomeItem>
+
+  <WelcomeItem>
+    <template #icon>
+      <EcosystemIcon />
+    </template>
+    <template #heading>功能演示</template>
+
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <el-button type="primary" @click="goToCrudPage">CRUD 标准页面</el-button>
+      <el-button @click="navigateToDemo('/demo/table')">表格组件</el-button>
+      <el-button @click="navigateToDemo('/demo/card')">卡片组件</el-button>
+      <el-button @click="navigateToDemo('/demo/integration')">集成演示</el-button>
+      <el-button @click="navigateToDemo('/editor/tiptap')">富文本编辑器</el-button>
+    </div>
   </WelcomeItem>
 
   <WelcomeItem>

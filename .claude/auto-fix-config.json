@@ -1,0 +1,63 @@
+{
+  "autoFixEnabled": true,
+  "runOnStop": true,
+  "runOnChange": false,
+  "maxFixAttempts": 3,
+  "keepSessionCache": false,
+  "excludedFiles": [
+    "*.d.ts",
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    ".vite/**",
+    ".nuxt/**",
+    ".output/**"
+  ],
+  "excludePatterns": [
+    "test/**",
+    "tests/**",
+    "e2e/**",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ],
+  "fixStrategies": {
+    "unusedVariables": {
+      "enabled": true,
+      "prefixUnusedParams": true,
+      "removeUnusedImports": true,
+      "commentUnusedDeclarations": true
+    },
+    "typeMismatches": {
+      "enabled": false,
+      "inferTypes": true,
+      "addTypeAnnotations": true
+    },
+    "implicitAny": {
+      "enabled": true,
+      "inferCommonTypes": true,
+      "useUnknownFallback": false
+    },
+    "duplicateDeclarations": {
+      "enabled": true,
+      "autoRename": true,
+      "useTimestampSuffix": true
+    }
+  },
+  "verification": {
+    "runTypeCheckAfterFix": true,
+    "stopOnFirstError": false,
+    "maxRetryAttempts": 2
+  },
+  "reporting": {
+    "generateDetailedReport": true,
+    "includeFixSuggestions": true,
+    "logToFile": true,
+    "reportFileName": "auto-fix-report.log"
+  },
+  "notifications": {
+    "showSuccessMessage": true,
+    "showErrorMessage": true,
+    "showProgress": true,
+    "showFixSummary": true
+  }
+}

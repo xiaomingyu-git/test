@@ -1,0 +1,130 @@
+// Element Plus 主题变量覆盖
+:root {
+  // 颜色变量
+  --tt-color-primary: var(--el-color-primary);
+  --tt-color-success: var(--el-color-success);
+  --tt-color-warning: var(--el-color-warning);
+  --tt-color-danger: var(--el-color-danger);
+  --tt-color-info: var(--el-color-info);
+
+  // 文本颜色
+  --tt-text-color-primary: var(--el-text-color-primary);
+  --tt-text-color-regular: var(--el-text-color-regular);
+  --tt-text-color-secondary: var(--el-text-color-secondary);
+  --tt-text-color-placeholder: var(--el-text-color-placeholder);
+
+  // 边框颜色
+  --tt-border-color: var(--el-border-color);
+  --tt-border-color-light: var(--el-border-color-light);
+  --tt-border-color-lighter: var(--el-border-color-lighter);
+  --tt-border-color-dark: var(--el-border-color-dark);
+  --tt-border-color-darker: var(--el-border-color-darker);
+
+  // 背景颜色
+  --tt-bg-color: var(--el-bg-color);
+  --tt-bg-color-page: var(--el-bg-color-page);
+  --tt-bg-color-overlay: var(--el-bg-color-overlay);
+
+  // 填充颜色
+  --tt-fill-color: var(--el-fill-color);
+  --tt-fill-color-light: var(--el-fill-color-light);
+  --tt-fill-color-lighter: var(--el-fill-color-lighter);
+  --tt-fill-color-extra-light: var(--el-fill-color-extra-light);
+  --tt-fill-color-dark: var(--el-fill-color-dark);
+  --tt-fill-color-darker: var(--el-fill-color-darker);
+
+  // 阴影
+  --tt-box-shadow: var(--el-box-shadow);
+  --tt-box-shadow-light: var(--el-box-shadow-light);
+  --tt-box-shadow-base: var(--el-box-shadow-base);
+  --tt-box-shadow-dark: var(--el-box-shadow-dark);
+
+  // 边框圆角
+  --tt-border-radius-base: var(--el-border-radius-base);
+  --tt-border-radius-small: var(--el-border-radius-small);
+  --tt-border-radius-round: var(--el-border-radius-round);
+
+  // 字体大小
+  --tt-font-size-extra-large: var(--el-font-size-extra-large);
+  --tt-font-size-large: var(--el-font-size-large);
+  --tt-font-size-medium: var(--el-font-size-medium);
+  --tt-font-size-base: var(--el-font-size-base);
+  --tt-font-size-small: var(--el-font-size-small);
+  --tt-font-size-extra-small: var(--el-font-size-extra-small);
+
+  // 间距
+  --tt-spacing-xs: 4px;
+  --tt-spacing-sm: 8px;
+  --tt-spacing-md: 16px;
+  --tt-spacing-lg: 24px;
+  --tt-spacing-xl: 32px;
+
+  // 动画
+  --tt-transition-duration: var(--el-transition-duration);
+  --tt-transition-timing: var(--el-transition-timing-function);
+
+  // 表格特定变量
+  --tt-table-border-color: var(--tt-border-color-light);
+  --tt-table-selected-bg: rgba(64, 158, 255, 0.1);
+  --tt-table-selected-stroke: var(--tt-color-primary);
+  --tt-table-column-resize-handle-bg: var(--tt-color-primary);
+  --tt-table-cell-padding: var(--tt-spacing-sm);
+  --tt-table-margin-block: var(--tt-spacing-lg);
+  --tt-table-pad-block-start: var(--tt-spacing-md);
+  --tt-table-pad-block-end: var(--tt-spacing-lg);
+  --tt-table-pad-inline-start: var(--tt-spacing-md);
+  --tt-table-pad-inline-end: var(--tt-spacing-lg);
+  --tt-table-handle-bg-color: var(--tt-fill-color-light);
+  --tt-table-extend-icon-color: var(--tt-text-color-secondary);
+}
+
+// 深色主题
+.dark {
+  --tt-table-selected-bg: rgba(64, 158, 255, 0.2);
+  --tt-table-handle-bg-color: var(--tt-fill-color-dark);
+}
+
+// SCSS Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin card-shadow {
+  box-shadow: var(--tt-box-shadow-light);
+  border: 1px solid var(--tt-border-color-lighter);
+}
+
+@mixin transition {
+  transition: all var(--tt-transition-duration) var(--tt-transition-timing);
+}
+
+// 响应式断点
+$breakpoints: (
+  'xs': 480px,
+  'sm': 768px,
+  'md': 992px,
+  'lg': 1200px,
+  'xl': 1920px
+);
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (max-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}

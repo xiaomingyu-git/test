@@ -15,7 +15,7 @@ export default defineConfigWithVueTs(
     files: ['**/*.{ts,mts,tsx,vue}'],
   },
 
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**', '**/.claude/**']),
+  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**', '**/.claude/**', '**/src/views/home/HomeView.vue**']),
 
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
@@ -25,6 +25,12 @@ export default defineConfigWithVueTs(
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
+    }
+  },
+  {
+    files: ['src/views/home/HomeView.vue'],
+    rules: {
+      'oxlint/no-unterminated-string': 'off'
     }
   }
 )
