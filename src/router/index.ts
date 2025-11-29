@@ -5,6 +5,7 @@ import EditorLayout from '@/layouts/EditorLayout.vue'
 import { homeRoutes } from './routes/home'
 import { editorRoutes } from './routes/editor'
 import { demoRoutes } from './routes/demo'
+import { crudRoutes } from './routes/crud'
 
 // 路由配置
 const routes: RouteRecordRaw[] = [
@@ -23,6 +24,15 @@ const routes: RouteRecordRaw[] = [
         meta: {
           title: '演示',
           description: '组件功能演示'
+        }
+      },
+      {
+        path: 'crud',
+        name: 'Crud',
+        component: () => import('@/views/CrudView.vue'),
+        meta: {
+          title: '用户管理',
+          description: '用户信息管理页面'
         }
       }
     ]
