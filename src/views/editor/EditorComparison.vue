@@ -179,8 +179,8 @@
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Check, Close, Star } from '@element-plus/icons-vue'
-import TiptapEditor from '@/components/TiptapEditor.vue'
-import WangEditor from '@/components/WangEditor.vue'
+import TiptapEditor from '@/components/editor/TiptapEditor.vue'
+import WangEditor from '@/components/editor/WangEditor.vue'
 
 // 页面标题
 defineOptions({

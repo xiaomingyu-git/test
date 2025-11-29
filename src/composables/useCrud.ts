@@ -70,7 +70,7 @@ export function useCrud() {
     ],
     password: [
       {
-        validator: (rule: any, value: string, callback: (error?: string | Error) => void) => {
+        validator: (_rule: any, value: string, callback: (error?: string | Error) => void) => {
           if (editMode.value === 'create' && !value) {
             callback(new Error('请输入密码'))
           } else if (value && (value.length < 6 || value.length > 20)) {
@@ -84,7 +84,7 @@ export function useCrud() {
     ],
     confirmPassword: [
       {
-        validator: (rule: any, value: string, callback: (error?: string | Error) => void) => {
+        validator: (_rule: any, value: string, callback: (error?: string | Error) => void) => {
           if (editMode.value === 'create' && !value) {
             callback(new Error('请确认密码'))
           } else if (value && value !== editForm.password) {

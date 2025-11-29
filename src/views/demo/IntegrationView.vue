@@ -247,7 +247,7 @@
 import { ref, reactive } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Star } from '@element-plus/icons-vue'
-import TiptapEditor from '@/components/TiptapEditor.vue'
+import TiptapEditor from '@/components/editor/TiptapEditor.vue'
 
 // 页面标题
 defineOptions({

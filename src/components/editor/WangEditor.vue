@@ -249,7 +249,7 @@ const handleBlur = (_editor: IDomEditor) => {
 }
 
 // 自定义粘贴
-const handleCustomPaste = (editor: IDomEditor, event: ClipboardEvent, callback: (flag: boolean) => void) => {
+const handleCustomPaste = (_editor: IDomEditor, _event: ClipboardEvent, callback: (flag: boolean) => void) => {
   // 可以在这里处理自定义粘贴逻辑
   // callback(false) // 阻止默认粘贴行为
   callback(true) // 继续默认粘贴行为
