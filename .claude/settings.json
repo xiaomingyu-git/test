@@ -1,0 +1,50 @@
+{
+  "enableAllProjectMcpServers": true,
+  "permissions": {
+    "allow": [
+      "Edit:*",
+      "Write:*",
+      "MultiEdit:*",
+      "NotebookEdit:*",
+      "Bash:*"
+    ],
+    "defaultMode": "bypassPermissions"
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./.claude/hooks/skill-activation-prompt.cjs"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./.claude/hooks/post-tool-use-tracker.cjs"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./.claude/hooks/vsc-check.cjs"
+          },
+          {
+            "type": "command",
+            "command": "node ./.claude/hooks/trigger-build-resolver.cjs"
+          }
+        ]
+      }
+    ]
+  }
+}

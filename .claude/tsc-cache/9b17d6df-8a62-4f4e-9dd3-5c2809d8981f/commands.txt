@@ -1,0 +1,2 @@
+vue-source:build:pnpm run build-only
+vue-source:tsc:pnpm exec vue-tsc --noEmit

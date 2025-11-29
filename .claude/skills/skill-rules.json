@@ -1,0 +1,290 @@
+{
+    "version": "1.0",
+    "description": "Skill activation triggers for Claude Code. Controls when skills automatically suggest or block actions.",
+    "skills": {
+        "skill-developer": {
+            "type": "domain",
+            "enforcement": "suggest",
+            "priority": "high",
+            "description": "Meta-skill for creating and managing Claude Code skills",
+            "promptTriggers": {
+                "keywords": [
+                    "skill system",
+                    "create skill",
+                    "add skill",
+                    "skill triggers",
+                    "skill rules",
+                    "hook system",
+                    "skill development",
+                    "skill-rules.json"
+                ],
+                "intentPatterns": [
+                    "(how do|how does|explain).*?skill",
+                    "(create|add|modify|build).*?skill",
+                    "skill.*?(work|trigger|activate|system)"
+                ]
+            }
+        },
+          "vue-dev-guidelines": {
+            "type": "guardrail",
+            "enforcement": "block",
+            "priority": "high",
+            "description": "Vue 3 + Vite + Element Plus + Composition API + TypeScript best practices",
+            "promptTriggers": {
+                "keywords": [
+                    "vue component",
+                    "vue",
+                    "vue 3",
+                    "composition api",
+                    "script setup",
+                    "composable",
+                    "pinia",
+                    "vue router",
+                    "nuxt",
+                    "element plus",
+                    "el-button",
+                    "el-form",
+                    "el-table",
+                    "el-card",
+                    "element-ui",
+                    "element",
+                    "modal",
+                    "dialog",
+                    "ref",
+                    "reactive",
+                    "computed",
+                    "watch",
+                    "vue directive",
+                    "v-if",
+                    "v-for",
+                    "v-model",
+                    "vue template",
+                    "vue lifecycle",
+                    "vue store",
+                    "defineProps",
+                    "defineEmits",
+                    "onMounted",
+                    "createApp"
+                ],
+                "intentPatterns": [
+                    "(create|add|make|build|update|modify|edit).*?(vue component|composable|pinia store|vue page|el-|modal|dialog)",
+                    "(how to|best practice).*?(vue|composition api|script setup|element plus|el-)",
+                    "(implement|use).*?(ref|reactive|computed|watch|pinia|vue router|defineProps|defineEmits)",
+                    "(style|design|layout).*?(element plus|el-)",
+                    "(debug|fix).*?(vue component|composable|reactivity|ref|reactive)",
+                    "(organize|structure).*?(vue project|vue app|vue store)",
+                    "(create|add).*?(vue component|el-|modal|dialog)",
+                    "(setup|configure).*?(vue router|pinia|element plus|createApp)"
+                ]
+            },
+            "fileTriggers": {
+                "pathPatterns": [
+                    "src/**/*.vue",
+                    "src/**/*.ts",
+                    "components/**/*.vue",
+                    "components/**/*.ts",
+                    "composables/**/*.ts",
+                    "stores/**/*.ts",
+                    "router/**/*.ts",
+                    "views/**/*.vue",
+                    "pages/**/*.vue",
+                    "ui/**/*.vue",
+                    "ui/**/*.ts"
+                ],
+                "pathExclusions": [
+                    "**/*.test.ts",
+                    "**/*.spec.ts",
+                    "**/*.test.js",
+                    "**/*.spec.js",
+                    "**/node_modules/**",
+                    "**/dist/**"
+                ],
+                "contentPatterns": [
+                    "<script setup",
+                    "defineProps",
+                    "defineEmits",
+                    "defineComponent",
+                    "from 'vue'",
+                    "from '@vue'",
+                    "import.*ref.*from.*vue",
+                    "import.*reactive.*from.*vue",
+                    "import.*computed.*from.*vue",
+                    "from 'element-plus'",
+                    "import.*El[A-Z].*from.*element-plus",
+                    "ElButton",
+                    "ElCard",
+                    "ElForm",
+                    "ElInput",
+                    "ElTable",
+                    "ElMessage",
+                    "ElMessageBox",
+                    "el-",
+                    "useStore",
+                    "createPinia",
+                    "vue-router",
+                    "createRouter",
+                    "useRouter",
+                    "useRoute",
+                    "v-model",
+                    "v-if",
+                    "v-for",
+                    "v-show",
+                    "@click",
+                    "template.*ref",
+                    "<template>",
+                    "createApp\\(",
+                    "defineComponent\\(",
+                    "onMounted\\(",
+                    "onUnmounted\\(",
+                    "onUpdated\\(",
+                    "watchEffect\\(",
+                    "app\\.mount\\(",
+                    "provide\\(",
+                    "inject\\(",
+                    "v-slot:",
+                    "v-html",
+                    "v-text",
+                    "v-pre",
+                    "v-once",
+                    "\\.vue$"
+                ]
+            },
+            "blockMessage": "⚠️ BLOCKED - Vue Development Best Practices Required\n\n📋 REQUIRED ACTION:\n1. Use Skill tool: 'vue-dev-guidelines'\n2. Review Vue 3 + Composition API patterns\n3. Check Element Plus component usage\n4. Follow TypeScript best practices for Vue\n5. Then retry this edit\n\nReason: Enforce Vue 3 + Element Plus best practices\nFile: {file_path}\n\n💡 TIP: Add '// @skip-vue-validation' comment to skip future checks",
+            "skipConditions": {
+                "sessionSkillUsed": true,
+                "fileMarkers": [
+                    "@skip-vue-validation"
+                ],
+                "envOverride": "SKIP_VUE_GUIDELINES"
+            }
+        },
+        "error-tracking": {
+            "type": "domain",
+            "enforcement": "suggest",
+            "priority": "high",
+            "description": "Frontend error tracking and monitoring patterns for Vue applications",
+            "promptTriggers": {
+                "keywords": [
+                    "error handling",
+                    "exception",
+                    "sentry",
+                    "error tracking",
+                    "captureException",
+                    "monitoring",
+                    "performance tracking",
+                    "vue error",
+                    "frontend error"
+                ],
+                "intentPatterns": [
+                    "(add|create|implement|setup).*?(error handling|sentry|error tracking|vue error)",
+                    "(fix|handle|catch).*?(error|exception|frontend error)",
+                    "(how to|best practice).*?(error|sentry|monitoring|vue error)"
+                ]
+            },
+            "fileTriggers": {
+                "pathPatterns": [
+                    "src/**/*.vue",
+                    "src/**/*.ts",
+                    "src/**/*.js",
+                    "plugins/**/*.ts",
+                    "utils/**/*.ts"
+                ],
+                "pathExclusions": [
+                    "**/*.test.ts",
+                    "**/*.spec.ts"
+                ],
+                "contentPatterns": [
+                    "@sentry",
+                    "Sentry\\.",
+                    "captureException",
+                    "captureMessage",
+                    "onErrorCaptured",
+                    "errorHandler",
+                    "app\\.config\\.errorHandler",
+                    "window\\.onerror",
+                    "window\\.onunhandledrejection"
+                ]
+            }
+        },
+        "dev-task-management": {
+            "type": "domain",
+            "enforcement": "suggest",
+            "priority": "medium",
+            "description": "Development task management for /dev-docs workflow and strategic planning",
+            "promptTriggers": {
+                "keywords": [
+                    "dev-docs",
+                    "development task",
+                    "task planning",
+                    "task management",
+                    "strategic planning",
+                    "project planning",
+                    "implementation plan",
+                    "task documentation",
+                    "dev/active",
+                    "dev/completed",
+                    "development workflow",
+                    "task execution",
+                    "task completion",
+                    "development strategy"
+                ],
+                "intentPatterns": [
+                    "(create|plan|manage).*?(development task|project|implementation)",
+                    "(update|track).*?(task progress|development status)",
+                    "(complete|finish).*?(development task|project phase)",
+                    "(organize|structure).*?(development plan|task documentation)",
+                    "(using|working with).*?(dev-docs|development workflow)",
+                    "(move|archive).*?(completed task|development project)"
+                ]
+            },
+            "fileTriggers": {
+                "pathPatterns": [
+                    "dev/**/*.md",
+                    "dev/active/**/*",
+                    "dev/completed/**/*",
+                    "dev/**/*plan.md",
+                    "dev/**/*tasks.md",
+                    "dev/**/*context.md"
+                ],
+                "pathExclusions": [
+                    "**/node_modules/**",
+                    "**/dist/**",
+                    "**/build/**"
+                ],
+                "contentPatterns": [
+                    "dev-docs",
+                    "/dev-docs",
+                    "dev/active",
+                    "dev/completed",
+                    "implementation plan",
+                    "strategic planning",
+                    "task checklist",
+                    "development workflow",
+                    "Last Updated:",
+                    "## Phase",
+                    "### Task",
+                    "- \\[ \\]",
+                    "- \\[x\\]"
+                ]
+            }
+        }
+    },
+    "notes": {
+        "enforcement_types": {
+            "suggest": "Skill suggestion appears but doesn't block execution",
+            "block": "Requires skill to be used before proceeding (guardrail)",
+            "warn": "Shows warning but allows proceeding"
+        },
+        "priority_levels": {
+            "critical": "Highest - Always trigger when matched",
+            "high": "Important - Trigger for most matches",
+            "medium": "Moderate - Trigger for clear matches",
+            "low": "Optional - Trigger only for explicit matches"
+        },
+        "customization": {
+            "pathPatterns": "Adjust to match your project structure (blog-api, auth-service, etc.)",
+            "keywords": "Add domain-specific terms relevant to your project",
+            "intentPatterns": "Use regex for flexible user intent matching"
+        }
+    }
+}

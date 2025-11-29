@@ -1,0 +1,331 @@
+<template v-if="editorInstance">
+  <div class="tiptap-toolbar">
+    <el-space wrap>
+      <!-- 撤销/重做 -->
+      <el-button-group>
+        <el-button
+          size="small"
+          @click="editorInstanceInstance.chain().focus().undo().run()"
+          :disabled="!editorInstanceInstance.can().undo()"
+          title="撤销"
+        >
+          撤销
+        </el-button>
+        <el-button
+          size="small"
+          @click="editorInstanceInstance.chain().focus().redo().run()"
+          :disabled="!editorInstanceInstance.can().redo()"
+          title="重做"
+        >
+          重做
+        </el-button>
+      </el-button-group>
+
+      <!-- 标题级别 -->
+      <el-dropdown @command="setHeading" trigger="click">
+        <el-button size="small">
+          标题 ▼
+        </el-button>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="paragraph">正文</el-dropdown-item>
+            <el-dropdown-item command="heading-1">标题 1</el-dropdown-item>
+            <el-dropdown-item command="heading-2">标题 2</el-dropdown-item>
+            <el-dropdown-item command="heading-3">标题 3</el-dropdown-item>
+            <el-dropdown-item command="heading-4">标题 4</el-dropdown-item>
+            <el-dropdown-item command="heading-5">标题 5</el-dropdown-item>
+            <el-dropdown-item command="heading-6">标题 6</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+
+      <!-- 文本格式 -->
+      <el-button-group>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().toggleBold().run()"
+          :type="editorInstance.isActive('bold') ? 'primary' : 'default'"
+          title="粗体 (Ctrl+B)"
+        >
+          粗体
+        </el-button>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().toggleItalic().run()"
+          :type="editorInstance.isActive('italic') ? 'primary' : 'default'"
+          title="斜体 (Ctrl+I)"
+        >
+          斜体
+        </el-button>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().toggleUnderline().run()"
+          :type="editorInstance.isActive('underline') ? 'primary' : 'default'"
+          title="下划线 (Ctrl+U)"
+        >
+          下划线
+        </el-button>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().toggleStrike().run()"
+          :type="editorInstance.isActive('strike') ? 'primary' : 'default'"
+          title="删除线"
+        >
+          删除线
+        </el-button>
+      </el-button-group>
+
+      <!-- 列表 -->
+      <el-button-group>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().toggleBulletList().run()"
+          :type="editorInstance.isActive('bulletList') ? 'primary' : 'default'"
+          title="无序列表"
+        >
+          • 列表
+        </el-button>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().toggleOrderedList().run()"
+          :type="editorInstance.isActive('orderedList') ? 'primary' : 'default'"
+          title="有序列表"
+        >
+          1. 列表
+        </el-button>
+      </el-button-group>
+
+      <!-- 对齐方式 -->
+      <el-button-group>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().setTextAlign('left').run()"
+          :type="editorInstance.isActive({ textAlign: 'left' }) ? 'primary' : 'default'"
+          title="左对齐"
+        >
+          左对齐
+        </el-button>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().setTextAlign('center').run()"
+          :type="editorInstance.isActive({ textAlign: 'center' }) ? 'primary' : 'default'"
+          title="居中对齐"
+        >
+          居中
+        </el-button>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().setTextAlign('right').run()"
+          :type="editorInstance.isActive({ textAlign: 'right' }) ? 'primary' : 'default'"
+          title="右对齐"
+        >
+          右对齐
+        </el-button>
+      </el-button-group>
+
+      <!-- 其他格式 -->
+      <el-button-group>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().toggleBlockquote().run()"
+          :type="editorInstance.isActive('blockquote') ? 'primary' : 'default'"
+          title="引用"
+        >
+          引用
+        </el-button>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().toggleCode().run()"
+          :type="editorInstance.isActive('code') ? 'primary' : 'default'"
+          title="行内代码"
+        >
+          代码
+        </el-button>
+        <el-button
+          size="small"
+          @click="editorInstance.chain().focus().toggleCodeBlock().run()"
+          :type="editorInstance.isActive('codeBlock') ? 'primary' : 'default'"
+          title="代码块"
+        >
+          代码块
+        </el-button>
+      </el-button-group>
+
+      <!-- 水平分割线 -->
+      <el-button
+        size="small"
+        @click="editorInstance.chain().focus().setHorizontalRule().run()"
+        title="插入水平分割线"
+      >
+        分割线
+      </el-button>
+
+      <!-- 清除格式 -->
+      <el-button
+        size="small"
+        @click="editorInstance.chain().focus().unsetAllMarks().run()"
+        title="清除格式"
+      >
+        清除
+      </el-button>
+
+      <!-- 插入链接 -->
+      <el-button
+        size="small"
+        @click="insertLink"
+        :type="editorInstance.isActive('link') ? 'primary' : 'default'"
+        title="插入链接"
+      >
+        链接
+      </el-button>
+
+      <!-- 插入图片 -->
+      <el-button
+        size="small"
+        @click="insertImage"
+        title="插入图片"
+      >
+        图片
+      </el-button>
+    </el-space>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ElMessage } from 'element-plus'
+import type { Ref } from 'vue'
+import { computed } from 'vue'
+// 暂时使用简单的文本按钮，稍后添加图标
+
+// Tiptap编辑器接口定义 - 基于实际使用的方法
+interface TiptapEditor {
+  chain(): {
+    focus(): {
+      setParagraph(): { run(): void }
+      toggleBold(): { run(): void }
+      toggleItalic(): { run(): void }
+      toggleUnderline(): { run(): void }
+      toggleStrike(): { run(): void }
+      toggleBulletList(): { run(): void }
+      toggleOrderedList(): { run(): void }
+      setTextAlign(align: string): { run(): void }
+      toggleHeading(options: { level: number }): { run(): void }
+      toggleBlockquote(): { run(): void }
+      toggleCode(): { run(): void }
+      toggleCodeBlock(): { run(): void }
+      setHorizontalRule(): { run(): void }
+      unsetAllMarks(): { run(): void }
+      extendMarkRange(mark: string): {
+        unsetLink(): { run(): void }
+      }
+      setLink(options: { href: string }): { run(): void }
+      setImage(options: { src: string }): { run(): void }
+    }
+    undo(): { run(): void }
+    redo(): { run(): void }
+  }
+  isActive(name: string): boolean
+  isActive(options: { textAlign: string }): boolean
+  can(): {
+    undo(): boolean
+    redo(): boolean
+  }
+}
+
+interface Props {
+  editorInstance: TiptapEditor | null
+}
+
+const props = defineProps<Props>()
+
+// 为了在模板中使用，创建一个计算属性，确保类型安全
+const editorInstance = computed((): TiptapEditor | null => props.editorInstance)
+
+// 创建一个只读的编辑器实例，用于模板中的非空断言
+const editorInstanceInstance = computed((): TiptapEditor => {
+  if (!props.editorInstance) {
+    throw new Error('Editor instance is required but not provided')
+  }
+  return props.editorInstance
+})
+
+// 设置标题级别 - 使用明确的返回类型
+const setHeading = (command: string): void => {
+  if (!editor.value) return
+
+  const currentEditor = editor.value
+  if (command === 'paragraph') {
+    currentEditor.chain().focus().setParagraph().run()
+  } else {
+    const levelStr = command.split('-')[1]
+    if (levelStr) {
+      const level = parseInt(levelStr) as 1 | 2 | 3 | 4 | 5 | 6
+      currentEditor.chain().focus().toggleHeading({ level }).run()
+    }
+  }
+}
+
+// 插入链接 - 使用明确的返回类型
+const insertLink = (): void => {
+  if (!editor.value) return
+
+  const url = window.prompt('请输入链接地址:')
+
+  if (url === null) {
+    return
+  }
+
+  if (url === '') {
+    editor.value.chain().focus().extendMarkRange('link').unsetLink().run()
+    return
+  }
+
+  // 验证URL格式
+  try {
+    new URL(url)
+  } catch {
+    // 如果不是完整URL，添加http://
+    const fullUrl = url.startsWith('http') ? url : `https://${url}`
+    editor.value.chain().focus().setLink({ href: fullUrl }).run()
+  }
+}
+
+// 插入图片 - 使用明确的返回类型
+const insertImage = (): void => {
+  if (!editor.value) return
+
+  const url = window.prompt('请输入图片地址:')
+
+  if (url === null) {
+    return
+  }
+
+  if (url === '') {
+    return
+  }
+
+  editor.value.chain().focus().setImage({ src: url }).run()
+  ElMessage.success('图片插入成功')
+}
+</script>
+
+<style scoped>
+.tiptap-toolbar {
+  padding: 8px 12px;
+  border: 1px solid var(--el-border-color-light);
+  border-bottom: none;
+  border-radius: var(--el-border-radius-base) var(--el-border-radius-base) 0 0;
+  background-color: var(--el-bg-color-page);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .tiptap-toolbar {
+    padding: 6px 8px;
+  }
+}
+</style>

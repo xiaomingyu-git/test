@@ -1,0 +1,475 @@
+/* Tiptap编辑器 Element Plus 主题样式 */
+
+/* 编辑器主题变量 - 基于 Element Plus 设计系统 */
+:root {
+  /* 编辑器容器主题 */
+  --tiptap-bg-color: var(--el-bg-color);
+  --tiptap-bg-color-page: var(--el-bg-color-page);
+  --tiptap-bg-color-overlay: var(--el-bg-color-overlay);
+
+  /* 边框和分割线 */
+  --tiptap-border-color: var(--el-border-color);
+  --tiptap-border-color-light: var(--el-border-color-light);
+  --tiptap-border-color-lighter: var(--el-border-color-lighter);
+  --tiptap-border-color-extra-light: var(--el-border-color-extra-light);
+  --tiptap-border-color-dark: var(--el-border-color-dark);
+  --tiptap-border-color-darker: var(--el-border-color-darker);
+
+  /* 圆角 */
+  --tiptap-border-radius-small: var(--el-border-radius-small);
+  --tiptap-border-radius-base: var(--el-border-radius-base);
+  --tiptap-border-radius-round: var(--el-border-radius-round);
+  --tiptap-border-radius-circle: var(--el-border-radius-circle);
+
+  /* 文本颜色 */
+  --tiptap-text-color-primary: var(--el-text-color-primary);
+  --tiptap-text-color-regular: var(--el-text-color-regular);
+  --tiptap-text-color-secondary: var(--el-text-color-secondary);
+  --tiptap-text-color-placeholder: var(--el-text-color-placeholder);
+  --tiptap-text-color-disabled: var(--el-text-color-disabled);
+
+  /* 填充颜色 */
+  --tiptap-fill-color: var(--el-fill-color);
+  --tiptap-fill-color-light: var(--el-fill-color-light);
+  --tiptap-fill-color-lighter: var(--el-fill-color-lighter);
+  --tiptap-fill-color-extra-light: var(--el-fill-color-extra-light);
+  --tiptap-fill-color-dark: var(--el-fill-color-dark);
+  --tiptap-fill-color-darker: var(--el-fill-color-darker);
+  --tiptap-fill-color-blank: var(--el-fill-color-blank);
+
+  /* 字体系统 */
+  --tiptap-font-family: var(--el-font-family);
+  --tiptap-font-size-base: var(--el-font-size-base);
+  --tiptap-font-size-small: var(--el-font-size-small);
+  --tiptap-font-size-large: var(--el-font-size-large);
+  --tiptap-font-size-extra-large: var(--el-font-size-extra-large);
+  --tiptap-font-weight-primary: var(--el-font-weight-primary);
+  --tiptap-font-line-height-primary: var(--el-font-line-height-primary);
+
+  /* 阴影 */
+  --tiptap-box-shadow: var(--el-box-shadow);
+  --tiptap-box-shadow-light: var(--el-box-shadow-light);
+  --tiptap-box-shadow-lighter: var(--el-box-shadow-lighter);
+  --tiptap-box-shadow-dark: var(--el-box-shadow-dark);
+
+  /* 禁用状态 */
+  --tiptap-disabled-bg-color: var(--el-disabled-bg-color);
+  --tiptap-disabled-text-color: var(--el-disabled-text-color);
+  --tiptap-disabled-border-color: var(--el-disabled-border-color);
+
+  /* 覆盖层 */
+  --tiptap-overlay-color: var(--el-overlay-color);
+  --tiptap-overlay-color-light: var(--el-overlay-color-light);
+  --tiptap-overlay-color-lighter: var(--el-overlay-color-lighter);
+
+  /* 遮罩 */
+  --tiptap-mask-color: var(--el-mask-color);
+  --tiptap-mask-color-extra-light: var(--el-mask-color-extra-light);
+
+  /* 编辑器专用变量 */
+  --tiptap-editor-padding: 16px;
+  --tiptap-editor-line-height: 1.6;
+  --tiptap-editor-font-size: 14px;
+  --tiptap-toolbar-height: 40px;
+  --tiptap-container-min-height: 300px;
+  --tiptap-focus-border-color: var(--el-color-primary);
+  --tiptap-hover-border-color: var(--el-border-color-hover);
+
+  /* 文本选择样式 */
+  --tiptap-selection-bg: rgba(64, 158, 255, 0.1);
+}
+
+/* 深色主题适配 */
+.dark {
+  --tiptap-code-bg-color: var(--el-fill-color-light);
+  --tiptap-quote-border-color: var(--el-border-color);
+  --tiptap-selection-bg: rgba(64, 158, 255, 0.3);
+}
+
+/* 基础编辑器样式重置 */
+.tiptap-editor {
+  font-family: var(--tiptap-font-family);
+  font-size: var(--tiptap-font-size-base);
+  color: var(--tiptap-text-color-primary);
+  background-color: var(--tiptap-bg-color);
+  border-radius: var(--tiptap-border-radius-base);
+  box-shadow: var(--tiptap-box-shadow-light);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 编辑器容器 */
+.tiptap-editor .editor-container {
+  border: 1px solid var(--tiptap-border-color);
+  border-top: none;
+  border-radius: 0 0 var(--tiptap-border-radius-base) var(--tiptap-border-radius-base);
+  background-color: var(--tiptap-bg-color);
+  overflow: hidden;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tiptap-editor .editor-container:hover {
+  border-color: var(--tiptap-hover-border-color);
+  box-shadow: var(--tiptap-box-shadow-light);
+}
+
+.tiptap-editor .editor-container:focus-within {
+  border-color: var(--tiptap-focus-border-color);
+  box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.1);
+}
+
+/* ProseMirror 编辑器核心样式 */
+.tiptap-editor :deep(.ProseMirror) {
+  outline: none;
+  padding: var(--tiptap-editor-padding);
+  min-height: calc(var(--tiptap-container-min-height) - var(--tiptap-editor-padding));
+  max-height: 600px;
+  overflow-y: auto;
+  font-family: var(--tiptap-font-family);
+  font-size: var(--tiptap-editor-font-size);
+  line-height: var(--tiptap-editor-line-height);
+  color: var(--tiptap-text-color-primary);
+  background-color: var(--tiptap-bg-color);
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* 滚动条样式 */
+.tiptap-editor :deep(.ProseMirror::-webkit-scrollbar) {
+  width: 6px;
+}
+
+.tiptap-editor :deep(.ProseMirror::-webkit-scrollbar-track) {
+  background: var(--tiptap-fill-color-lighter);
+}
+
+.tiptap-editor :deep(.ProseMirror::-webkit-scrollbar-thumb) {
+  background: var(--tiptap-border-color-dark);
+  border-radius: 3px;
+}
+
+.tiptap-editor :deep(.ProseMirror::-webkit-scrollbar-thumb:hover) {
+  background: var(--tiptap-border-color-darker);
+}
+
+/* 占位符样式 */
+.tiptap-editor :deep(.ProseMirror p.is-editor-empty:first-child::before) {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--tiptap-text-color-placeholder);
+  pointer-events: none;
+  height: 0;
+  font-style: italic;
+}
+
+/* 标题样式 */
+.tiptap-editor :deep(.ProseMirror h1) {
+  font-size: 2em;
+  font-weight: 700;
+  margin: 0.5em 0;
+  line-height: 1.2;
+  color: var(--tiptap-text-color-primary);
+}
+
+.tiptap-editor :deep(.ProseMirror h2) {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0.75em 0 0.5em;
+  line-height: 1.3;
+  color: var(--tiptap-text-color-primary);
+}
+
+.tiptap-editor :deep(.ProseMirror h3) {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin: 0.75em 0 0.5em;
+  line-height: 1.4;
+  color: var(--tiptap-text-color-primary);
+}
+
+.tiptap-editor :deep(.ProseMirror h4),
+.tiptap-editor :deep(.ProseMirror h5),
+.tiptap-editor :deep(.ProseMirror h6) {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0.75em 0 0.5em;
+  line-height: 1.5;
+  color: var(--tiptap-text-color-primary);
+}
+
+/* 段落和文本样式 */
+.tiptap-editor :deep(.ProseMirror p) {
+  margin: 0.5em 0;
+  line-height: var(--tiptap-editor-line-height);
+}
+
+.tiptap-editor :deep(.ProseMirror strong) {
+  font-weight: 600;
+  color: var(--tiptap-text-color-primary);
+}
+
+.tiptap-editor :deep(.ProseMirror em) {
+  font-style: italic;
+  color: var(--tiptap-text-color-regular);
+}
+
+.tiptap-editor :deep(.ProseMirror u) {
+  text-decoration: underline;
+  text-decoration-color: var(--tiptap-border-color);
+}
+
+/* 列表样式 */
+.tiptap-editor :deep(.ProseMirror ul),
+.tiptap-editor :deep(.ProseMirror ol) {
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.tiptap-editor :deep(.ProseMirror ul li) {
+  list-style-type: disc;
+  margin: 0.25em 0;
+  color: var(--tiptap-text-color-primary);
+}
+
+.tiptap-editor :deep(.ProseMirror ol li) {
+  list-style-type: decimal;
+  margin: 0.25em 0;
+  color: var(--tiptap-text-color-primary);
+}
+
+.tiptap-editor :deep(.ProseMirror li::marker) {
+  color: var(--tiptap-text-color-secondary);
+}
+
+/* 引用块样式 */
+.tiptap-editor :deep(.ProseMirror blockquote) {
+  border-left: 4px solid var(--tiptap-border-color);
+  padding: 0.5em 1em;
+  margin: 1em 0;
+  background-color: var(--tiptap-fill-color-extra-light);
+  border-radius: 0 var(--tiptap-border-radius-base) var(--tiptap-border-radius-base) 0;
+  font-style: italic;
+  color: var(--tiptap-text-color-regular);
+}
+
+.tiptap-editor :deep(.ProseMirror blockquote p) {
+  margin: 0;
+}
+
+/* 代码块样式 - 兼容Highlight.js */
+.tiptap-editor :deep(.ProseMirror pre) {
+  background-color: var(--el-bg-color-page);
+  border: 1px solid var(--el-border-color-light);
+  border-radius: var(--el-border-radius-base);
+  padding: 1em;
+  margin: 1em 0;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;
+  font-size: 0.875em;
+  line-height: 1.5;
+  color: var(--el-text-color-primary);
+  position: relative;
+  box-shadow: var(--el-box-shadow-light);
+}
+
+.tiptap-editor :deep(.ProseMirror pre code) {
+  background: none !important;
+  padding: 0 !important;
+  border: none !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+  color: inherit !important;
+}
+
+/* 代码块语言标签 */
+.tiptap-editor :deep(.ProseMirror pre::before) {
+  content: attr(data-language);
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  font-size: 0.75em;
+  color: var(--el-text-color-secondary);
+  background: var(--el-fill-color-light);
+  padding: 0.25em 0.5em;
+  border-radius: var(--el-border-radius-small);
+  text-transform: uppercase;
+  font-weight: 500;
+  z-index: 1;
+}
+
+/* 高亮代码样式覆盖 */
+.tiptap-editor :deep(.hljs) {
+  background: transparent !important;
+  color: var(--el-text-color-primary) !important;
+  padding: 0 !important;
+}
+
+/* 深色模式代码块优化 */
+.dark .tiptap-editor :deep(.ProseMirror pre) {
+  background-color: var(--el-bg-color-overlay);
+  border-color: var(--el-border-color);
+}
+
+.dark .tiptap-editor :deep(.hljs) {
+  background: transparent !important;
+}
+
+.tiptap-editor :deep(.ProseMirror code) {
+  background-color: var(--tiptap-fill-color-light);
+  border-radius: var(--tiptap-border-radius-small);
+  padding: 0.125em 0.25em;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;
+  font-size: 0.875em;
+  color: var(--tiptap-text-color-primary);
+}
+
+.tiptap-editor :deep(.ProseMirror pre code) {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* 链接样式 */
+.tiptap-editor :deep(.ProseMirror a) {
+  color: var(--el-color-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.tiptap-editor :deep(.ProseMirror a:hover) {
+  color: var(--el-color-primary-light-3);
+  border-bottom-color: var(--el-color-primary-light-3);
+}
+
+/* 图片样式 */
+.tiptap-editor :deep(.ProseMirror img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--tiptap-border-radius-base);
+  box-shadow: var(--tiptap-box-shadow-light);
+  margin: 1em 0;
+  transition: all 0.2s ease;
+}
+
+.tiptap-editor :deep(.ProseMirror img:hover) {
+  box-shadow: var(--tiptap-box-shadow);
+}
+
+/* 水平分割线 */
+.tiptap-editor :deep(.ProseMirror hr) {
+  border: none;
+  border-top: 1px solid var(--tiptap-border-color-light);
+  margin: 2em 0;
+}
+
+/* 选中状态 */
+.tiptap-editor :deep(.ProseMirror ::selection) {
+  background-color: var(--tiptap-selection-bg);
+  color: inherit;
+}
+
+/* Firefox浏览器支持 */
+.tiptap-editor :deep(.ProseMirror ::-moz-selection) {
+  background-color: var(--tiptap-selection-bg);
+  color: inherit;
+}
+
+/* 确保文本可以选择 */
+.tiptap-editor :deep(.ProseMirror) {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
+
+/* 焦点状态 */
+.tiptap-editor :deep(.ProseMirror-focused) {
+  outline: none;
+}
+
+/* 表格基础样式 */
+.tiptap-editor :deep(.ProseMirror table) {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  border: 1px solid var(--tiptap-border-color);
+  border-radius: var(--tiptap-border-radius-base);
+  overflow: hidden;
+}
+
+.tiptap-editor :deep(.ProseMirror table td),
+.tiptap-editor :deep(.ProseMirror table th) {
+  border: 1px solid var(--tiptap-border-color);
+  padding: 0.5em 0.75em;
+  background-color: var(--tiptap-bg-color);
+  color: var(--tiptap-text-color-primary);
+}
+
+.tiptap-editor :deep(.ProseMirror table th) {
+  background-color: var(--tiptap-fill-color-light);
+  font-weight: 600;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .tiptap-editor :deep(.ProseMirror) {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .tiptap-editor :deep(.ProseMirror h1) {
+    font-size: 1.5em;
+  }
+
+  .tiptap-editor :deep(.ProseMirror h2) {
+    font-size: 1.25em;
+  }
+
+  .tiptap-editor :deep(.ProseMirror h3) {
+    font-size: 1.125em;
+  }
+
+  .tiptap-editor :deep(.ProseMirror pre) {
+    padding: 0.75em;
+    font-size: 0.8em;
+  }
+
+  .tiptap-editor :deep(.ProseMirror table td),
+  .tiptap-editor :deep(.ProseMirror table th) {
+    padding: 0.375em 0.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .tiptap-editor :deep(.ProseMirror) {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .tiptap-editor :deep(.ProseMirror ul),
+  .tiptap-editor :deep(.ProseMirror ol) {
+    padding-left: 1em;
+  }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  .tiptap-editor :deep(.ProseMirror blockquote) {
+    border-left-width: 3px;
+  }
+
+  .tiptap-editor :deep(.ProseMirror a) {
+    text-decoration: underline;
+  }
+}
+
+/* 动画减少模式支持 */
+@media (prefers-reduced-motion: reduce) {
+  .tiptap-editor,
+  .tiptap-editor .editor-container,
+  .tiptap-editor :deep(.ProseMirror a),
+  .tiptap-editor :deep(.ProseMirror img) {
+    transition: none;
+  }
+}
