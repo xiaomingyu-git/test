@@ -12,6 +12,7 @@ import { EditorContent, useEditor } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import TextAlign from '@tiptap/extension-text-align'
 import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight'
+import Image from '@tiptap/extension-image'
 import { createLowlight } from 'lowlight'
 import { watch, onBeforeUnmount, nextTick, computed } from 'vue'
 import TiptapToolbar from './TiptapToolbar.vue'
@@ -97,6 +98,14 @@ const editor = useEditor({
         class: 'code-block-wrapper',
       },
     }),
+    Image.configure({
+      HTMLAttributes: {
+        class: 'tiptap-image',
+      },
+      inline: false,
+      group: 'block',
+      draggable: true,
+    }),
     ],
   onUpdate: ({ editor }) => {
     const html = editor.getHTML()
@@ -168,10 +177,19 @@ const setupKeyboardShortcuts = (): (() => void) => {
           event.preventDefault()
           editor.value.chain().focus().toggleItalic().run()
           break
-        // case 'u':
-        //   event.preventDefault()
-        //   editor.value.chain().focus().toggleUnderline().run()
-        //   break
+        case 'u':
+          event.preventDefault()
+          editor.value.chain().focus().toggleUnderline().run()
+          break
+        case 'k':
+          event.preventDefault()
+          // 插入链接
+          const url = window.prompt('请输入链接地址:')
+          if (url) {
+            const fullUrl = url.startsWith('http') ? url : `https://${url}`
+            editor.value.chain().focus().setLink({ href: fullUrl }).run()
+          }
+          break
         case 's':
           event.preventDefault()
           // 触发保存事件
@@ -216,7 +234,7 @@ const setupKeyboardShortcuts = (): (() => void) => {
           event.preventDefault()
           editor.value.chain().focus().setTextAlign('right').run()
           break
-      }
+              }
     }
   }
 
@@ -265,5 +283,25 @@ onBeforeUnmount(() => {
 /* 组件特定的样式覆盖 */
 :deep(.ProseMirror p.is-editor-empty:first-child::before) {
   content: attr(data-placeholder);
+}
+
+/* 图片样式 */
+:deep(.tiptap-image) {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--el-border-radius-base);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+:deep(.tiptap-image:hover) {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 选中的图片样式 */
+:deep(.ProseMirror-selectednode .tiptap-image) {
+  outline: 2px solid var(--el-color-primary);
+  outline-offset: 2px;
 }
 </style>

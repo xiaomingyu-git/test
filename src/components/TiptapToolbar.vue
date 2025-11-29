@@ -188,13 +188,20 @@
         图片
       </el-button>
     </el-space>
+
+    <!-- 图片上传对话框 -->
+    <ImageUploadDialog
+      v-model="showImageUploadDialog"
+      :editor="editorInstance"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
 import type { Ref } from 'vue'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import ImageUploadDialog from './ImageUploadDialog.vue'
 // 暂时使用简单的文本按钮，稍后添加图标
 
 // Tiptap编辑器接口定义 - 基于实际使用的方法
@@ -249,11 +256,14 @@ const editorInstanceInstance = computed((): TiptapEditor => {
   return props.editorInstance
 })
 
+// 图片上传对话框显示状态
+const showImageUploadDialog = ref(false)
+
 // 设置标题级别 - 使用明确的返回类型
 const setHeading = (command: string): void => {
-  if (!editor.value) return
+  if (!editorInstance.value) return
 
-  const currentEditor = editor.value
+  const currentEditor = editorInstance.value
   if (command === 'paragraph') {
     currentEditor.chain().focus().setParagraph().run()
   } else {
@@ -267,7 +277,7 @@ const setHeading = (command: string): void => {
 
 // 插入链接 - 使用明确的返回类型
 const insertLink = (): void => {
-  if (!editor.value) return
+  if (!editorInstance.value) return
 
   const url = window.prompt('请输入链接地址:')
 
@@ -276,7 +286,7 @@ const insertLink = (): void => {
   }
 
   if (url === '') {
-    editor.value.chain().focus().extendMarkRange('link').unsetLink().run()
+    editorInstance.value.chain().focus().extendMarkRange('link').unsetLink().run()
     return
   }
 
@@ -286,26 +296,16 @@ const insertLink = (): void => {
   } catch {
     // 如果不是完整URL，添加http://
     const fullUrl = url.startsWith('http') ? url : `https://${url}`
-    editor.value.chain().focus().setLink({ href: fullUrl }).run()
+    editorInstance.value.chain().focus().setLink({ href: fullUrl }).run()
   }
 }
 
 // 插入图片 - 使用明确的返回类型
 const insertImage = (): void => {
-  if (!editor.value) return
+  if (!editorInstance.value) return
 
-  const url = window.prompt('请输入图片地址:')
-
-  if (url === null) {
-    return
-  }
-
-  if (url === '') {
-    return
-  }
-
-  editor.value.chain().focus().setImage({ src: url }).run()
-  ElMessage.success('图片插入成功')
+  // 打开图片上传对话框
+  showImageUploadDialog.value = true
 }
 </script>
 
