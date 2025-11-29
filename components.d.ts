@@ -13,7 +13,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./src/components/common/AppFooter.vue')['default']
     AppHeader: typeof import('./src/components/common/AppHeader.vue')['default']
-    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
@@ -65,6 +64,9 @@ declare module 'vue' {
     TiptapEditor: typeof import('./src/components/editor/TiptapEditor.vue')['default']
     TiptapEditorContainer: typeof import('./src/components/editor/TiptapEditorContainer.vue')['default']
     TiptapToolbar: typeof import('./src/components/editor/TiptapToolbar.vue')['default']
+    UserForm: typeof import('./src/components/UserForm.vue')['default']
+    UserSearchForm: typeof import('./src/components/UserSearchForm.vue')['default']
+    UserTable: typeof import('./src/components/UserTable.vue')['default']
     WangEditor: typeof import('./src/components/editor/WangEditor.vue')['default']
     WangEditorToolbar: typeof import('./src/components/editor/WangEditorToolbar.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']

@@ -1,0 +1,40 @@
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit
+vue-root:build:pnpm run build
+vue-root:tsc:pnpm exec vue-tsc --project tsconfig.app.json --noEmit

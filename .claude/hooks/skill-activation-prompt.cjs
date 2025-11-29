@@ -1,7 +1,34 @@
 #!/usr/bin/env node
 
-const { readFileSync, existsSync } = require('fs');
+const fs = require('fs');
+const { readFileSync, writeFileSync, existsSync, mkdirSync } = require('fs');
 const { join } = require('path');
+
+function logUserInput(prompt) {
+    try {
+        const logDir = join(process.cwd(), '.claude');
+        const logFile = join(logDir, 'user-input.log');
+
+        // 确保目录存在
+        if (!existsSync(logDir)) {
+            mkdirSync(logDir, { recursive: true });
+        }
+
+        // 记录用户输入
+        const timestamp = new Date().toISOString();
+        const logEntry = `[${timestamp}] ${prompt}\n`;
+
+        if (existsSync(logFile)) {
+            // 追加到现有日志
+            fs.appendFileSync(logFile, logEntry);
+        } else {
+            // 创建新日志文件
+            writeFileSync(logFile, logEntry);
+        }
+    } catch (error) {
+        console.error('记录用户输入时出错:', error.message);
+    }
+}
 
 async function main() {
     try {
@@ -9,6 +36,24 @@ async function main() {
         const input = readFileSync(0, 'utf-8');
         const data = JSON.parse(input);
         const prompt = data.prompt.toLowerCase();
+        const originalPrompt = data.prompt;
+
+        // 记录用户输入到日志文件
+        logUserInput(originalPrompt);
+
+        // 检查是否包含 /fest 命令
+        if (prompt.includes('/fest')) {
+            console.log('🚀 检测到 /fest 命令，准备启动完整测试流程...');
+            // 触发 /fest 流程
+            setTimeout(() => {
+                const { spawn } = require('child_process');
+                spawn('node', ['.claude/hooks/ftest-trigger.cjs'], {
+                    stdio: 'inherit',
+                    shell: true,
+                    detached: true
+                }).unref();
+            }, 1000);
+        }
 
         // 加载技能规则
         const projectDir = process.cwd();

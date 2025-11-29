@@ -1,0 +1,171 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - link "Vue Editor Vue Editor" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - img "Vue Editor" [ref=e9]
+          - heading "Vue Editor" [level=1] [ref=e10]
+        - navigation [ref=e11]:
+          - menubar [ref=e12]:
+            - menuitem "首页" [ref=e13] [cursor=pointer]:
+              - img [ref=e15]
+              - generic [ref=e17]: 首页
+            - menuitem "编辑器" [ref=e18]:
+              - generic [ref=e19] [cursor=pointer]:
+                - img [ref=e21]
+                - generic [ref=e24]: 编辑器
+                - img [ref=e26]
+            - menuitem "演示" [ref=e28]:
+              - generic [ref=e29] [cursor=pointer]:
+                - img [ref=e31]
+                - generic [ref=e33]: 演示
+                - img [ref=e35]
+            - menuitem [ref=e37]:
+              - img [ref=e40] [cursor=pointer]
+    - main [ref=e42]:
+      - generic [ref=e43]:
+        - navigation "Breadcrumb" [ref=e45]:
+          - link "首页" [ref=e47]
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - heading "Vue Editor" [level=1] [ref=e52]
+              - paragraph [ref=e53]: 基于 Vue 3 + TypeScript + Element Plus 的现代化富文本编辑器解决方案
+              - generic [ref=e54]:
+                - button "开始使用" [ref=e55] [cursor=pointer]:
+                  - generic [ref=e56]:
+                    - img [ref=e58]
+                    - text: 开始使用
+                - button "查看演示" [ref=e61] [cursor=pointer]:
+                  - generic [ref=e62]:
+                    - img [ref=e64]
+                    - text: 查看演示
+            - generic [ref=e73]: Rich Text Editor
+          - generic [ref=e84]:
+            - heading "核心特性" [level=2] [ref=e85]
+            - generic [ref=e86]:
+              - generic [ref=e87]:
+                - heading "高性能" [level=3] [ref=e90]
+                - paragraph [ref=e91]: 基于虚拟 DOM 和优化的渲染机制，提供流畅的编辑体验
+              - generic [ref=e92]:
+                - heading "高度可定制" [level=3] [ref=e95]
+                - paragraph [ref=e96]: 丰富的配置选项和插件系统，满足各种定制化需求
+              - generic [ref=e97]:
+                - heading "响应式设计" [level=3] [ref=e100]
+                - paragraph [ref=e101]: 完美适配桌面端和移动端，提供一致的用户体验
+              - generic [ref=e102]:
+                - heading "现代化" [level=3] [ref=e105]
+                - paragraph [ref=e106]: 基于 Vue 3 Composition API，使用 TypeScript 开发
+          - generic [ref=e108]:
+            - heading "编辑器选择" [level=2] [ref=e109]
+            - paragraph [ref=e110]: 选择适合你项目需求的编辑器
+            - generic [ref=e111]:
+              - generic [ref=e112]:
+                - generic [ref=e113]:
+                  - heading "Tiptap Editor" [level=3] [ref=e114]
+                  - generic [ref=e116]: 推荐
+                - generic [ref=e117]:
+                  - generic [ref=e118]:
+                    - img [ref=e120]
+                    - generic [ref=e122]: 基于 ProseMirror，性能优秀
+                  - generic [ref=e123]:
+                    - img [ref=e125]
+                    - generic [ref=e127]: 高度可定制和扩展
+                  - generic [ref=e128]:
+                    - img [ref=e130]
+                    - generic [ref=e132]: 现代化架构设计
+                  - generic [ref=e133]:
+                    - img [ref=e135]
+                    - generic [ref=e137]: TypeScript 原生支持
+                - button "体验 Tiptap" [ref=e138] [cursor=pointer]:
+                  - generic [ref=e139]: 体验 Tiptap
+              - generic [ref=e140]:
+                - generic [ref=e141]:
+                  - heading "wangEditor" [level=3] [ref=e142]
+                  - generic [ref=e144]: 稳定
+                - generic [ref=e145]:
+                  - generic [ref=e146]:
+                    - img [ref=e148]
+                    - generic [ref=e150]: 轻量级，易于集成
+                  - generic [ref=e151]:
+                    - img [ref=e153]
+                    - generic [ref=e155]: 开箱即用的丰富功能
+                  - generic [ref=e156]:
+                    - img [ref=e158]
+                    - generic [ref=e160]: 中文文档完善
+                  - generic [ref=e161]:
+                    - img [ref=e163]
+                    - generic [ref=e165]: 成熟的社区生态
+                - button "体验 wangEditor" [ref=e166] [cursor=pointer]:
+                  - generic [ref=e167]: 体验 wangEditor
+          - generic [ref=e169]:
+            - heading "快速开始" [level=2] [ref=e170]
+            - generic [ref=e171]:
+              - generic [ref=e172]:
+                - generic [ref=e173]: 安装依赖
+                - button [ref=e174] [cursor=pointer]:
+                  - img [ref=e177]
+              - code [ref=e181]: "# 安装 Vue 3 和 Element Plus npm install vue@^3.5.0 element-plus@^2.11.0 # 安装 Tiptap 编辑器 npm install @tiptap/vue-3 @tiptap/starter-kit # 安装 wangEditor（可选） npm install @wangeditor-next/editor @wangeditor-next/editor-for-vue"
+            - generic [ref=e182]:
+              - generic [ref=e183]:
+                - generic [ref=e184]: 基础使用
+                - button [ref=e185] [cursor=pointer]:
+                  - img [ref=e188]
+              - code [ref=e192]: "// 基础使用示例 <template> <tiptap-editor v-model=\"content\" :height=\"400\" placeholder=\"开始编辑...\" /> </template> &lt;script setup&gt; import { ref } from 'vue' import TiptapEditor from '@/components/editor/TiptapEditor.vue' const content = ref('&lt;p&gt;Hello Vue Editor!&lt;/p&gt;') &lt;/script&gt;"
+    - contentinfo [ref=e193]:
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - generic [ref=e196]:
+            - heading "Vue Editor" [level=3] [ref=e197]
+            - paragraph [ref=e198]: 基于 Vue 3 + TypeScript + Element Plus 的富文本编辑器解决方案
+            - generic [ref=e199]:
+              - generic [ref=e201]: Vue 3
+              - generic [ref=e203]: TypeScript
+              - generic [ref=e205]: Element Plus
+              - generic [ref=e207]: Tiptap
+              - generic [ref=e209]: wangEditor
+              - generic [ref=e211]: Vite
+          - generic [ref=e212]:
+            - generic [ref=e213]:
+              - heading "编辑器" [level=4] [ref=e214]
+              - link "Tiptap Editor" [ref=e215] [cursor=pointer]:
+                - /url: /editor/tiptap
+              - link "wangEditor" [ref=e216] [cursor=pointer]:
+                - /url: /editor/wang
+              - link "编辑器对比" [ref=e217] [cursor=pointer]:
+                - /url: /editor/comparison
+            - generic [ref=e218]:
+              - heading "演示" [level=4] [ref=e219]
+              - link "表格组件" [ref=e220] [cursor=pointer]:
+                - /url: /demo/table
+              - link "卡片组件" [ref=e221] [cursor=pointer]:
+                - /url: /demo/card
+              - link "集成演示" [ref=e222] [cursor=pointer]:
+                - /url: /demo/integration
+            - generic [ref=e223]:
+              - heading "更多" [level=4] [ref=e224]
+              - link "关于项目" [ref=e225] [cursor=pointer]:
+                - /url: /about
+              - link "GitHub" [ref=e226] [cursor=pointer]:
+                - /url: https://github.com
+              - link "Vue.js" [ref=e227] [cursor=pointer]:
+                - /url: https://vuejs.org
+          - heading "主题设置" [level=4] [ref=e230]
+        - generic [ref=e231]:
+          - generic [ref=e232]:
+            - generic [ref=e233]: © 2025 Vue Editor Project.
+            - generic [ref=e234]: •
+            - generic [ref=e235]: Built with ❤️ using Vue 3
+          - generic [ref=e237]:
+            - img [ref=e239]
+            - text: "访问量: 1,234"
+  - generic [ref=e241]:
+    - generic "Toggle devtools panel" [ref=e242] [cursor=pointer]:
+      - img [ref=e243]
+    - generic "Toggle Component Inspector" [ref=e248] [cursor=pointer]:
+      - img [ref=e249]
+```

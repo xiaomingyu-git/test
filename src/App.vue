@@ -20,10 +20,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useTheme } from '@/composables/useTheme'
-
-// 使用主题管理
-useTheme()
 
 // 全局加载状态
 const globalLoading = ref(false)

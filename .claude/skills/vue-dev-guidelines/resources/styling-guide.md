@@ -1,5 +1,8 @@
 # Element Plus 样式指南
 
+> **核心原则：优先使用 Element Plus 原生样式，减少自定义定制**
+> 只有非 Element Plus 组件才需要样式覆盖。充分利用框架提供的设计系统和组件样式。
+
 ## Element Plus 样式配置
 
 ### 基础设置
@@ -9,10 +12,11 @@
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/dark/css-vars.css' // 暗色模式支持
 
 const app = createApp(App)
 
-// 全局配置
+// 全局配置 - 使用 Element Plus 原生配置
 app.use(ElementPlus, {
   size: 'default', // 'large' | 'default' | 'small'
   zIndex: 2000,
@@ -21,273 +25,94 @@ app.use(ElementPlus, {
 app.mount('#app')
 ```
 
+### 🎯 样式使用原则
+
+**1. 优先使用原生样式**
+- Element Plus 组件默认样式已经经过设计优化
+- 避免不必要的样式覆盖
+- 优先使用组件的 props 和内置属性
+
+**2. 最小化自定义**
+- 只在必要时覆盖样式
+- 使用 CSS 变量进行微调，而不是完全重写
+- 保持与 Element Plus 设计语言的一致性
+
+**3. 工具类补充**
+- 工具类主要用于布局和非 Element Plus 组件
+- 不要用工具类覆盖 Element Plus 组件的核心样式
+
 ---
 
 ## 主题定制
 
-### CSS 变量覆盖
+### ⚠️ 最小化主题定制
+
+> **重要提醒：Element Plus 的默认主题已经经过专业设计优化，建议尽量保持原样**
+> 只有品牌色调整等必要情况才进行主题定制
 
 ```scss
-// styles/element-plus.scss
+// styles/theme-variables.scss - 仅在必要时使用
 :root {
-  /* 主要颜色 */
-  --el-color-primary: #409eff;
-  --el-color-primary-light-3: #79bbff;
-  --el-color-primary-light-5: #a0cfff;
-  --el-color-primary-light-7: #c6e2ff;
-  --el-color-primary-light-8: #d9ecff;
-  --el-color-primary-light-9: #ecf5ff;
-  --el-color-primary-dark-2: #337ecc;
+  /* 品牌色定制 - 只修改必要的颜色 */
+  --el-color-primary: #1890ff; /* 根据品牌调整 */
 
-  /* 成功颜色 */
-  --el-color-success: #67c23a;
-  --el-color-success-light-3: #95d475;
-  --el-color-success-light-5: #b3e19d;
-  --el-color-success-light-7: #d1edc4;
-  --el-color-success-light-8: #e1f3d8;
-  --el-color-success-light-9: #f0f9eb;
-  --el-color-success-dark-2: #529b2e;
-
-  /* 警告颜色 */
-  --el-color-warning: #e6a23c;
-  --el-color-warning-light-3: #eebe77;
-  --el-color-warning-light-5: #f3d19e;
-  --el-color-warning-light-7: #f8e3c5;
-  --el-color-warning-light-8: #faecd8;
-  --el-color-warning-light-9: #fdf6ec;
-  --el-color-warning-dark-2: #b88230;
-
-  /* 危险颜色 */
-  --el-color-danger: #f56c6c;
-  --el-color-danger-light-3: #f78989;
-  --el-color-danger-light-5: #fbb6b6;
-  --el-color-danger-light-7: #fccdcd;
-  --el-color-danger-light-8: #fde2e2;
-  --el-color-danger-light-9: #fef0f0;
-  --el-color-danger-dark-2: #c45656;
-
-  /* 信息颜色 */
-  --el-color-info: #909399;
-  --el-color-info-light-3: #b1b3b8;
-  --el-color-info-light-5: #c8c9cc;
-  --el-color-info-light-7: #dedfe0;
-  --el-color-info-light-8: #e9e9eb;
-  --el-color-info-light-9: #f4f4f5;
-  --el-color-info-dark-2: #73767a;
-
-  /* 中性色 */
-  --el-text-color-primary: #303133;
-  --el-text-color-regular: #606266;
-  --el-text-color-secondary: #909399;
-  --el-text-color-placeholder: #c0c4cc;
-  --el-text-color-disabled: #c0c4cc;
-
-  /* 边框颜色 */
-  --el-border-color: #dcdfe6;
-  --el-border-color-light: #e4e7ed;
-  --el-border-color-lighter: #ebeef5;
-  --el-border-color-extra-light: #f2f6fc;
-  --el-border-color-dark: #d3d4d6;
-  --el-border-color-darker: #cdd0d6;
-
-  /* 填充颜色 */
-  --el-fill-color: #f0f2f5;
-  --el-fill-color-light: #f5f7fa;
-  --el-fill-color-lighter: #fafafa;
-  --el-fill-color-extra-light: #fafcff;
-  --el-fill-color-dark: #ebedf0;
-  --el-fill-color-darker: #e6e8eb;
-  --el-fill-color-blank: #ffffff;
-
-  /* 背景颜色 */
-  --el-bg-color: #ffffff;
-  --el-bg-color-page: #f2f3f5;
-  --el-bg-color-overlay: #ffffff;
-
-  /* 组件尺寸 */
-  --el-component-size-large: 40px;
-  --el-component-size-default: 32px;
-  --el-component-size-small: 24px;
-
-  /* 字体大小 */
-  --el-font-size-extra-large: 20px;
-  --el-font-size-large: 18px;
-  --el-font-size-medium: 16px;
-  --el-font-size-base: 14px;
-  --el-font-size-small: 13px;
-  --el-font-size-extra-small: 12px;
-
-  /* 边框圆角 */
-  --el-border-radius-base: 4px;
-  --el-border-radius-small: 2px;
-  --el-border-radius-round: 20px;
-  --el-border-radius-circle: 100%;
-
-  /* 阴影 */
-  --el-box-shadow: 0 12px 12px rgba(0, 0, 0, 0.12);
-  --el-box-shadow-light: 0 12px 12px rgba(0, 0, 0, 0.12);
-  --el-box-shadow-lighter: 0 12px 12px rgba(0, 0, 0, 0.12);
-  --el-box-shadow-dark: 0 12px 12px rgba(0, 0, 0, 0.12);
-
-  /* 禁用颜色 */
-  --el-disabled-bg-color: var(--el-fill-color-light);
-  --el-disabled-text-color: var(--el-text-color-placeholder);
-  --el-disabled-border-color: var(--el-border-color-light);
+  /* 其他颜色保持 Element Plus 默认值，不要随意修改 */
 }
+
+/* 避免过度定制，不要完全重写所有变量 */
 ```
 
-### 组件样式覆盖
+### 组件样式覆盖原则
+
+**❌ 不推荐的做法：**
+- 完全重写 Element Plus 组件样式
+- 使用渐变背景等破坏设计一致性的样式
+- 覆盖组件的核心交互样式
+
+**✅ 推荐的做法：**
+- 使用组件提供的 props 和属性
+- 仅微调必要的样式（如间距、边距）
+- 保持与 Element Plus 设计语言的一致性
+
+```vue
+<!-- ✅ 正确：使用组件属性 -->
+<el-button type="primary" size="large" round>
+  主要按钮
+</el-button>
+
+<el-card shadow="hover" class="custom-margin">
+  卡片内容
+</el-card>
+
+<!-- ❌ 错误：过度自定义样式 -->
+<el-button class="custom-gradient-button">
+  按钮内容
+</el-button>
+```
+
+### 必要时的样式覆盖
+
+如果确实需要覆盖样式，请遵循以下原则：
 
 ```scss
-// 按钮样式覆盖
-.el-button {
-  &--primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
+// 仅在必要时进行最小化覆盖
+.custom-component {
+  /* 只调整布局相关的样式 */
+  margin: var(--el-margin-medium) 0;
 
-    &:hover {
-      background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-    }
-
-    &:active {
-      background: linear-gradient(135deg, #4c51bf 0%, #5a4b8c 100%);
-    }
-  }
-
-  &--success {
-    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-    border: none;
-
-    &:hover {
-      background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
-    }
-  }
-
-  &--warning {
-    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
-    border: none;
-
-    &:hover {
-      background: linear-gradient(135deg, #dd6b20 0%, #c05621 100%);
-    }
-  }
-
-  &--danger {
-    background: linear-gradient(135deg, #fc8181 0%, #f56565 100%);
-    border: none;
-
-    &:hover {
-      background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
-    }
-  }
-
-  &.is-round {
-    border-radius: var(--el-border-radius-round);
-  }
+  /* 避免覆盖核心样式如颜色、阴影等 */
+  /* 不要这样做： */
+  /* background: linear-gradient(...); */
+  /* border: none; */
 }
 
-// 卡片样式覆盖
-.el-card {
+/* 如果必须覆盖，使用 CSS 变量而不是固定值 */
+.custom-dialog {
+  /* ✅ 好的做法：使用变量 */
   border-radius: var(--el-border-radius-base);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
-  &:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 6px 6px rgba(0, 0, 0, 0.16);
-  }
-
-  .el-card__header {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    border-bottom: 1px solid var(--el-border-color-light);
-    font-weight: 600;
-  }
-
-  &.is-always-shadow {
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  }
-
-  &.is-hover-shadow:hover {
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  }
-}
-
-// 输入框样式覆盖
-.el-input {
-  .el-input__inner {
-    border-radius: var(--el-border-radius-base);
-    transition: all 0.3s ease;
-
-    &:focus {
-      box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
-    }
-  }
-
-  &.is-disabled .el-input__inner {
-    background-color: var(--el-disabled-bg-color);
-    color: var(--el-disabled-text-color);
-    cursor: not-allowed;
-  }
-}
-
-// 表格样式覆盖
-.el-table {
-  .el-table__header {
-    background-color: var(--el-fill-color-light);
-    color: var(--el-text-color-primary);
-    font-weight: 600;
-  }
-
-  .el-table__row {
-    &:hover {
-      background-color: var(--el-fill-color-extra-light);
-    }
-  }
-
-  &.el-table--striped {
-    .el-table__body tr.el-table__row--striped {
-      background-color: var(--el-fill-color-blank);
-    }
-  }
-}
-
-// 分页样式覆盖
-.el-pagination {
-  .el-pager li.active {
-    background-color: var(--el-color-primary);
-    color: #fff;
-  }
-
-  .btn-prev,
-  .btn-next {
-    &:hover {
-      color: var(--el-color-primary);
-    }
-  }
-}
-
-// 消息提示样式覆盖
-.el-message {
-  border-radius: var(--el-border-radius-base);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-
-  &.el-message--success {
-    background: linear-gradient(135deg, #f0f9eb 0%, #e8f5e8 100%);
-    border-color: var(--el-color-success-light-7);
-  }
-
-  &.el-message--warning {
-    background: linear-gradient(135deg, #fdf6ec 0%, #faecd8 100%);
-    border-color: var(--el-color-warning-light-7);
-  }
-
-  &.el-message--error {
-    background: linear-gradient(135deg, #fef0f0 0%, #fde2e2 100%);
-    border-color: var(--el-color-danger-light-7);
-  }
-
-  &.el-message--info {
-    background: linear-gradient(135deg, #f4f4f5 0%, #e9e9eb 100%);
-    border-color: var(--el-color-info-light-7);
-  }
+  /* ❌ 避免的做法：固定值 */
+  /* border-radius: 16px; */
 }
 ```
 
@@ -447,139 +272,105 @@ $breakpoints: (
 
 ---
 
-## 工具类
+## 工具类使用指南
 
-### 常用工具类
+### 🎯 工具类使用原则
+
+**1. 主要用途**
+- **布局辅助**: 用于页面布局、间距调整
+- **非Element Plus组件**: 自定义组件的快速样式
+- **响应式设计**: 断点相关的样式调整
+
+**2. 使用限制**
+- **❌ 不要用于覆盖Element Plus组件核心样式**
+- **❌ 不要破坏组件的原生交互和外观**
+- **✅ 主要用于布局间距、位置等辅助样式**
+
+### 基础布局工具类
 
 ```scss
-// 布局工具类
+/* 布局相关 - 主要用于容器和布局结构 */
 .u-flex { display: flex !important; }
 .u-flex-column { flex-direction: column !important; }
 .u-flex-wrap { flex-wrap: wrap !important; }
-.u-flex-nowrap { flex-wrap: nowrap !important; }
 .u-flex-1 { flex: 1 1 0% !important; }
-.u-flex-auto { flex: 1 1 auto !important; }
-.u-flex-none { flex: none !important; }
 
-.u-justify-start { justify-content: flex-start !important; }
 .u-justify-center { justify-content: center !important; }
-.u-justify-end { justify-content: flex-end !important; }
 .u-justify-between { justify-content: space-between !important; }
-.u-justify-around { justify-content: space-around !important; }
-.u-justify-evenly { justify-content: space-evenly !important; }
+.u-justify-end { justify-content: flex-end !important; }
 
-.u-items-start { align-items: flex-start !important; }
 .u-items-center { align-items: center !important; }
+.u-items-start { align-items: flex-start !important; }
 .u-items-end { align-items: flex-end !important; }
-.u-items-stretch { align-items: stretch !important; }
 
-// 间距工具类
-.u-m-0 { margin: 0 !important; }
-.u-m-1 { margin: 4px !important; }
-.u-m-2 { margin: 8px !important; }
-.u-m-3 { margin: 12px !important; }
-.u-m-4 { margin: 16px !important; }
-.u-m-5 { margin: 20px !important; }
-.u-m-6 { margin: 24px !important; }
+/* Element Plus 间距变量 - 推荐使用 */
+.u-gap-xs { gap: var(--el-spacing-extra-small) !important; }
+.u-gap-sm { gap: var(--el-spacing-small) !important; }
+.u-gap-md { gap: var(--el-spacing-medium) !important; }
+.u-gap-lg { gap: var(--el-spacing-large) !important; }
+```
 
-.u-mt-0 { margin-top: 0 !important; }
-.u-mt-1 { margin-top: 4px !important; }
-.u-mt-2 { margin-top: 8px !important; }
-.u-mt-3 { margin-top: 12px !important; }
-.u-mt-4 { margin-top: 16px !important; }
-.u-mt-5 { margin-top: 20px !important; }
-.u-mt-6 { margin-top: 24px !important; }
+### Element Plus 变量工具类
 
-.u-mb-0 { margin-bottom: 0 !important; }
-.u-mb-1 { margin-bottom: 4px !important; }
-.u-mb-2 { margin-bottom: 8px !important; }
-.u-mb-3 { margin-bottom: 12px !important; }
-.u-mb-4 { margin-bottom: 16px !important; }
-.u-mb-5 { margin-bottom: 20px !important; }
-.u-mb-6 { margin-bottom: 24px !important; }
+```scss
+/* 基于 Element Plus 变量的工具类 */
+.u-p-xs { padding: var(--el-padding-extra-small) !important; }
+.u-p-sm { padding: var(--el-padding-small) !important; }
+.u-p-md { padding: var(--el-padding-medium) !important; }
+.u-p-lg { padding: var(--el-padding-large) !important; }
 
-.u-ml-0 { margin-left: 0 !important; }
-.u-ml-1 { margin-left: 4px !important; }
-.u-ml-2 { margin-left: 8px !important; }
-.u-ml-3 { margin-left: 12px !important; }
-.u-ml-4 { margin-left: 16px !important; }
-.u-ml-5 { margin-left: 20px !important; }
-.u-ml-6 { margin-left: 24px !important; }
+.u-m-xs { margin: var(--el-margin-extra-small) !important; }
+.u-m-sm { margin: var(--el-margin-small) !important; }
+.u-m-md { margin: var(--el-margin-medium) !important; }
+.u-m-lg { margin: var(--el-margin-large) !important; }
 
-.u-mr-0 { margin-right: 0 !important; }
-.u-mr-1 { margin-right: 4px !important; }
-.u-mr-2 { margin-right: 8px !important; }
-.u-mr-3 { margin-right: 12px !important; }
-.u-mr-4 { margin-right: 16px !important; }
-.u-mr-5 { margin-right: 20px !important; }
-.u-mr-6 { margin-right: 24px !important; }
+/* 文本相关 */
+.u-text-primary { color: var(--el-text-color-primary) !important; }
+.u-text-regular { color: var(--el-text-color-regular) !important; }
+.u-text-secondary { color: var(--el-text-color-secondary) !important; }
 
-.u-p-0 { padding: 0 !important; }
-.u-p-1 { padding: 4px !important; }
-.u-p-2 { padding: 8px !important; }
-.u-p-3 { padding: 12px !important; }
-.u-p-4 { padding: 16px !important; }
-.u-p-5 { padding: 20px !important; }
-.u-p-6 { padding: 24px !important; }
+.u-font-base { font-size: var(--el-font-size-base) !important; }
+.u-font-small { font-size: var(--el-font-size-small) !important; }
+.u-font-large { font-size: var(--el-font-size-large) !important; }
+```
 
-// 文本工具类
-.u-text-left { text-align: left !important; }
-.u-text-center { text-align: center !important; }
-.u-text-right { text-align: right !important; }
+### 使用示例
 
-.u-text-xs { font-size: 12px !important; }
-.u-text-sm { font-size: 13px !important; }
-.u-text-base { font-size: 14px !important; }
-.u-text-lg { font-size: 16px !important; }
-.u-text-xl { font-size: 18px !important; }
-.u-text-2xl { font-size: 20px !important; }
+```vue
+<template>
+  <!-- ✅ 正确使用：用于布局和间距 -->
+  <div class="u-flex u-justify-between u-items-center u-p-lg">
+    <h1 class="u-text-primary u-font-large">标题</h1>
+    <el-button type="primary">按钮</el-button>
+  </div>
 
-.u-font-light { font-weight: 300 !important; }
-.u-font-normal { font-weight: 400 !important; }
-.u-font-medium { font-weight: 500 !important; }
-.u-font-semibold { font-weight: 600 !important; }
-.u-font-bold { font-weight: 700 !important; }
+  <!-- ✅ 正确使用：自定义容器样式 -->
+  <div class="custom-container u-p-md u-bg-fill-lighter u-rounded">
+    <el-form>
+      <!-- Element Plus 组件保持原样 -->
+    </el-form>
+  </div>
 
-// 显示工具类
-.u-block { display: block !important; }
-.u-inline-block { display: inline-block !important; }
-.u-inline { display: inline !important; }
-.u-hidden { display: none !important; }
+  <!-- ❌ 错误使用：覆盖 Element Plus 组件核心样式 -->
+  <el-button class="u-flex u-justify-center u-bg-primary">
+    不要这样做
+  </el-button>
+</template>
 
-// 位置工具类
-.u-relative { position: relative !important; }
-.u-absolute { position: absolute !important; }
-.u-fixed { position: fixed !important; }
-.u-static { position: static !important; }
+<style scoped>
+/* ✅ 正确：自定义容器的样式 */
+.custom-container {
+  /* 使用 Element Plus 变量保持一致性 */
+  border: 1px solid var(--el-border-color-lighter);
+}
 
-// 宽度工具类
-.u-w-full { width: 100% !important; }
-.u-w-auto { width: auto !important; }
-
-// 高度工具类
-.u-h-full { height: 100% !important; }
-.u-h-auto { height: auto !important; }
-
-// 溢出工具类
-.u-overflow-hidden { overflow: hidden !important; }
-.u-overflow-auto { overflow: auto !important; }
-.u-overflow-scroll { overflow: scroll !important; }
-.u-overflow-visible { overflow: visible !important; }
-
-// 圆角工具类
-.u-rounded-none { border-radius: 0 !important; }
-.u-rounded-sm { border-radius: 2px !important; }
-.u-rounded { border-radius: 4px !important; }
-.u-rounded-lg { border-radius: 8px !important; }
-.u-rounded-xl { border-radius: 12px !important; }
-.u-rounded-2xl { border-radius: 16px !important; }
-.u-rounded-full { border-radius: 50% !important; }
-
-// 阴影工具类
-.u-shadow { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important; }
-.u-shadow-lg { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important; }
-.u-shadow-xl { box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.04) !important; }
-.u-shadow-none { box-shadow: none !important; }
+/* ❌ 错误：覆盖 Element Plus 组件样式 */
+.el-button {
+  /* 不要覆盖组件的核心样式 */
+  /* background: linear-gradient(...); */
+  /* border: none; */
+}
+</style>
 ```
 
 ---
@@ -643,18 +434,71 @@ app.use(ElFormItem)
 
 ---
 
-## 总结
+## 最佳实践总结
 
-**Element Plus 样式最佳实践：**
+### 🎯 **核心原则：优先使用 Element Plus 原生样式**
 
-✅ **使用 CSS 变量** - 利用 Element Plus 的内置变量进行主题定制
-✅ **响应式设计** - 使用 Element Plus 的响应式组件和工具类
-✅ **组件样式覆盖** - 合理覆盖组件样式，保持一致性
-✅ **暗色模式** - 通过 CSS 变量实现主题切换
-✅ **工具类** - 使用简洁的工具类提高开发效率
-✅ **性能优化** - 按需导入组件和样式，减少包体积
-✅ **保持简洁** - 避免过度自定义，充分利用原生功能
+**✅ 推荐的做法：**
+- **充分利用 Element Plus 设计系统** - 组件默认样式已经过专业优化
+- **最小化自定义** - 只在必要时进行样式调整，避免过度定制
+- **使用组件属性** - 优先使用组件提供的 props 和内置属性
+- **保持设计一致性** - 遵循 Element Plus 的设计语言和交互模式
+- **CSS 变量微调** - 使用 Element Plus 内置变量进行细微调整
 
-**相关文档：**
+**❌ 避免的做法：**
+- **完全重写组件样式** - 破坏组件的原生设计和交互
+- **过度自定义主题** - 随意修改所有颜色变量
+- **用工具类覆盖组件** - 破坏组件的核心功能和样式
+- **固定值替代变量** - 使用硬编码值而非 CSS 变量
+- **渐变等花哨效果** - 破坏设计系统的一致性
+
+### 📋 **使用优先级**
+
+1. **Element Plus 原生组件和属性** (最高优先级)
+2. **Element Plus CSS 变量微调**
+3. **工具类用于布局和间距**
+4. **自定义样式仅用于非 Element Plus 组件**
+
+### 🛠️ **开发指南**
+
+```vue
+<!-- ✅ 优先使用组件属性 -->
+<el-button
+  type="primary"
+  size="large"
+  round
+  :loading="loading"
+>
+  提交
+</el-button>
+
+<!-- ✅ 工具类用于布局 -->
+<div class="u-flex u-justify-between u-items-center u-p-lg">
+  <el-card>卡片内容</el-card>
+  <el-table>表格内容</el-table>
+</div>
+
+<!-- ❌ 避免过度自定义 -->
+<el-button class="custom-gradient-button custom-round">
+  不要这样做
+</el-button>
+```
+
+### 🔧 **主题定制建议**
+
+```scss
+// ✅ 仅在必要时进行品牌化调整
+:root {
+  --el-color-primary: #1890ff; /* 品牌主色 */
+}
+
+// ❌ 避免完全重写主题
+:root {
+  --el-button-bg-color: linear-gradient(...); /* 不要这样做 */
+}
+```
+
+### 📚 **相关文档**
+- [Element Plus 官方文档](https://element-plus.org/) - 组件属性和用法
 - [component-patterns.md](component-patterns.md) - 组件使用模式
 - [file-organization.md](file-organization.md) - 样式文件组织

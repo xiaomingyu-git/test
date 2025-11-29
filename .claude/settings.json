@@ -31,28 +31,6 @@
           }
         ]
       }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ./.claude/hooks/vsc-check.cjs"
-          },
-          {
-            "type": "command",
-            "command": "node ./.claude/hooks/trigger-build-resolver.cjs"
-          },
-          {
-            "type": "command",
-            "command": "node ./.claude/hooks/playwright-test-runner.cjs"
-          },
-          {
-            "type": "command",
-            "command": "node ./.claude/hooks/process-cleanup.cjs"
-          }
-        ]
-      }
     ]
   }
 }

@@ -52,6 +52,7 @@
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@prettier/plugin-oxc": "^0.0.5",
     "@tiptap/cli": "^3.11.0",
     "@tsconfig/node24": "^24.0.3",
