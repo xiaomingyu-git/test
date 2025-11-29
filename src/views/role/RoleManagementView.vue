@@ -9,28 +9,26 @@
         </div>
       </div>
 
-      <!-- 查询表单区域 -->
-      <div class="search-form" v-if="true">
-        <el-form :model="searchForm" inline>
+      <!-- 高级搜索表单 -->
+      <div class="search-form">
+        <el-form
+          :model="searchForm"
+          inline
+          @submit.prevent="handleSearch"
+          class="demo-form-inline"
+          :class="{ 'expanded': isExpanded }"
+        >
+          <!-- 核心字段（默认显示） -->
           <el-form-item label="关键词">
             <el-input
               v-model="searchForm.keyword"
               placeholder="角色名称或描述"
               clearable
+              class="demo-input"
               style="width: 200px"
+              @clear="handleSearch"
+              @keyup.enter="handleSearch"
             />
-          </el-form-item>
-
-          <el-form-item label="状态">
-            <el-select
-              v-model="searchForm.status"
-              placeholder="请选择状态"
-              clearable
-              style="width: 150px"
-            >
-              <el-option label="启用" value="active" />
-              <el-option label="禁用" value="inactive" />
-            </el-select>
           </el-form-item>
 
           <el-form-item label="权限">
@@ -38,20 +36,119 @@
               v-model="searchForm.permission"
               placeholder="请选择权限"
               clearable
+              class="demo-select"
               style="width: 180px"
+              @change="handleSearch"
             >
-              <el-option label="用户管理" value="user:manage" />
-              <el-option label="角色管理" value="role:manage" />
-              <el-option label="内容编辑" value="content:edit" />
-              <el-option label="内容查看" value="content:view" />
-              <el-option label="系统配置" value="system:config" />
-              <el-option label="数据导出" value="data:export" />
+              <el-option
+                v-for="option in permissionOptions"
+                :key="option.value"
+                :label="option.label"
+                :value="option.value"
+              >
+                <el-tag
+                  :type="getPermissionTagType(option.value)"
+                  size="small"
+                  effect="light"
+                >
+                  {{ option.label }}
+                </el-tag>
+              </el-option>
             </el-select>
           </el-form-item>
 
+          <el-form-item label="状态">
+            <el-select
+              v-model="searchForm.status"
+              placeholder="请选择状态"
+              clearable
+              class="demo-select"
+              style="width: 120px"
+              @change="handleSearch"
+            >
+              <el-option
+                v-for="option in statusOptions"
+                :key="option.value"
+                :label="option.label"
+                :value="option.value"
+              >
+                <el-tag
+                  :type="option.type"
+                  size="small"
+                  effect="light"
+                >
+                  {{ option.label }}
+                </el-tag>
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+          <!-- 扩展字段（折叠时隐藏） -->
+          <template v-if="isExpanded">
+            <el-form-item label="创建时间">
+              <el-date-picker
+                v-model="searchForm.createdDateRange"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                class="demo-date-picker"
+                style="width: 280px"
+                :shortcuts="datePickerShortcuts"
+                @change="handleSearch"
+              />
+            </el-form-item>
+
+            <el-form-item label="更新时间">
+              <el-date-picker
+                v-model="searchForm.updatedDateRange"
+                type="daterange"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                class="demo-date-picker"
+                style="width: 280px"
+                :shortcuts="datePickerShortcuts"
+                @change="handleSearch"
+              />
+            </el-form-item>
+
+            <el-form-item label="描述信息">
+              <el-input
+                v-model="searchForm.description"
+                placeholder="描述关键词"
+                clearable
+                class="demo-input"
+                style="width: 200px"
+                @clear="handleSearch"
+                @keyup.enter="handleSearch"
+              />
+            </el-form-item>
+          </template>
+
+          <!-- 操作按钮 -->
           <el-form-item>
-            <el-button type="primary" :icon="Search" @click="handleSearch"> 查询 </el-button>
-            <el-button :icon="Refresh" @click="handleReset"> 重置 </el-button>
+            <el-button type="primary" native-type="submit" :loading="tableLoading">
+              <el-icon><Search /></el-icon>
+              查询
+            </el-button>
+            <el-button @click="handleReset">
+              <el-icon><Refresh /></el-icon>
+              重置
+            </el-button>
+
+            <!-- 展开/折叠按钮 -->
+            <el-button
+              type="primary"
+              link
+              @click="toggleExpanded"
+              class="expand-button"
+            >
+              {{ isExpanded ? '收起' : '展开' }}
+              <el-icon class="expand-icon" :class="{ 'expanded': isExpanded }">
+                <ArrowDown />
+              </el-icon>
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -186,7 +283,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Plus, Delete, Refresh, Search, Download } from '@element-plus/icons-vue'
+import { Plus, Delete, Refresh, Search, Download, ArrowDown } from '@element-plus/icons-vue'
 
 // 导入组件
 import RoleFormDialog from '@/components/role/RoleFormDialog.vue'
@@ -194,9 +291,9 @@ import RoleDetailDialog from '@/components/role/RoleDetailDialog.vue'
 
 // 导入类型和API
 import type { Role, RoleFormData } from '@/types/role'
-import { PERMISSION_LABELS } from '@/types/role'
+import { RoleStatus, PERMISSION_LABELS } from '@/types/role'
 import type { ApiResponse, RoleListResponse } from '@/types/role'
-import { getRoleList, createRole, updateRole, deleteRole, batchDeleteRoles } from '@/api/role'
+import { getRoleList, createRole, updateRole, deleteRole, batchDeleteRoles, getPermissionOptions } from '@/api/role'
 
 // 响应式数据
 const tableLoading = ref(false)
@@ -207,12 +304,17 @@ const isEdit = ref(false)
 const tableData = ref<Role[]>([])
 const selectedRows = ref<Role[]>([])
 const currentRole = ref<Role | null>(null)
+const isExpanded = ref(false)
+const permissionOptions = ref<Array<{ label: string; value: string }>>([])
 
 // 搜索表单数据
 const searchForm = reactive({
   keyword: '',
-  status: '',
   permission: '',
+  status: '',
+  createdDateRange: null as [Date, Date] | null,
+  updatedDateRange: null as [Date, Date] | null,
+  description: '',
 })
 
 // 分页数据
@@ -227,11 +329,80 @@ const fetchParams = computed(() => ({
   page: pagination.page,
   pageSize: pagination.pageSize,
   keyword: searchForm.keyword || undefined,
-  status: searchForm.status || undefined,
   permission: searchForm.permission || undefined,
+  status: searchForm.status || undefined,
+  description: searchForm.description || undefined,
+  createdStartDate: searchForm.createdDateRange?.[0] || undefined,
+  createdEndDate: searchForm.createdDateRange?.[1] || undefined,
+  updatedStartDate: searchForm.updatedDateRange?.[0] || undefined,
+  updatedEndDate: searchForm.updatedDateRange?.[1] || undefined,
   sortBy: 'createdAt',
   sortOrder: 'desc' as const,
 }))
+
+// 状态选项
+const statusOptions = [
+  {
+    label: '启用',
+    value: RoleStatus.ACTIVE,
+    type: 'success'
+  },
+  {
+    label: '禁用',
+    value: RoleStatus.INACTIVE,
+    type: 'danger'
+  }
+]
+
+// 日期选择器快捷选项（标准配置）
+const datePickerShortcuts = [
+  {
+    text: '最近一周',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setDate(start.getDate() - 7)
+      return [start, end]
+    }
+  },
+  {
+    text: '最近一个月',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setMonth(start.getMonth() - 1)
+      return [start, end]
+    }
+  },
+  {
+    text: '最近三个月',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setMonth(start.getMonth() - 3)
+      return [start, end]
+    }
+  }
+]
+
+// 展开/折叠切换
+const toggleExpanded = () => {
+  isExpanded.value = !isExpanded.value
+}
+
+// 获取权限标签类型
+const getPermissionTagType = (permission: string) => {
+  const typeMap: Record<string, string> = {
+    'user:manage': 'danger',
+    'user:view': 'info',
+    'role:manage': 'warning',
+    'content:edit': 'primary',
+    'content:view': 'success',
+    'system:config': 'danger',
+    'data:export': 'warning'
+  }
+  return typeMap[permission] || ''
+}
 
 // 获取角色列表
 const fetchRoleList = async () => {
@@ -263,8 +434,11 @@ const handleSearch = () => {
 const handleReset = () => {
   Object.assign(searchForm, {
     keyword: '',
-    status: '',
     permission: '',
+    status: '',
+    createdDateRange: null,
+    updatedDateRange: null,
+    description: '',
   })
   pagination.page = 1
   fetchRoleList()
@@ -434,9 +608,22 @@ const canDelete = (role: Role) => {
   return true
 }
 
+// 获取权限选项数据
+const fetchPermissionOptions = async () => {
+  try {
+    const response = await getPermissionOptions()
+    if (response.success) {
+      permissionOptions.value = response.data
+    }
+  } catch (error) {
+    console.error('获取权限选项失败:', error)
+  }
+}
+
 // 组件挂载时获取数据
 onMounted(() => {
   fetchRoleList()
+  fetchPermissionOptions()
 })
 </script>
 
@@ -471,6 +658,48 @@ onMounted(() => {
   padding: 16px;
   background-color: var(--el-bg-color-page);
   border-radius: 4px;
+}
+
+/* Element Plus 官方 inline 表单样式 */
+.demo-form-inline .el-input {
+  --el-input-width: 220px;
+}
+
+.demo-form-inline .el-select {
+  --el-select-width: 220px;
+}
+
+.demo-form-inline .el-date-picker {
+  --el-date-picker-width: 280px;
+}
+
+/* 展开/折叠动画 */
+.demo-form-inline {
+  transition: all 0.3s ease;
+}
+
+.demo-form-inline .el-form-item {
+  transition: all 0.3s ease;
+}
+
+/* 折叠状态下隐藏扩展字段 */
+.demo-form-inline:not(.expanded) .el-form-item:nth-child(n+4):not(:last-child) {
+  display: none;
+}
+
+/* 展开/折叠按钮样式 */
+.expand-button {
+  margin-left: 8px;
+  transition: all 0.3s ease;
+}
+
+.expand-icon {
+  transition: transform 0.3s ease;
+  margin-left: 4px;
+}
+
+.expand-icon.expanded {
+  transform: rotate(180deg);
 }
 
 .search-form :deep(.el-form-item) {
@@ -536,18 +765,29 @@ onMounted(() => {
     padding: 12px;
   }
 
-  .search-form :deep(.el-form) {
+  .demo-form-inline {
     display: block;
   }
 
-  .search-form :deep(.el-form-item) {
+  .demo-form-inline .el-form-item {
     display: block;
     margin-bottom: 12px;
   }
 
-  .search-form :deep(.el-input),
-  .search-form :deep(.el-select) {
+  /* 移动端显示所有字段 */
+  .demo-form-inline:not(.expanded) .el-form-item:nth-child(n+4):not(:last-child) {
+    display: block !important;
+  }
+
+  .demo-form-inline .el-input,
+  .demo-form-inline .el-select,
+  .demo-form-inline .el-date-picker {
     width: 100% !important;
+  }
+
+  .expand-button {
+    margin-left: 0;
+    margin-top: 8px;
   }
 
   .table-toolbar {
@@ -563,6 +803,17 @@ onMounted(() => {
 
   .pagination-container {
     justify-content: center;
+  }
+}
+
+/* 响应式适配 - 固定宽度在移动端改为100% */
+@media (max-width: 1200px) {
+  .demo-form-inline .el-input {
+    --el-input-width: 180px;
+  }
+
+  .demo-form-inline .el-select {
+    --el-select-width: 180px;
   }
 }
 </style>
